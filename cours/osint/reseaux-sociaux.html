@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - OSINT sur les Réseaux Sociaux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">OSINT sur les Réseaux Sociaux</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-info me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 8 heures</span>
+                            <span class="badge bg-info">OSINT</span>
+                        </div>
+                        <p class="card-text">Techniques d'OSINT sur les plateformes de réseaux sociaux. Ce cours vous enseignera comment collecter et analyser efficacement les informations disponibles sur les différentes plateformes de réseaux sociaux, une compétence essentielle pour les investigations numériques modernes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction à l'OSINT sur les Réseaux Sociaux</a>
+                            <a class="nav-link" href="#facebook">2. Facebook</a>
+                            <a class="nav-link" href="#twitter">3. Twitter/X</a>
+                            <a class="nav-link" href="#instagram">4. Instagram</a>
+                            <a class="nav-link" href="#linkedin">5. LinkedIn</a>
+                            <a class="nav-link" href="#tiktok">6. TikTok</a>
+                            <a class="nav-link" href="#outils">7. Outils Spécialisés</a>
+                            <a class="nav-link" href="#ethique">8. Considérations Éthiques et Légales</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction à l'OSINT sur les Réseaux Sociaux</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Importance des Réseaux Sociaux pour l'OSINT</h3>
+                            <p class="card-text">
+                                Les réseaux sociaux sont devenus l'une des sources les plus riches d'informations pour l'OSINT. Avec des milliards d'utilisateurs partageant quotidiennement des informations personnelles, professionnelles et des opinions, ces plateformes offrent une mine d'or de données pour les analystes et les chercheurs. L'OSINT sur les réseaux sociaux permet de recueillir des informations sur des individus, des organisations, des tendances et des événements en temps réel.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Types d'Informations Disponibles</h3>
+                            <p class="card-text">
+                                Les réseaux sociaux peuvent révéler de nombreux types d'informations:
+                            </p>
+                            <ul>
+                                <li><strong>Informations personnelles:</strong> Noms, photos, dates de naissance, lieux de résidence</li>
+                                <li><strong>Réseaux de contacts:</strong> Amis, famille, collègues, associations</li>
+                                <li><strong>Activités et habitudes:</strong> Lieux fréquentés, voyages, événements</li>
+                                <li><strong>Intérêts et opinions:</strong> Préférences politiques, loisirs, affiliations</li>
+                                <li><strong>Informations professionnelles:</strong> Emplois, compétences, éducation</li>
+                                <li><strong>Contenu multimédia:</strong> Photos, vidéos, avec potentiellement des métadonnées</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Note importante:</strong> La collecte d'informations sur les réseaux sociaux doit toujours être effectuée dans le respect des lois sur la vie privée, des conditions d'utilisation des plateformes et des principes éthiques. Ce cours met l'accent sur les applications légitimes et responsables de ces techniques.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

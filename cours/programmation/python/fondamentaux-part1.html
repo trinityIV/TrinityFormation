@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Python Fondamentaux (Partie 1)</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            overflow-x: auto;
+        }
+        
+        .code-output {
+            background-color: #2d2d2d;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            border-top: 1px dashed #444;
+        }
+        
+        .info-box {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .exercise-box {
+            background-color: rgba(156, 39, 176, 0.1);
+            border-left: 4px solid #9c27b0;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .keyword {
+            color: #ff79c6;
+            font-weight: 500;
+        }
+        
+        .string {
+            color: #f1fa8c;
+        }
+        
+        .number {
+            color: #bd93f9;
+        }
+        
+        .comment {
+            color: #6272a4;
+            font-style: italic;
+        }
+        
+        .function {
+            color: #50fa7b;
+        }
+        
+        .python-logo {
+            max-width: 120px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../../index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#courses">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="../cpp/fondamentaux-part1.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item active" href="fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="../../osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="../../osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#library">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="#exercises">Exercices</a></li>
+                            <li><a class="dropdown-item" href="#forum">Forum</a></li>
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#free-tools">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="#dev-tools">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="#practical-tools">Outils Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#events">Événements</a></li>
+                            <li><a class="dropdown-item" href="#discord">Discord</a></li>
+                            <li><a class="dropdown-item" href="#contribute">Contribuer</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../../../assistant-ia.html">
+                            <i class="fas fa-robot me-1"></i> Assistant IA
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="../../../connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-9">
+                                <h1 class="card-title text-primary">Python Fondamentaux (Partie 1)</h1>
+                                <div class="d-flex align-items-center mb-3">
+                                    <span class="badge bg-success me-2">Niveau: Débutant</span>
+                                    <span class="badge bg-info me-2">Durée: 4 heures</span>
+                                    <span class="badge bg-primary">Programmation</span>
+                                </div>
+                                <p class="card-text">Ce cours vous introduit aux concepts fondamentaux de la programmation Python. Vous apprendrez la syntaxe de base, les types de données, les structures de contrôle et les fonctions. Aucune expérience préalable en programmation n'est requise.</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Logo Python" class="python-logo">
+                                <div class="mt-2">
+                                    <span class="badge bg-secondary me-1">Python 3.x</span>
+                                    <span class="badge bg-secondary">Cross-platform</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction à Python</a>
+                            <a class="nav-link" href="#installation">2. Installation et Configuration</a>
+                            <a class="nav-link" href="#premiers-pas">3. Premiers pas avec Python</a>
+                            <a class="nav-link" href="#variables">4. Variables et Types de Données</a>
+                            <a class="nav-link" href="#operateurs">5. Opérateurs</a>
+                            <a class="nav-link" href="#structures">6. Structures de Contrôle</a>
+                            <a class="nav-link" href="#collections">7. Collections de Données</a>
+                            <a class="nav-link" href="#exercices">8. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <section id="introduction">
+                            <h2 class="text-primary">1. Introduction à Python</h2>
+                            <p>Python est un langage de programmation polyvalent, interprété et de haut niveau, créé par Guido van Rossum et publié pour la première fois en 1991. Il est conçu pour être lisible et expressif, ce qui en fait un excellent choix pour les débutants.</p>
+                            
+                            <h3 class="text-primary mt-4">1.1 Pourquoi apprendre Python?</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Avantages de Python</h5>
+                                            <ul>
+                                                <li><strong>Syntaxe claire et lisible</strong> - Facile à apprendre et à comprendre</li>
+                                                <li><strong>Polyvalent</strong> - Utilisé dans de nombreux domaines (web, data science, IA, cybersécurité)</li>
+                                                <li><strong>Grande communauté</strong> - Ressources abondantes et support actif</li>
+                                                <li><strong>Riche en bibliothèques</strong> - Nombreux modules prêts à l'emploi</li>
+                                                <li><strong>Interprété</strong> - Pas besoin de compilation, développement rapide</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Applications de Python</h5>
+                                            <ul>
+                                                <li><strong>Développement Web</strong> - Django, Flask</li>
+                                                <li><strong>Data Science</strong> - Pandas, NumPy, Matplotlib</li>
+                                                <li><strong>Intelligence Artificielle</strong> - TensorFlow, PyTorch</li>
+                                                <li><strong>Automatisation</strong> - Scripts, bots</li>
+                                                <li><strong>Cybersécurité</strong> - Analyse de vulnérabilités, forensics</li>
+                                                <li><strong>Jeux vidéo</strong> - Pygame</li>
+                                                <li><strong>Applications Desktop</strong> - Tkinter, PyQt</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-primary mt-4">1.2 Python 2 vs Python 3</h3>
+                            <p>Il existe deux versions majeures de Python: Python 2 et Python 3. Python 2 a atteint sa fin de vie le 1er janvier 2020 et n'est plus maintenu. Ce cours se concentre exclusivement sur Python 3, qui est la version actuelle et recommandée.</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Caractéristique</th>
+                                            <th>Python 2</th>
+                                            <th>Python 3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Fonction print</td>
+                                            <td><code>print "Hello"</code></td>
+                                            <td><code>print("Hello")</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Division entière</td>
+                                            <td><code>5 / 2 = 2</code></td>
+                                            <td><code>5 / 2 = 2.5</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Unicode</td>
+                                            <td>Support limité</td>
+                                            <td>Support complet</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fonction input</td>
+                                            <td><code>raw_input()</code></td>
+                                            <td><code>input()</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Philosophie de Python</h5>
+                                <p>Python suit une philosophie de conception qui met l'accent sur la lisibilité du code. Cette philosophie est résumée dans "The Zen of Python" (PEP 20), accessible en tapant <code>import this</code> dans l'interpréteur Python.</p>
+                                <p>Quelques principes clés:</p>
+                                <ul>
+                                    <li>"Explicit is better than implicit" (L'explicite est préférable à l'implicite)</li>
+                                    <li>"Simple is better than complex" (Le simple est préférable au complexe)</li>
+                                    <li>"Readability counts" (La lisibilité compte)</li>
+                                </ul>
+                            </div>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="installation">
+                            <h2 class="text-primary">2. Installation et Configuration</h2>
+                            <p>Avant de commencer à programmer en Python, vous devez l'installer sur votre système. Python est disponible pour Windows, macOS et Linux.</p>
+                            
+                            <h3 class="text-primary mt-4">2.1 Téléchargement et Installation</h3>
+                            
+                            <div class="accordion" id="installationAccordion">
+                                <div class="accordion-item bg-dark text-light border-secondary">
+                                    <h2 class="accordion-header" id="headingWindows">
+                                        <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWindows" aria-expanded="false" aria-controls="collapseWindows">
+                                            <i class="fab fa-windows me-2"></i> Installation sur Windows
+                                        </button>
+                                    </h2>
+                                    <div id="collapseWindows" class="accordion-collapse collapse" aria-labelledby="headingWindows" data-bs-parent="#installationAccordion">
+                                        <div class="accordion-body">
+                                            <ol>
+                                                <li>Visitez <a href="https://www.python.org/downloads/" target="_blank" class="text-info">python.org/downloads</a></li>
+                                                <li>Téléchargez la dernière version de Python 3.x pour Windows</li>
+                                                <li>Exécutez l'installateur téléchargé</li>
+                                                <li>Cochez la case "Add Python to PATH" (important!)</li>
+                                                <li>Cliquez sur "Install Now"</li>
+                                                <li>Une fois l'installation terminée, ouvrez l'invite de commande et tapez <code>python --version</code> pour vérifier l'installation</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item bg-dark text-light border-secondary">
+                                    <h2 class="accordion-header" id="headingMac">
+                                        <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMac" aria-expanded="false" aria-controls="collapseMac">
+                                            <i class="fab fa-apple me-2"></i> Installation sur macOS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseMac" class="accordion-collapse collapse" aria-labelledby="headingMac" data-bs-parent="#installationAccordion">
+                                        <div class="accordion-body">
+                                            <p>macOS vient généralement avec Python préinstallé, mais il s'agit souvent d'une version plus ancienne.</p>
+                                            <ol>
+                                                <li>Visitez <a href="https://www.python.org/downloads/" target="_blank" class="text-info">python.org/downloads</a></li>
+                                                <li>Téléchargez la dernière version de Python 3.x pour macOS</li>
+                                                <li>Exécutez l'installateur téléchargé et suivez les instructions</li>
+                                                <li>Une fois l'installation terminée, ouvrez le Terminal et tapez <code>python3 --version</code> pour vérifier l'installation</li>
+                                            </ol>
+                                            <p>Alternativement, vous pouvez utiliser Homebrew:</p>
+                                            <div class="code-block">
+                                                <pre>brew install python</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item bg-dark text-light border-secondary">
+                                    <h2 class="accordion-header" id="headingLinux">
+                                        <button class="accordion-button bg-dark text-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinux" aria-expanded="false" aria-controls="collapseLinux">
+                                            <i class="fab fa-linux me-2"></i> Installation sur Linux
+                                        </button>
+                                    </h2>
+                                    <div id="collapseLinux" class="accordion-collapse collapse" aria-labelledby="headingLinux" data-bs-parent="#installationAccordion">
+                                        <div class="accordion-body">
+                                            <p>La plupart des distributions Linux viennent avec Python préinstallé. Pour installer la dernière version:</p>
+                                            
+                                            <p>Ubuntu/Debian:</p>
+                                            <div class="code-block">
+                                                <pre>sudo apt update
+sudo apt install python3 python3-pip</pre>
+                                            </div>
+                                            
+                                            <p>Fedora:</p>
+                                            <div class="code-block">
+                                                <pre>sudo dnf install python3 python3-pip</pre>
+                                            </div>
+                                            
+                                            <p>Arch Linux:</p>
+                                            <div class="code-block">
+                                                <pre>sudo pacman -S python python-pip</pre>
+                                            </div>
+                                            
+                                            <p>Vérifiez l'installation:</p>
+                                            <div class="code-block">
+                                                <pre>python3 --version</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-primary mt-4">2.2 Environnements de Développement</h3>
+                            <p>Il existe plusieurs environnements de développement (IDE) pour Python. Voici quelques options populaires:</p>
+                            
+                            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">VS Code</h5>
+                                            <p class="card-text">Éditeur de code léger et extensible avec d'excellentes fonctionnalités pour Python via des extensions.</p>
+                                            <a href="https://code.visualstudio.com/" target="_blank" class="btn btn-outline-primary btn-sm">Télécharger</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">PyCharm</h5>
+                                            <p class="card-text">IDE complet spécialement conçu pour Python, avec de nombreuses fonctionnalités avancées.</p>
+                                            <a href="https://www.jetbrains.com/pycharm/" target="_blank" class="btn btn-outline-primary btn-sm">Télécharger</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Jupyter Notebook</h5>
+                                            <p class="card-text">Environnement interactif idéal pour l'apprentissage et la data science.</p>
+                                            <a href="https://jupyter.org/" target="_blank" class="btn btn-outline-primary btn-sm">Télécharger</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tip-box mt-4">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>Conseil pour débutants</h5>
+                                <p>Pour ce cours, nous recommandons d'utiliser IDLE (qui vient avec Python) ou VS Code pour commencer. Ces environnements sont simples à utiliser et suffisants pour apprendre les bases.</p>
+                            </div>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="premiers-pas">
+                            <h2 class="text-primary">3. Premiers pas avec Python</h2>
+                            <p>Maintenant que Python est installé, commençons à écrire notre premier programme.</p>
+                            
+                            <h3 class="text-primary mt-4">3.1 Hello World</h3>
+                            <p>Traditionnellement, le premier programme que l'on écrit dans un nouveau langage est "Hello World". Voici comment le faire en Python:</p>
+                            
+                            <div class="code-block">
+                                <pre><span class="comment"># Mon premier programme Python</span>
+<span class="function">print</span>(<span class="string">"Hello, World!"</span>)</pre>
+                            </div>
+                            <div class="code-output">
+                                Hello, World!
+                            </div>
+                            
+                            <p>Ce programme utilise la fonction <code>print()</code> pour afficher le texte "Hello, World!" à l'écran. La ligne commençant par <code>#</code> est un commentaire et est ignorée par l'interpréteur Python.</p>
+                            
+                            <h3 class="text-primary mt-4">3.2 L'interpréteur Python</h3>
+                            <p>Python est un langage interprété, ce qui signifie que vous pouv

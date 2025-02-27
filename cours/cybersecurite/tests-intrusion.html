@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Tests d'Intrusion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-success">
+                    <div class="card-body">
+                        <h1 class="card-title text-success">Tests d'Intrusion</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-success me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 12 heures</span>
+                            <span class="badge bg-success">Cybersécurité</span>
+                        </div>
+                        <p class="card-text">Méthodologies et techniques pour les tests d'intrusion professionnels. Ce cours vous permettra d'approfondir vos connaissances en matière de tests d'intrusion et d'acquérir les compétences nécessaires pour mener des pentests complets et professionnels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction aux Tests d'Intrusion</a>
+                            <a class="nav-link" href="#methodologie">2. Méthodologies de Pentest</a>
+                            <a class="nav-link" href="#planification">3. Planification et Préparation</a>
+                            <a class="nav-link" href="#reconnaissance">4. Reconnaissance Avancée</a>
+                            <a class="nav-link" href="#scanning">5. Scanning et Énumération</a>
+                            <a class="nav-link" href="#exploitation">6. Exploitation des Vulnérabilités</a>
+                            <a class="nav-link" href="#post-exploitation">7. Post-Exploitation</a>
+                            <a class="nav-link" href="#rapports">8. Rédaction de Rapports Professionnels</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-success">1. Introduction aux Tests d'Intrusion</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Définition et Objectifs</h3>
+                            <p class="card-text">
+                                Un test d'intrusion, ou pentest, est une méthode d'évaluation de la sécurité d'un système informatique ou d'un réseau en simulant une attaque par un acteur malveillant. L'objectif principal est d'identifier les vulnérabilités, les faiblesses et les vecteurs d'attaque potentiels avant qu'ils ne soient exploités par de véritables attaquants.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Types de Tests d'Intrusion</h3>
+                            <p class="card-text">
+                                Il existe plusieurs types de tests d'intrusion, chacun ayant ses propres objectifs et méthodologies:
+                            </p>
+                            <ul>
+                                <li><strong>Black Box:</strong> Le testeur n'a aucune connaissance préalable du système cible</li>
+                                <li><strong>White Box:</strong> Le testeur a une connaissance complète du système cible</li>
+                                <li><strong>Grey Box:</strong> Le testeur a une connaissance partielle du système cible</li>
+                                <li><strong>External:</strong> Simulation d'attaques depuis l'extérieur du réseau</li>
+                                <li><strong>Internal:</strong> Simulation d'attaques depuis l'intérieur du réseau</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

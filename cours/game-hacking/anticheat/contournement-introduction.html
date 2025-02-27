@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Introduction au Contournement d'Anti-Cheat</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .warning-box {
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 4px solid #ff5722;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .info-box {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .code-diagram {
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            overflow-x: auto;
+        }
+        
+        .memory-diagram {
+            width: 100%;
+            height: 400px;
+            margin: 1.5rem 0;
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../../index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#courses">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="../cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="../ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item active" href="contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="../../programmation/cpp/fondamentaux-part1.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../../programmation/java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../../programmation/python/fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="../../osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="../../osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#library">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="#exercises">Exercices</a></li>
+                            <li><a class="dropdown-item" href="#forum">Forum</a></li>
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#free-tools">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="#dev-tools">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="#practical-tools">Outils Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#events">Événements</a></li>
+                            <li><a class="dropdown-item" href="#discord">Discord</a></li>
+                            <li><a class="dropdown-item" href="#contribute">Contribuer</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../../../assistant-ia.html">
+                            <i class="fas fa-robot me-1"></i> Assistant IA
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="../../../connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-danger">
+                    <div class="card-body">
+                        <h1 class="card-title text-danger">Introduction au Contournement d'Anti-Cheat</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger me-2">Niveau: Débutant</span>
+                            <span class="badge bg-info me-2">Durée: 3 heures</span>
+                            <span class="badge bg-primary">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Ce cours explore les concepts fondamentaux des systèmes anti-triche dans les jeux vidéo et les approches utilisées pour les comprendre. Vous apprendrez les mécanismes de base de protection et les méthodes de détection utilisées par les systèmes anti-cheat modernes.</p>
+                        
+                        <div class="warning-box">
+                            <h5><i class="fas fa-exclamation-triangle text-warning me-2"></i>Avertissement Éthique et Légal</h5>
+                            <p>Les connaissances présentées dans ce cours sont destinées exclusivement à des fins éducatives, de recherche en sécurité et de développement de contre-mesures. L'utilisation de ces techniques pour tricher dans des jeux en ligne est:</p>
+                            <ul>
+                                <li>Généralement contraire aux conditions d'utilisation des jeux</li>
+                                <li>Peut entraîner des bannissements permanents de comptes</li>
+                                <li>Peut potentiellement violer des lois sur la propriété intellectuelle ou l'accès non autorisé</li>
+                                <li>Nuit à l'expérience de jeu des autres joueurs</li>
+                            </ul>
+                            <p class="mb-0">Nous encourageons une approche éthique et responsable de ces connaissances.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction aux Anti-Cheats</a>
+                            <a class="nav-link" href="#types">2. Types de Systèmes Anti-Cheat</a>
+                            <a class="nav-link" href="#detection">3. Méthodes de Détection</a>
+                            <a class="nav-link" href="#memoire">4. Analyse de la Mémoire</a>
+                            <a class="nav-link" href="#hooks">5. Hooks et Interception</a>
+                            <a class="nav-link" href="#outils">6. Outils d'Analyse</a>
+                            <a class="nav-link" href="#exercices">7. Exercices Pratiques</a>
+                            <a class="nav-link" href="#conclusion">8. Conclusion</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <section id="introduction">
+                            <h2 class="text-danger">1. Introduction aux Anti-Cheats</h2>
+                            <p>Les systèmes anti-cheat sont des logiciels conçus pour détecter, prévenir et punir la triche dans les jeux vidéo. Ils sont particulièrement importants dans les jeux multijoueurs compétitifs où la triche peut ruiner l'expérience des autres joueurs.</p>
+                            
+                            <h3 class="text-primary mt-4">1.1 Pourquoi les Anti-Cheats existent</h3>
+                            <p>Les systèmes anti-cheat ont été développés pour plusieurs raisons:</p>
+                            <ul>
+                                <li><strong>Préserver l'intégrité du jeu</strong> - Assurer que tous les joueurs suivent les mêmes règles</li>
+                                <li><strong>Maintenir l'équilibre compétitif</strong> - Garantir que les compétitions sont justes et basées sur les compétences</li>
+                                <li><strong>Protéger l'expérience utilisateur</strong> - Éviter que les joueurs légitimes soient frustrés par des tricheurs</li>
+                                <li><strong>Sécuriser les modèles économiques</strong> - Protéger les économies virtuelles et les microtransactions</li>
+                            </ul>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Perspective historique</h5>
+                                <p>Les premiers anti-cheats étaient simples et facilement contournables. Avec l'évolution des jeux en ligne, ces systèmes sont devenus de plus en plus sophistiqués, utilisant des techniques avancées comme la virtualisation, la cryptographie et l'apprentissage automatique pour détecter les comportements suspects.</p>
+                            </div>
+                            
+                            <h3 class="text-primary mt-4">1.2 Défis de la protection anti-cheat</h3>
+                            <p>La protection anti-cheat fait face à plusieurs défis:</p>
+                            <ul>
+                                <li><strong>Faux positifs</strong> - Risque de bannir des joueurs légitimes</li>
+                                <li><strong>Performance</strong> - Impact sur les performances du jeu</li>
+                                <li><strong>Vie privée</strong> - Préoccupations concernant la collecte de données</li>
+                                <li><strong>Course aux armements</strong> - Évolution constante entre protections et contournements</li>
+                            </ul>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Perspective du développeur</h5>
+                                            <p class="card-text">Pour les développeurs de jeux, les anti-cheats représentent un investissement significatif en ressources. Ils doivent trouver un équilibre entre sécurité, performance et expérience utilisateur.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Perspective du chercheur</h5>
+                                            <p class="card-text">Pour les chercheurs en sécurité, les anti-cheats représentent un domaine fascinant qui combine rétro-ingénierie, analyse de code, et compréhension des mécanismes de protection.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="types">
+                            <h2 class="text-danger">2. Types de Systèmes Anti-Cheat</h2>
+                            <p>Il existe plusieurs types de systèmes anti-cheat, chacun avec ses propres approches et niveaux de protection.</p>
+                            
+                            <h3 class="text-primary mt-4">2.1 Anti-cheats côté client</h3>
+                            <p>Ces systèmes s'exécutent sur l'ordinateur du joueur et surveillent directement le jeu et l'environnement système.</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Développeur</th>
+                                            <th>Jeux populaires</th>
+                                            <th>Caractéristiques</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Easy Anti-Cheat</td>
+                                            <td>Epic Games</td>
+                                            <td>Fortnite, Apex Legends</td>
+                                            <td>Analyse de mémoire, détection de manipulation de fichiers</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BattlEye</td>
+                                            <td>BattlEye Innovations</td>
+                                            <td>PUBG, Rainbow Six Siege</td>
+                                            <td>Analyse de processus, détection de drivers</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vanguard</td>
+                                            <td>Riot Games</td>
+                                            <td>Valorant</td>
+                                            <td>Driver niveau kernel, démarrage avec Windows</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h3 class="text-primary mt-4">2.2 Anti-cheats côté serveur</h3>
+                            <p>Ces systèmes s'exécutent sur les serveurs de jeu et analysent les données envoyées par les clients pour détecter des comportements anormaux.</p>
+                            
+                            <ul>
+                                <li><strong>Validation des données</strong> - Vérification que les actions du joueur sont possibles et légitimes</li>
+                                <li><strong>Détection statistique</strong> - Analyse des performances et comportements pour identifier des anomalies</li>
+                                <li><strong>Replay Analysis</strong> - Examen des sessions de jeu enregistrées pour détecter des comportements suspects</li>
+                            </ul>
+                            
+                            <h3 class="text-primary mt-4">2.3 Systèmes hybrides</h3>
+                            <p>La plupart des jeux modernes utilisent une combinaison d'approches côté client et côté serveur pour une protection maximale.</p>
+                            
+                            <div class="tip-box">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>À retenir</h5>
+                                <p>Les systèmes anti-cheat les plus efficaces utilisent plusieurs couches de protection. Comprendre ces différentes couches est essentiel pour analyser leur fonctionnement.</p>
+                            </div>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="detection">
+                            <h2 class="text-danger">3. Méthodes de Détection</h2>
+                            <p>Les systèmes anti-cheat utilisent diverses méthodes pour détecter les tentatives de triche.</p>
+                            
+                            <h3 class="text-primary mt-4">3.1 Détection par signature</h3>
+                            <p>Cette méthode identifie des programmes de triche connus en comparant leur code ou comportement à une base de données de signatures.</p>
+                            
+                            <div class="code-diagram">
+                                <pre>
+// Exemple simplifié de détection par signature
+function checkForKnownCheats() {
+    const processes = getRunningProcesses();
+    const signatures = loadCheatSignatures();
+    
+    for (const process of processes) {
+        const processMemory = readProcessMemory(process);
+        
+        for (const signature of signatures) {
+            if (processMemory.includes(signature)) {
+                flagAsCheat(process);
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+                                </pre>
+                            </div>
+                            
+                            <p>Avantages et inconvénients de la détection par signature:</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card bg-success bg-opacity-10 h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-success">Avantages</h5>
+                                            <ul>
+                                                <li>Très précis pour les cheats connus</li>
+                                                <li>Faible taux de faux positifs</li>
+                                                <li>Relativement rapide à exécuter</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-danger bg-opacity-10 h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-danger">Inconvénients</h5>
+                                            <ul>
+                                                <li>Inefficace contre les nouveaux cheats</li>
+                                                <li>Nécessite des mises à jour constantes</li>
+                                                <li>Facilement contournable par obfuscation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-primary mt-4">3.2 Détection comportementale</h3>
+                            <p>Cette approche analyse le comportement du joueur pour identifier des patterns impossibles ou improbables pour un humain.</p>
+                            
+                            <ul>
+                                <li><strong>Précision de visée</strong> - Détection de précision surhumaine ou de mouvements non naturels</li>
+                                <li><strong>Temps de réaction</strong> - Identification de réactions trop rapides pour être humaines</li>
+                                <li><strong>Patterns de mouvement</strong> - Analyse des déplacements pour détecter l'automatisation</li>
+                                <li><strong>Statistiques de jeu</strong> - Examen des performances anormalement élevées ou incohérentes</li>
+                            </ul>
+                            
+                            <h3 class="text-primary mt-4">3.3 Détection d'intégrité</h3>
+                            <p>Cette méthode vérifie l'intégrité des fichiers du jeu et de l'environnement d'exécution.</p>
+                            
+                            <ul>
+                                <li><strong>Vérification des fichiers</strong> - Contrôle des sommes de hachage des fichiers du jeu</li>
+                                <li><strong>Surveillance des DLL</strong> - Détection d'injection de DLL non autorisées</li>
+                                <li><strong>Vérification de la mémoire</strong> - Contrôle de l'intégrité des données en mémoire</li>
+                                <li><strong>Détection de hooks</strong> - Identification de tentatives d'interception des fonctions du jeu</li>
+                            </ul>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="memoire">
+                            <h2 class="text-danger">4. Analyse de la Mémoire</h2>
+                            <p>L'analyse de la mémoire est une technique fondamentale utilisée à la fois par les systèmes anti-cheat et par ceux qui cherchent à les comprendre.</p>
+                            
+                            <h3 class="text-primary mt-4">4.1 Concepts de base de la mémoire</h3>
+                            <p>Pour comprendre l'analyse de mémoire, il est important de maîtriser quelques concepts fondamentaux:</p>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Espace d'adressage virtuel</h5>
+                                            <p class="card-text">Chaque processus dispose de son propre espace d'adressage virtuel, isolé des autres processus. Le système d'exploitation fait correspondre ces adresses virtuelles aux adresses physiques réelles.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Permissions mémoire</h5>
+                                            <p class="card-text">Les pages mémoire ont des permissions (lecture, écriture, exécution) qui déterminent comment elles peuvent être utilisées. Les anti-cheats surveillent les modifications de ces permissions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Sections mémoire</h5>
+                                            <p class="card-text">Un processus contient différentes sections (.text, .data, .bss, heap, stack) avec des fonctions spécifiques. Les anti-cheats surveillent particulièrement les sections qui ne devraient pas changer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Mémoire partagée</h5>
+                                            <p class="card-text">Certaines zones mémoire peuvent être partagées entre processus. Les cheats utilisent parfois cette technique pour communiquer avec le jeu de manière moins détectable.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-primary mt-4">4.2 Techniques d'analyse mémoire</h3>
+                            <p>Voici quelques techniques couramment utilisées pour analyser la mémoire d'un processus:</p>
+                            
+                            <ul>
+                                <li><strong>Memory scanning</strong> - Recherche de valeurs ou patterns spécifiques dans la mémoire</li>
+                                <li><strong>Memory dumping</strong> - Extraction du contenu de la mémoire pour analyse</li>
+                                <li><strong>Memory diffing</strong> - Comparaison de l'état de la mémoire à différents moments</li>
+                                <li><strong>Memory watching</strong> - Surveillance des accès ou modifications de zones mémoire spécif

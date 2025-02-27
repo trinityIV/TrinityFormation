@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - C++ Avancé</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-danger">
+                    <div class="card-body">
+                        <h1 class="card-title text-danger">C++ Avancé</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger me-2">Niveau: Avancé</span>
+                            <span class="badge bg-info me-2">Durée: 10 heures</span>
+                            <span class="badge bg-danger">Programmation</span>
+                        </div>
+                        <p class="card-text">Ce cours approfondit les concepts avancés de C++ essentiels pour le développement d'applications performantes et la programmation système. Vous explorerez les fonctionnalités modernes du C++, les techniques de gestion de mémoire avancées, et les concepts qui font de C++ un langage puissant pour le hacking éthique et la sécurité informatique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#templates">1. Templates et Programmation Générique</a>
+                            <a class="nav-link" href="#stl">2. Bibliothèque Standard (STL)</a>
+                            <a class="nav-link" href="#memory">3. Gestion Avancée de la Mémoire</a>
+                            <a class="nav-link" href="#multithreading">4. Programmation Concurrente</a>
+                            <a class="nav-link" href="#cpp11">5. Fonctionnalités Modernes (C++11/14/17/20)</a>
+                            <a class="nav-link" href="#metaprogramming">6. Métaprogrammation</a>
+                            <a class="nav-link" href="#optimization">7. Techniques d'Optimisation</a>
+                            <a class="nav-link" href="#security">8. C++ pour la Sécurité Informatique</a>
+                            <a class="nav-link" href="#exercices">9. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="templates" class="mb-5">
+                    <h2 class="text-danger">1. Templates et Programmation Générique</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Templates de Fonctions</h3>
+                            <p class="card-text">
+                                Les templates permettent d'écrire du code générique qui fonctionne avec différents types:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Template de fonction
+template &lt;typename T&gt;
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+// Utilisation
+int max_int = maximum&lt;int&gt;(10, 20);       // 20
+double max_double = maximum(3.14, 2.71);  // 3.14 (déduction de type)</code></pre>
+                            
+                            <h4>Spécialisation de Templates:</h4>
+                            <pre><code class="language-cpp">// Template général
+template &lt;typename T&gt;
+void afficher(T valeur) {
+    std::cout << "Valeur: " << valeur << std::endl;
+}
+
+// Spécialisation pour les chaînes C
+template &lt;&gt;
+void afficher&lt;const char*&gt;(const char* valeur) {
+    std::cout << "Chaîne: \"" << valeur << "\"" << std::endl;
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Templates de Classes</h3>
+                            <p class="card-text">
+                                Les templates peuvent également être appliqués aux classes:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Template de classe
+template &lt;typename T, int Taille = 10&gt;
+class Tableau {
+private:
+    T elements[Taille];
+    
+public:
+    Tableau() {
+        for (int i = 0; i < Taille; i++) {
+            elements[i] = T();
+        }
+    }
+    
+    T& operator[](int index) {
+        if (index < 0 || index >= Taille) {
+            throw std::out_of_range("Index hors limites");
+        }
+        return elements[index];
+    }
+    
+    int taille() const {
+        return Taille;
+    }
+};
+
+// Utilisation
+Tableau&lt;int, 5&gt; tableau_entiers;
+tableau_entiers[0] = 42;
+
+Tableau&lt;std::string&gt; tableau_chaines;  // Utilise la taille par défaut (10)
+tableau_chaines[0] = "Hello";</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> Les templates sont compilés à la demande. Le compilateur génère le code pour chaque type utilisé.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="stl" class="mb-5">
+                    <h2 class="text-danger">2. Bibliothèque Standard (STL)</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Conteneurs</h3>
+                            <p class="card-text">
+                                La STL offre plusieurs types de conteneurs:
+                            </p>
+                            
+                            <h4>Conteneurs séquentiels:</h4>
+                            <pre><code class="language-cpp">#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;deque&gt;
+
+// Vector (tableau dynamique)
+std::vector&lt;int&gt; nombres = {1, 2, 3, 4, 5};
+nombres.push_back(6);  // Ajout à la fin
+nombres[0] = 10;       // Accès direct
+
+// List (liste doublement chaînée)
+std::list&lt;std::string&gt; noms = {"Alice", "Bob", "Charlie"};
+noms.push_front("David");  // Ajout au début
+noms.push_back("Eve");     // Ajout à la fin
+
+// Deque (double-ended queue)
+std::deque&lt;float&gt; valeurs = {1.1, 2.2, 3.3};
+valeurs.push_front(0.0);  // Ajout au début
+valeurs.push_back(4.4);   // Ajout à la fin</code></pre>
+                            
+                            <h4>Conteneurs associatifs:</h4>
+                            <pre><code class="language-cpp">#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;unordered_map&gt;
+#include &lt;unordered_set&gt;
+
+// Map (arbre binaire de recherche)
+std::map&lt;std::string, int&gt; ages = {
+    {"Alice", 25},
+    {"Bob", 30},
+    {"Charlie", 35}
+};
+ages["David"] = 40;  // Insertion ou mise à jour
+
+// Set (ensemble ordonné)
+std::set&lt;int&gt; nombres_uniques = {3, 1, 4, 1, 5};  // {1, 3, 4, 5}
+nombres_uniques.insert(2);  // {1, 2, 3, 4, 5}
+
+// Versions non ordonnées (tables de hachage)
+std::unordered_map&lt;std::string, int&gt; scores;
+std::unordered_set&lt;int&gt; valeurs_uniques;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Itérateurs</h3>
+                            <p class="card-text">
+                                Les itérateurs permettent de parcourir les conteneurs de manière uniforme:
+                            </p>
+                            
+                            <pre><code class="language-cpp">std::vector&lt;int&gt; nombres = {10, 20, 30, 40, 50};
+
+// Parcours avec itérateurs
+for (auto it = nombres.begin(); it != nombres.end(); ++it) {
+    std::cout << *it << " ";  // 10 20 30 40 50
+}
+
+// Itérateurs inversés
+for (auto it = nombres.rbegin(); it != nombres.rend(); ++it) {
+    std::cout << *it << " ";  // 50 40 30 20 10
+}
+
+// For basé sur une plage (C++11)
+for (const auto& n : nombres) {
+    std::cout << n << " ";  // 10 20 30 40 50
+}</code></pre>
+                            
+                            <h4>Types d'itérateurs:</h4>
+                            <ul>
+                                <li><strong>Input</strong>: Lecture une seule fois (ex: std::istream_iterator)</li>
+                                <li><strong>Output</strong>: Écriture une seule fois (ex: std::ostream_iterator)</li>
+                                <li><strong>Forward</strong>: Lecture multiple, avance uniquement</li>
+                                <li><strong>Bidirectional</strong>: Avance et recule (ex: std::list)</li>
+                                <li><strong>Random Access</strong>: Accès direct à n'importe quel élément (ex: std::vector)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Algorithmes</h3>
+                            <p class="card-text">
+                                La STL fournit de nombreux algorithmes génériques:
+                            </p>
+                            
+                            <pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+#include &lt;vector&gt;
+
+std::vector&lt;int&gt; nombres = {5, 2, 8, 1, 9, 3};
+
+// Tri
+std::sort(nombres.begin(), nombres.end());  // {1, 2, 3, 5, 8, 9}
+
+// Recherche
+auto it = std::find(nombres.begin(), nombres.end(), 5);
+if (it != nombres.end()) {
+    std::cout << "Trouvé à la position: " << (it - nombres.begin()) << std::endl;
+}
+
+// Transformation
+std::vector&lt;int&gt; carres(nombres.size());
+std::transform(nombres.begin(), nombres.end(), carres.begin(),
+               [](int n) { return n * n; });  // {1, 4, 9, 25, 64, 81}
+
+// Réduction
+int somme = std::accumulate(nombres.begin(), nombres.end(), 0);  // 28
+
+// Filtrage (avec std::copy_if et back_inserter)
+std::vector&lt;int&gt; pairs;
+std::copy_if(nombres.begin(), nombres.end(), std::back_inserter(pairs),
+             [](int n) { return n % 2 == 0; });  // {2, 8}</code></pre>
+                            
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Conseil:</strong> Préférez les algorithmes de la STL aux boucles manuelles. Ils sont optimisés, testés et expriment clairement l'intention.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="memory" class="mb-5">
+                    <h2 class="text-danger">3. Gestion Avancée de la Mémoire</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Smart Pointers</h3>
+                            <p class="card-text">
+                                Les pointeurs intelligents gèrent automatiquement la durée de vie des objets:
+                            </p>
+                            
+                            <pre><code class="language-cpp">#include &lt;memory&gt;
+
+// unique_ptr: propriété exclusive
+std::unique_ptr&lt;int&gt; ptr1 = std::make_unique&lt;int&gt;(42);
+// auto ptr2 = ptr1;  // Erreur: unique_ptr ne peut pas être copié
+auto ptr2 = std::move(ptr1);  // Transfert de propriété
+// *ptr1 est maintenant indéfini, ptr1 est null
+
+// shared_ptr: propriété partagée avec comptage de références
+std::shared_ptr&lt;int&gt; sptr1 = std::make_shared&lt;int&gt;(100);
+{
+    auto sptr2 = sptr1;  // Compteur de références = 2
+    std::cout << *sptr2 << std::endl;  // 100
+}  // sptr2 est détruit, compteur = 1
+// Quand le compteur atteint 0, la mémoire est libérée
+
+// weak_ptr: référence faible à un shared_ptr
+std::weak_ptr&lt;int&gt; wptr = sptr1;
+if (auto locked = wptr.lock()) {  // Vérifie si l'objet existe encore
+    std::cout << *locked << std::endl;  // 100
+}</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Attention:</strong> Évitez d'utiliser <code>new</code> et <code>delete</code> directement. Préférez les smart pointers pour éviter les fuites de mémoire et les erreurs de gestion.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Allocateurs Personnalisés</h3>
+                            <p class="card-text">
+                                Les allocateurs permettent de contrôler précisément l'allocation de mémoire:
+                            </p>
+                            
+                            <pre><code class="language-cpp">template &lt;typename T&gt;
+class PoolAllocator {
+private:
+    // Implémentation d'un pool d'allocation
+    
+public:
+    using value_type = T;
+    
+    T* allocate(std::size_t n) {
+        // Allouer n objets de type T depuis le pool
+    }
+    
+    void deallocate(T* p, std::size_t n) {
+        // Libérer la mémoire
+    }
+    
+    template &lt;typename U, typename... Args&gt;
+    void construct(U* p, Args&&... args) {
+        // Construire un objet à l'adresse p
+        new(p) U(std::forward&lt;Args&gt;(args)...);
+    }
+    
+    template &lt;typename U&gt;
+    void destroy(U* p) {
+        // Détruire un objet sans libérer sa mémoire
+        p->~U();
+    }
+};
+
+// Utilisation avec un conteneur STL
+std::vector&lt;int, PoolAllocator&lt;int&gt;&gt; nombres;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Placement New et Alignement</h3>
+                            <p class="card-text">
+                                Techniques avancées pour contrôler l'emplacement et l'alignement des objets:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Placement new: construire un objet à une adresse spécifique
+char buffer[sizeof(std::string)];
+std::string* str = new(buffer) std::string("Hello");  // Construit dans buffer
+str->~string();  // Destruction manuelle (pas de delete)
+
+// Alignement (C++11)
+struct alignas(16) AlignedStruct {
+    int x;
+    char c;
+    double d;
+};
+
+// Allocation alignée (C++17)
+void* ptr = std::aligned_alloc(64, 1024);  // 1024 octets alignés sur 64
+// Utilisation...
+std::free(ptr);</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Applications:</strong> Ces techniques sont utiles pour l'optimisation des performances (alignement pour SIMD), les systèmes embarqués avec mémoire limitée, et les structures de données spécialisées.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="multithreading" class="mb-5">
+                    <h2 class="text-danger">4. Programmation Concurrente</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Threads</h3>
+                            <p class="card-text">
+                                C++11 a introduit un support natif pour la programmation multithreads:
+                            </p>
+                            
+                            <pre><code class="language-cpp">#include &lt;thread&gt;
+#include &lt;iostream&gt;
+
+void fonction_thread(int id) {
+    std::cout << "Thread " << id << " en cours d'exécution" << std::endl;
+}
+
+int main() {
+    // Création d'un thread
+    std::thread t1(fonction_thread, 1);
+    
+    // Passage d'une lambda
+    std::thread t2([](int id) {
+        std::cout << "Lambda dans thread " << id << std::endl;
+    }, 2);
+    
+    // Attendre la fin des threads
+    t1.join();
+    t2.join();
+    
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Synchronisation</h3>
+                            <p class="card-text">
+                                Mécanismes pour coordonner l'accès aux ressources partagées:
+                            </p>
+                            
+                            <pre><code class="language-cpp">#include &lt;mutex&gt;
+#include &lt;condition_variable&gt;
+
+std::mutex mtx;  // Protège l'accès à une ressource partagée
+
+void fonction_securisee() {
+    // Verrouillage manuel
+    mtx.lock();
+    // Section critique...
+    mtx.unlock();
+    
+    // RAII avec lock_guard (préférable)
+    {
+        std::lock_guard&lt;std::mutex&gt; lock(mtx);
+        // Section critique...
+    }  // Déverrouillage automatique
+    
+    // unique_lock (plus flexible)
+    std::unique_lock&lt;std::mutex&gt; lock(mtx);
+    // Section critique...
+    lock.unlock();  // Déverrouillage explicite
+    // ...
+    lock.lock();    // Reverrouillage
+}
+
+// Condition variable
+std::condition_variable cv;
+bool pret = false;
+
+void producteur() {
+    std::unique_lock&lt;std::mutex&gt; lock(mtx);
+    // Préparer les données...
+    pret = true;
+    cv.notify_one();  // Notifier un thread en attente
+}
+
+void consommateur() {
+    std::unique_lock&lt;std::mutex&gt; lock(mtx);
+    cv.wait(lock, []{ return pret; });  // Attendre que pret soit true
+    // Traiter les données...
+}</code></pre>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                <strong>Attention:</strong> La programmation concurrente est complexe. Les problèmes comme les deadlocks, race conditions et data races peuvent être difficiles à déboguer.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Modèle de Mémoire et Atomiques</h3>
+                            <p class="card-text">
+                                Opérations atomiques et ordonnancement de la mémoire:
+                            </p>
+                            
+                            <pre><code class="language-cpp">#include &lt;atomic&gt;
+
+// Variables atomiques
+std::atomic&lt;int&gt; compteur(0);
+compteur++;  // Opération atomique
+
+// Opérations atomiques explicites
+int ancien = compteur.fetch_add(5);  // Ajoute 5 et retourne l'ancienne valeur
+
+// Barrières mémoire
+std::atomic_thread_fence(std::memory_order_acquire);  // Barrière d'acquisition
+// ...
+std::atomic_thread_fence(std::memory_order_release);  // Barrière de libération
+
+// Ordres mémoire
+compteur.store(10, std::memory_order_relaxed);  // Ordre relaxé
+int val = compteur.load(std::memory_order_acquire);  // Ordre d'acquisition</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> Le modèle de mémoire C++ permet d'optimiser les performances en relâchant les garanties d'ordonnancement, mais nécessite une compréhension approfondie pour être utilisé correctement.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cpp11" class="mb-5">
+                    <h2 class="text-danger">5. Fonctionnalités Modernes (C++11/14/17/20)</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Lambdas et Fonctions</h3>
+                            <p class="card-text">
+                                Expressions lambda et fonctionnalités avancées:
+                            </p>
+                            
+                            <pre><code class="language-cpp">#include &lt;functional&gt;
+
+// Lambda de base
+auto add = [](int a, int b) { return a + b; };
+int sum = add(5, 3);  // 8
+
+// Capture
+int multiplier = 10;
+auto multiply = [multiplier](int x) { return x * multiplier; };
+int result = multiply(5);  // 50
+
+// Capture par référence
+auto increment = [&multiplier]() { multiplier++; };
+increment();  // multiplier = 11
+
+// Capture par défaut
+auto lambda = [=]() { return multiplier; };  // Tout par valeur
+auto lambda2 = [&]() { multiplier++; };      // Tout par référence
+
+// Lambda générique (C++14)
+auto generic = [](auto x, auto y) { return x + y; };
+int sum2 = generic(5, 3);       // 8
+double sum3 = generic(3.5, 2.5); // 6.0
+
+// std::function pour stocker des callables
+std::function&lt;int(int, int)&gt; func = add;
+func = multiply;  // Réassignation</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Move Semantics et Perfect Forwarding</h3>
+                            <p class="card-text">
+                                Optimisation des transferts d'objets:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Constructeur de déplacement
+class Buffer {
+private:
+    int* data;
+    size_t size;
+    
+public:
+    // Constructeur normal
+    Buffer(size_t s) : size(s), data(new int[s]) {}
+    
+    // Constructeur de copie
+    Buffer(const Buffer& other) : size(other.size), data(new int[other.size]) {
+        std::copy(other.data, other.data + size, data);
+    }
+    
+    // Constructeur de déplacement
+    Buffer(Buffer&& other) noexcept : data(other.data), size(other.size) {
+        other.data = nullptr;  // Voler les ressources
+        other.size = 0;
+    }
+    
+    // Opérateur d'affectation par déplacement
+    Buffer& operator=(Buffer&& other) noexcept {
+        if (this != &other) {
+            delete[] data;
+            data = other.data;
+            size = other.size;
+            other.data = nullptr;
+            other.size = 0;
+        }
+        return *this;
+    }
+    
+    ~Buffer() {
+        delete[] data;
+    }
+};
+
+// Perfect forwarding
+template &lt;typename T, typename... Args&gt;
+std::unique_ptr&lt;T&gt; make_unique(Args&&... args) {
+    return std::unique_ptr&lt;T&gt;(new T(std::forward&lt;Args&gt;(args)...));
+}</code></pre>
+                            
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Avantage:</strong> La sémantique de déplacement permet d'éviter les copies coûteuses en "volant" les ressources d'objets temporaires ou sur le point d'être détruits.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Autres Fonctionnalités Modernes</h3>
+                            <p class="card-text">
+                                Aperçu des fonctionnalités récentes:
+                            </p>
+                            
+                            <h4>C++11/14:</h4>
+                            <pre><code class="language-cpp">// auto et decltype
+auto x = 42;
+decltype(x) y = x;  // y est de type int
+
+// Range-based for
+for (const auto& item : container) { /* ... */ }
+
+// nullptr
+void* ptr = nullptr;
+
+// Enum class
+enum class Color { Red, Green, Blue };
+Color c = Color::Red;
+
+// Initialisation uniforme
+std::vector&lt;int&gt; v{1, 2, 3};
+struct Point { int x, y; };
+Point p{10, 20};</code></pre>
+                            
+                            <h4>C++17:</h4>
+                            <pre><code class="language-cpp">// Structured bindings
+std::pair&lt;int, std::string&gt; p{42, "hello"};
+auto [id, name] = p;
+
+// if constexpr
+template &lt;typename T&gt;
+void process(T value) {
+    if constexpr (std::is_integral_v&lt;T&gt;) {
+        // Code pour les types entiers
+    } else {
+        // Code pour les autres types
+    }
+}
+
+// std::optional
+std::optional&lt;int&gt; maybe_value;
+if (maybe_value) {
+    int value = *maybe_value;
+}</code></pre>
+                            
+                            <h4>C++20:</h4>
+                            <pre><code class="language-cpp">// Concepts
+template &lt;typename T&gt;
+concept Numeric = std::is_arithmetic_v&lt;T&gt;;
+
+template &lt;Numeric T&gt;
+T add(T a, T b) {
+    return a + b;
+}
+
+// Coroutines

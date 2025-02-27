@@ -1,0 +1,130 @@
+/* 
+ * Trinity Pro - Styles pour les menus déroulants
+ * Styles spécifiques pour les menus déroulants de Bootstrap
+ */
+
+/* Styles de base pour les dropdowns */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #f8f9fa;
+    text-align: left;
+    list-style: none;
+    background-color: rgba(20, 20, 20, 0.9);
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+/* Afficher le dropdown quand il a la classe show */
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Style pour les items du dropdown */
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #00ff00;
+    background-color: rgba(0, 255, 0, 0.1);
+    text-decoration: none;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #00ff00;
+    text-decoration: none;
+    background-color: rgba(0, 255, 0, 0.2);
+}
+
+.dropdown-item.disabled, .dropdown-item:disabled {
+    color: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    background-color: transparent;
+}
+
+/* Style pour les séparateurs */
+.dropdown-divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style pour les headers */
+.dropdown-header {
+    display: block;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: #00ff00;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+/* Position des dropdowns */
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+/* Animation pour les dropdowns */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu.show {
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Styles pour les dropdowns sur mobile */
+@media (max-width: 992px) {
+    .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+    
+    .dropdown-menu.show {
+        display: block;
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 1rem 0.5rem 2rem;
+    }
+    
+    .dropdown-header {
+        padding: 0.5rem 1rem 0.5rem 2rem;
+    }
+}

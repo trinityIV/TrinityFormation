@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Formation Cybersécurité & Hacking</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+</head>
+<body class="bg-dark text-light">
+    <!-- Particles Background -->
+    <div id="particles-js" class="particles-container"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#accueil">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#courses">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="#ethical-hacking">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="#penetration-testing">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="#exploit-development">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="#legal-ethics">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="#documentation">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="#cheat-engine">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="#ida-pro">IDA Pro Basics</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="#osint-intro">Introduction</a></li>
+                            <li><a class="dropdown-item" href="#social-media">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#library">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="#exercises">Exercices</a></li>
+                            <li><a class="dropdown-item" href="#forum">Forum</a></li>
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Téléchargements</h6></li>
+                            <li><a class="dropdown-item" href="#cheatsheets">Cheatsheets</a></li>
+                            <li><a class="dropdown-item" href="#templates">Templates</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><h6 class="dropdown-header">Essentiels</h6></li>
+                            <li><a class="dropdown-item" href="#free-tools">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="#dev-tools">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="#practical-tools">Outils Pratiques</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Spécialisés</h6></li>
+                            <li><a class="dropdown-item" href="#game-hacking-tools">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="#game-engines">Moteurs de Jeux</a></li>
+                            <li><a class="dropdown-item" href="#mobile-hacking">Mobile Hacking</a></li>
+                            <li><a class="dropdown-item" href="#protection">Protection</a></li>
+                            <li><a class="dropdown-item" href="#advanced-techniques">Techniques Avancées</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#events">Événements</a></li>
+                            <li><a class="dropdown-item" href="#discord">Discord</a></li>
+                            <li><a class="dropdown-item" href="#contribute">Contribuer</a></li>
+                            <li><a class="dropdown-item" href="#partners">Partenaires</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="#inscription">
+                            <i class="fas fa-user-plus me-1"></i> S'inscrire
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
+                    <h1 class="display-3 fw-bold mb-4 text-gradient">
+                        Maîtrisez l'Art de la <span class="text-success">Cybersécurité</span>
+                    </h1>
+                    <p class="lead fs-4 mb-4 text-light-muted">
+                        Découvrez notre plateforme d'apprentissage complète en cybersécurité, hacking éthique et programmation. Formez-vous avec des experts du domaine et rejoignez une communauté passionnée.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mt-5">
+                        <a href="#courses" class="btn btn-success btn-lg">
+                            <i class="fas fa-book-open me-2"></i>Explorer les Cours
+                        </a>
+                        <a href="#inscription" class="btn btn-outline-light btn-lg btn-glow">
+                            <i class="fas fa-user-plus me-2"></i>Commencer Gratuitement
+                        </a>
+                    </div>
+                    <div class="mt-5 d-flex align-items-center">
+                        <div class="d-flex">
+                            <div class="avatar-stack">
+                                <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User" class="avatar">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="avatar">
+                                <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="User" class="avatar">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="avatar">
+                                <div class="avatar avatar-more">
+                                    <span>+2k</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <p class="mb-0 text-light-muted">Rejoignez plus de <span class="text-success fw-bold">2,000+</span> étudiants</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="position-relative hero-image-container">
+                        <div class="hero-image">
+                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cybersecurity" class="img-fluid rounded-3 shadow-lg">
+                        </div>
+                        <div class="hero-card hero-card-1">
+                            <div class="d-flex align-items-center">
+                                <div class="hero-card-icon bg-success">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Protection Avancée</h6>
+                                    <p class="mb-0 small text-light-muted">Techniques de sécurité</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-card hero-card-2">
+                            <div class="d-flex align-items-center">
+                                <div class="hero-card-icon bg-danger">
+                                    <i class="fas fa-bug"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Détection de Vulnérabilités</h6>
+                                    <p class="mb-0 small text-light-muted">Analyse de risques</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-darker">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="counter-item">
+                        <div class="counter-value" data-count="50">0</div>
+                        <div class="counter-label">Cours Spécialisés</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="counter-item">
+                        <div class="counter-value" data-count="10000">0</div>
+                        <div class="counter-label">Étudiants Actifs</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="counter-item">
+                        <div class="counter-value" data-count="200">0</div>
+                        <div class="counter-label">Exercices Pratiques</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="counter-item">
+                        <div class="counter-value" data-count="95">0</div>
+                        <div class="counter-label">Taux de Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center mb-3" href="index.html">
+                        <div class="logo-icon me-2">
+                            <i class="fas fa-cube fa-lg text-success"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="fw-bold text-light">Trinity</span><span class="text-success fw-bold">Pro</span>
+                        </div>
+                    </a>
+                    <p class="text-light-muted">Plateforme de formation en cybersécurité, hacking éthique et programmation. Formez-vous avec des experts du domaine et rejoignez une communauté passionnée.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-discord fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="text-light mb-4">Liens Rapides</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#accueil" class="text-light-muted hover-success">Accueil</a></li>
+                        <li class="mb-2"><a href="#courses" class="text-light-muted hover-success">Cours</a></li>
+                        <li class="mb-2"><a href="#features" class="text-light-muted hover-success">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="#inscription" class="text-light-muted hover-success">Inscription</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="text-light mb-4">Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#library" class="text-light-muted hover-success">Bibliothèque</a></li>
+                        <li class="mb-2"><a href="#exercises" class="text-light-muted hover-success">Exercices</a></li>
+                        <li class="mb-2"><a href="#forum" class="text-light-muted hover-success">Forum</a></li>
+                        <li class="mb-2"><a href="#faq" class="text-light-muted hover-success">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="text-light mb-4">Newsletter</h5>
+                    <p class="text-light-muted mb-3">Recevez nos dernières actualités et offres spéciales</p>
+                    <form class="d-flex">
+                        <input type="email" class="form-control bg-dark-card border-0 text-light me-2" placeholder="Votre email">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <hr class="border-secondary my-4">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="text-light-muted mb-md-0">© 2025 Trinity Pro. Tous droits réservés.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-light-muted hover-success">Conditions d'utilisation</a>
+                    <a href="#" class="text-light-muted hover-success">Politique de confidentialité</a>
+                    <a href="#" class="text-light-muted hover-success">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Particles.js -->
+    <script src="js/particles.js"></script>
+    <!-- Bootstrap Initialization -->
+    <script src="js/bootstrap-init.js"></script>
+    <!-- Custom Dropdown JS -->
+    <script src="js/dropdown.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

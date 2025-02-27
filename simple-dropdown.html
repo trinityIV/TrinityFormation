@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Déroulant Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            margin-left: 20px;
+            position: relative;
+        }
+        
+        .nav-link {
+            color: #f8f9fa;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+        
+        .nav-link:hover {
+            color: #00ff00;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #1a1a1a;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            padding: 10px 0;
+            margin-top: 5px;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            color: #f8f9fa;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #333;
+            color: #00ff00;
+        }
+        
+        .content {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .btn {
+            background-color: #00ff00;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .alert {
+            background-color: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">TrinityPro</a>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link">Accueil</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="coursesDropdown">Cours</a>
+                <div class="dropdown-menu" id="coursesMenu">
+                    <a href="#" class="dropdown-item">Tous les cours</a>
+                    <a href="#" class="dropdown-item">Hacking Éthique</a>
+                    <a href="#" class="dropdown-item">Tests d'Intrusion</a>
+                    <a href="#" class="dropdown-item">Développement d'Exploits</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="resourcesDropdown">Ressources</a>
+                <div class="dropdown-menu" id="resourcesMenu">
+                    <a href="#" class="dropdown-item">Bibliothèque</a>
+                    <a href="#" class="dropdown-item">Exercices</a>
+                    <a href="#" class="dropdown-item">Forum</a>
+                    <a href="#" class="dropdown-item">FAQ</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <button class="btn">S'inscrire</button>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1>Menu Déroulant Simple</h1>
+        <p>Cette page utilise JavaScript pur pour gérer les menus déroulants.</p>
+        <div class="alert">
+            Cliquez sur les menus "Cours" et "Ressources" dans la barre de navigation pour tester les menus déroulants.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer les éléments du DOM
+            const coursesDropdown = document.getElementById('coursesDropdown');
+            const resourcesDropdown = document.getElementById('resourcesDropdown');
+            const coursesMenu = document.getElementById('coursesMenu');
+            const resourcesMenu = document.getElementById('resourcesMenu');
+            
+            // Fonction pour afficher/masquer un menu déroulant
+            function toggleDropdown(dropdown, menu) {
+                dropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Fermer tous les autres menus
+                    const allMenus = document.querySelectorAll('.dropdown-menu');
+                    allMenus.forEach(m => {
+                        if (m !== menu) {
+                            m.classList.remove('show');
+                        }
+                    });
+                    
+                    // Toggle le menu actuel
+                    menu.classList.toggle('show');
+                });
+            }
+            
+            // Initialiser les menus déroulants
+            toggleDropdown(coursesDropdown, coursesMenu);
+            toggleDropdown(resourcesDropdown, resourcesMenu);
+            
+            // Fermer les menus déroulants quand on clique ailleurs
+            document.addEventListener('click', function(e) {
+                const allMenus = document.querySelectorAll('.dropdown-menu');
+                allMenus.forEach(menu => {
+                    if (!menu.contains(e.target)) {
+                        menu.classList.remove('show');
+                    }
+                });
+            });
+            
+            // Empêcher la fermeture du menu quand on clique à l'intérieur
+            const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+            dropdownMenus.forEach(menu => {
+                menu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

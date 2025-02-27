@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Techniques Avancées de Contournement d'Anti-Cheat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-warning">
+                    <div class="card-body">
+                        <h1 class="card-title text-warning">Techniques Avancées de Contournement d'Anti-Cheat</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-warning text-dark me-2">Niveau: Expert</span>
+                            <span class="badge bg-info me-2">Durée: 10 heures</span>
+                            <span class="badge bg-warning text-dark">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Ce cours approfondit les techniques avancées de contournement des systèmes anti-triche modernes. Vous explorerez les méthodes de manipulation de mémoire, d'injection de code au niveau kernel, et les stratégies pour éviter la détection. <strong>Note: Ce cours est fourni uniquement à des fins éducatives et de recherche en sécurité.</strong></p>
+                        
+                        <div class="alert alert-danger mt-3">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Avertissement éthique:</strong> L'utilisation de ces techniques sur des jeux en ligne commerciaux est généralement interdite par les conditions d'utilisation et peut entraîner des bannissements permanents. Ces connaissances doivent être appliquées uniquement dans des environnements contrôlés, pour la recherche en sécurité, ou sur des jeux pour lesquels vous avez l'autorisation explicite.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#injection">1. Techniques d'Injection Avancées</a>
+                            <a class="nav-link" href="#kernel">2. Contournement Kernel-Mode</a>
+                            <a class="nav-link" href="#memoire">3. Manipulation de Mémoire Avancée</a>
+                            <a class="nav-link" href="#hooks">4. Hooking et Détournement</a>
+                            <a class="nav-link" href="#virtualisation">5. Techniques de Virtualisation</a>
+                            <a class="nav-link" href="#communication">6. Interception de Communication</a>
+                            <a class="nav-link" href="#detection">7. Évitement de Détection</a>
+                            <a class="nav-link" href="#outils">8. Outils et Frameworks</a>
+                            <a class="nav-link" href="#etudes">9. Études de Cas</a>
+                            <a class="nav-link" href="#exercices">10. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="injection" class="mb-5">
+                    <h2 class="text-warning">1. Techniques d'Injection Avancées</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Injection de DLL Manuelle</h3>
+                            <p class="card-text">
+                                L'injection manuelle de DLL évite l'utilisation des API standard comme LoadLibrary qui sont souvent surveillées:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Exemple simplifié d'injection manuelle de DLL
+bool ManualMapDll(HANDLE hProcess, const char* dllPath) {
+    // Charger le fichier DLL en mémoire
+    HANDLE hFile = CreateFileA(dllPath, GENERIC_READ, FILE_SHARE_READ, NULL, 
+                              OPEN_EXISTING, 0, NULL);
+    if (hFile == INVALID_HANDLE_VALUE) return false;
+    
+    // Lire l'en-tête PE
+    IMAGE_DOS_HEADER dosHeader;
+    DWORD bytesRead;
+    ReadFile(hFile, &dosHeader, sizeof(IMAGE_DOS_HEADER), &bytesRead, NULL);
+    
+    // Vérifier la signature MZ
+    if (dosHeader.e_magic != IMAGE_DOS_SIGNATURE) {
+        CloseHandle(hFile);
+        return false;
+    }
+    
+    // Allouer de la mémoire dans le processus cible
+    // Mapper les sections
+    // Résoudre les imports
+    // Appliquer les relocations
+    // Exécuter le point d'entrée
+    
+    // [Code complet omis pour brièveté]
+    
+    return true;
+}</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Avantage:</strong> Cette technique évite d'appeler LoadLibrary et de créer des entrées dans la liste des modules chargés (PEB), rendant la détection plus difficile.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Injection de Shellcode</h3>
+                            <p class="card-text">
+                                L'injection de shellcode permet d'exécuter du code arbitraire sans charger de DLL:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Exemple simplifié d'injection de shellcode
+bool InjectShellcode(HANDLE hProcess, const unsigned char* shellcode, size_t size) {
+    // Allouer de la mémoire dans le processus cible
+    LPVOID remoteBuffer = VirtualAllocEx(
+        hProcess, NULL, size, 
+        MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE
+    );
+    
+    if (!remoteBuffer) return false;
+    
+    // Écrire le shellcode dans la mémoire allouée
+    if (!WriteProcessMemory(hProcess, remoteBuffer, shellcode, size, NULL)) {
+        VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+        return false;
+    }
+    
+    // Créer un thread pour exécuter le shellcode
+    HANDLE hThread = CreateRemoteThread(
+        hProcess, NULL, 0, 
+        (LPTHREAD_START_ROUTINE)remoteBuffer, 
+        NULL, 0, NULL
+    );
+    
+    if (!hThread) {
+        VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+        return false;
+    }
+    
+    // Attendre la fin de l'exécution
+    WaitForSingleObject(hThread, INFINITE);
+    
+    // Nettoyer
+    CloseHandle(hThread);
+    VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+    
+    return true;
+}</code></pre>
+                            
+                            <h4>Techniques d'obfuscation de shellcode:</h4>
+                            <ul>
+                                <li>Chiffrement et déchiffrement à l'exécution</li>
+                                <li>Encodage et décodage (XOR, ROL, etc.)</li>
+                                <li>Polymorphisme et métamorphisme</li>
+                                <li>Techniques anti-analyse statique</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Techniques d'Injection Alternatives</h3>
+                            <p class="card-text">
+                                Méthodes moins connues pour injecter du code:
+                            </p>
+                            
+                            <h4>Injection par APC (Asynchronous Procedure Call):</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié d'injection par APC
+bool APCInjection(DWORD processId, const unsigned char* shellcode, size_t size) {
+    // Ouvrir le processus
+    HANDLE hProcess = OpenProcess(
+        PROCESS_VM_OPERATION | PROCESS_VM_WRITE, 
+        FALSE, processId
+    );
+    
+    if (!hProcess) return false;
+    
+    // Allouer de la mémoire
+    LPVOID remoteBuffer = VirtualAllocEx(
+        hProcess, NULL, size, 
+        MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE
+    );
+    
+    if (!remoteBuffer) {
+        CloseHandle(hProcess);
+        return false;
+    }
+    
+    // Écrire le shellcode
+    WriteProcessMemory(hProcess, remoteBuffer, shellcode, size, NULL);
+    
+    // Énumérer les threads du processus
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+    THREADENTRY32 te;
+    te.dwSize = sizeof(THREADENTRY32);
+    
+    if (Thread32First(hSnapshot, &te)) {
+        do {
+            if (te.th32OwnerProcessID == processId) {
+                // Ouvrir le thread
+                HANDLE hThread = OpenThread(
+                    THREAD_SET_CONTEXT, FALSE, te.th32ThreadID
+                );
+                
+                if (hThread) {
+                    // Mettre en file d'attente l'APC
+                    QueueUserAPC(
+                        (PAPCFUNC)remoteBuffer, 
+                        hThread, 
+                        (ULONG_PTR)NULL
+                    );
+                    
+                    CloseHandle(hThread);
+                }
+            }
+        } while (Thread32Next(hSnapshot, &te));
+    }
+    
+    CloseHandle(hSnapshot);
+    CloseHandle(hProcess);
+    
+    return true;
+}</code></pre>
+                            
+                            <h4>Autres techniques:</h4>
+                            <ul>
+                                <li><strong>Injection par SetWindowsHookEx:</strong> Utilise les hooks Windows pour injecter une DLL</li>
+                                <li><strong>Injection par Atom Bombing:</strong> Utilise les tables d'atomes Windows</li>
+                                <li><strong>Injection par Thread Hijacking:</strong> Détourne un thread existant</li>
+                                <li><strong>Injection par Process Hollowing:</strong> Remplace le contenu d'un processus légitime</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Note:</strong> Les anti-cheats modernes surveillent de plus en plus ces techniques alternatives. L'efficacité de chaque méthode dépend des protections spécifiques implémentées.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="kernel" class="mb-5">
+                    <h2 class="text-warning">2. Contournement Kernel-Mode</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Développement de Drivers</h3>
+                            <p class="card-text">
+                                Les drivers kernel-mode permettent de contourner les protections user-mode:
+                            </p>
+                            
+                            <h4>Configuration de l'environnement:</h4>
+                            <ul>
+                                <li>Windows Driver Kit (WDK)</li>
+                                <li>Visual Studio avec support du développement de drivers</li>
+                                <li>Machine virtuelle pour le test (recommandé)</li>
+                                <li>Désactivation de Driver Signature Enforcement pour le test</li>
+                            </ul>
+                            
+                            <h4>Structure de base d'un driver:</h4>
+                            <pre><code class="language-cpp">#include <ntddk.h>
+
+// Point d'entrée du driver
+NTSTATUS DriverEntry(
+    _In_ PDRIVER_OBJECT DriverObject,
+    _In_ PUNICODE_STRING RegistryPath
+) {
+    UNREFERENCED_PARAMETER(RegistryPath);
+    
+    // Initialisation
+    DbgPrint("Driver chargé\n");
+    
+    // Configurer les routines de traitement
+    DriverObject->DriverUnload = DriverUnload;
+    DriverObject->MajorFunction[IRP_MJ_CREATE] = DriverCreateClose;
+    DriverObject->MajorFunction[IRP_MJ_CLOSE] = DriverCreateClose;
+    DriverObject->MajorFunction[IRP_MJ_DEVICE_CONTROL] = DriverDeviceControl;
+    
+    // Créer un device
+    UNICODE_STRING deviceName = RTL_CONSTANT_STRING(L"\\Device\\MyDriver");
+    PDEVICE_OBJECT deviceObject;
+    
+    NTSTATUS status = IoCreateDevice(
+        DriverObject,
+        0,
+        &deviceName,
+        FILE_DEVICE_UNKNOWN,
+        0,
+        FALSE,
+        &deviceObject
+    );
+    
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+    
+    // Créer un lien symbolique
+    UNICODE_STRING symLink = RTL_CONSTANT_STRING(L"\\DosDevices\\MyDriver");
+    status = IoCreateSymbolicLink(&symLink, &deviceName);
+    
+    if (!NT_SUCCESS(status)) {
+        IoDeleteDevice(deviceObject);
+        return status;
+    }
+    
+    return STATUS_SUCCESS;
+}
+
+// Routine de déchargement
+VOID DriverUnload(
+    _In_ PDRIVER_OBJECT DriverObject
+) {
+    UNICODE_STRING symLink = RTL_CONSTANT_STRING(L"\\DosDevices\\MyDriver");
+    IoDeleteSymbolicLink(&symLink);
+    IoDeleteDevice(DriverObject->DeviceObject);
+    
+    DbgPrint("Driver déchargé\n");
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Accès à la Mémoire Kernel</h3>
+                            <p class="card-text">
+                                Techniques pour accéder et manipuler la mémoire depuis le kernel:
+                            </p>
+                            
+                            <h4>Lecture/écriture de la mémoire:</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié de lecture de mémoire depuis le kernel
+NTSTATUS ReadProcessMemory(
+    HANDLE ProcessId,
+    PVOID SourceAddress,
+    PVOID TargetBuffer,
+    SIZE_T Size
+) {
+    // Obtenir l'objet processus
+    PEPROCESS Process;
+    NTSTATUS status = PsLookupProcessByProcessId(ProcessId, &Process);
+    
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+    
+    // Attacher au processus
+    KAPC_STATE ApcState;
+    KeStackAttachProcess(Process, &ApcState);
+    
+    // Copier la mémoire
+    __try {
+        ProbeForRead(SourceAddress, Size, 1);
+        RtlCopyMemory(TargetBuffer, SourceAddress, Size);
+        status = STATUS_SUCCESS;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER) {
+        status = GetExceptionCode();
+    }
+    
+    // Détacher du processus
+    KeUnstackDetachProcess(&ApcState);
+    ObDereferenceObject(Process);
+    
+    return status;
+}
+
+// Exemple simplifié d'écriture de mémoire depuis le kernel
+NTSTATUS WriteProcessMemory(
+    HANDLE ProcessId,
+    PVOID TargetAddress,
+    PVOID SourceBuffer,
+    SIZE_T Size
+) {
+    // Obtenir l'objet processus
+    PEPROCESS Process;
+    NTSTATUS status = PsLookupProcessByProcessId(ProcessId, &Process);
+    
+    if (!NT_SUCCESS(status)) {
+        return status;
+    }
+    
+    // Attacher au processus
+    KAPC_STATE ApcState;
+    KeStackAttachProcess(Process, &ApcState);
+    
+    // Modifier les protections mémoire si nécessaire
+    PMDL Mdl = IoAllocateMdl(TargetAddress, (ULONG)Size, FALSE, FALSE, NULL);
+    if (Mdl) {
+        __try {
+            MmProbeAndLockPages(Mdl, UserMode, IoReadAccess);
+            PVOID MappedAddress = MmMapLockedPagesSpecifyCache(
+                Mdl, KernelMode, MmCached, NULL, FALSE, NormalPagePriority
+            );
+            
+            if (MappedAddress) {
+                RtlCopyMemory(MappedAddress, SourceBuffer, Size);
+                MmUnmapLockedPages(MappedAddress, Mdl);
+                status = STATUS_SUCCESS;
+            }
+            
+            MmUnlockPages(Mdl);
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER) {
+            status = GetExceptionCode();
+        }
+        
+        IoFreeMdl(Mdl);
+    }
+    
+    // Détacher du processus
+    KeUnstackDetachProcess(&ApcState);
+    ObDereferenceObject(Process);
+    
+    return status;
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Techniques de Contournement Kernel</h3>
+                            <p class="card-text">
+                                Méthodes avancées pour contourner les anti-cheats kernel-mode:
+                            </p>
+                            
+                            <h4>Hooking des fonctions kernel:</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié de hook de fonction kernel
+// Pointeur vers la fonction originale
+typedef NTSTATUS (*tNtOpenProcess)(
+    OUT PHANDLE ProcessHandle,
+    IN ACCESS_MASK DesiredAccess,
+    IN POBJECT_ATTRIBUTES ObjectAttributes,
+    IN PCLIENT_ID ClientId OPTIONAL
+);
+
+tNtOpenProcess OriginalNtOpenProcess = NULL;
+
+// Fonction de hook
+NTSTATUS HookedNtOpenProcess(
+    OUT PHANDLE ProcessHandle,
+    IN ACCESS_MASK DesiredAccess,
+    IN POBJECT_ATTRIBUTES ObjectAttributes,
+    IN PCLIENT_ID ClientId OPTIONAL
+) {
+    // Vérifier si le processus cible est protégé
+    if (ClientId && IsProtectedProcess(ClientId->UniqueProcess)) {
+        // Modifier les droits d'accès pour limiter la visibilité
+        DesiredAccess &= ~PROCESS_VM_READ;
+        DesiredAccess &= ~PROCESS_VM_WRITE;
+        DesiredAccess &= ~PROCESS_VM_OPERATION;
+    }
+    
+    // Appeler la fonction originale
+    return OriginalNtOpenProcess(
+        ProcessHandle, DesiredAccess, ObjectAttributes, ClientId
+    );
+}</code></pre>
+                            
+                            <h4>Techniques avancées:</h4>
+                            <ul>
+                                <li><strong>Modification de la SSDT (System Service Descriptor Table):</strong> Remplacer les entrées de la table des services système</li>
+                                <li><strong>Hooking d'IDT (Interrupt Descriptor Table):</strong> Intercepter les interruptions système</li>
+                                <li><strong>Manipulation des structures kernel:</strong> Modifier les structures internes du noyau</li>
+                                <li><strong>Utilisation de pilotes légitimes:</strong> Exploiter des vulnérabilités dans des pilotes signés</li>
+                            </ul>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                <strong>Risque élevé:</strong> Les manipulations kernel-mode peuvent causer des crashs système (BSOD) et endommager votre installation Windows. Testez toujours dans un environnement virtualisé.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="memoire" class="mb-5">
+                    <h2 class="text-warning">3. Manipulation de Mémoire Avancée</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Techniques de Scan de Mémoire</h3>
+                            <p class="card-text">
+                                Méthodes avancées pour localiser des valeurs en mémoire:
+                            </p>
+                            
+                            <h4>Scan par pattern (signature):</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié de scan par pattern
+PVOID FindPattern(
+    PBYTE baseAddress,
+    DWORD size,
+    const char* pattern,
+    const char* mask
+) {
+    DWORD patternLength = (DWORD)strlen(mask);
+    
+    for (DWORD i = 0; i < size - patternLength; i++) {
+        bool found = true;
+        
+        for (DWORD j = 0; j < patternLength; j++) {
+            if (mask[j] != '?' && pattern[j] != baseAddress[i + j]) {
+                found = false;
+                break;
+            }
+        }
+        
+        if (found) {
+            return (PVOID)(baseAddress + i);
+        }
+    }
+    
+    return NULL;
+}
+
+// Utilisation
+const char* pattern = "\x55\x8B\xEC\x83\xEC\x10\x53\x56\x57\x8B\xF9";
+const char* mask = "xxxxxxxxxxx";
+
+MODULEINFO moduleInfo;
+GetModuleInformation(GetCurrentProcess(), GetModuleHandle(NULL), &moduleInfo, sizeof(MODULEINFO));
+
+PVOID address = FindPattern(
+    (PBYTE)moduleInfo.lpBaseOfDll,
+    moduleInfo.SizeOfImage,
+    pattern,
+    mask
+);</code></pre>
+                            
+                            <h4>Scan multi-niveau (pointeurs):</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié de résolution de pointeur multi-niveau
+template <typename T>
+T ReadMultiLevelPointer(
+    HANDLE hProcess,
+    uintptr_t baseAddress,
+    const std::vector<uintptr_t>& offsets
+) {
+    uintptr_t address = baseAddress;
+    
+    for (size_t i = 0; i < offsets.size() - 1; i++) {
+        uintptr_t temp;
+        
+        if (!ReadProcessMemory(
+                hProcess,
+                (LPCVOID)(address + offsets[i]),
+                &temp,
+                sizeof(temp),
+                NULL
+            )) {
+            return T();
+        }
+        
+        address = temp;
+    }
+    
+    T value;
+    ReadProcessMemory(
+        hProcess,
+        (LPCVOID)(address + offsets.back()),
+        &value,
+        sizeof(value),
+        NULL
+    );
+    
+    return value;
+}
+
+// Utilisation
+std::vector<uintptr_t> offsets = {0x10, 0x20, 0x30, 0x40};
+int health = ReadMultiLevelPointer<int>(hProcess, baseAddress, offsets);</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Techniques de Modification Mémoire</h3>
+                            <p class="card-text">
+                                Méthodes avancées pour modifier la mémoire sans être détecté:
+                            </p>
+                            
+                            <h4>Modification par copie de page:</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié de modification par copie de page
+bool ModifyMemoryByPageCopy(
+    HANDLE hProcess,
+    LPVOID targetAddress,
+    const void* data,
+    SIZE_T size
+) {
+    // Obtenir les informations sur la page
+    MEMORY_BASIC_INFORMATION mbi;
+    if (!VirtualQueryEx(hProcess, targetAddress, &mbi, sizeof(mbi))) {
+        return false;
+    }
+    
+    // Calculer l'adresse de début de la page
+    LPVOID pageStart = mbi.BaseAddress;
+    SIZE_T pageSize = mbi.RegionSize;
+    
+    // Allouer un buffer pour la page
+    LPBYTE buffer = new BYTE[pageSize];
+    
+    // Lire la page entière
+    if (!ReadProcessMemory(hProcess, pageStart, buffer, pageSize, NULL)) {
+        delete[] buffer;
+        return false;
+    }
+    
+    // Calculer l'offset dans la page
+    SIZE_T offset = (SIZE_T)targetAddress - (SIZE_T)pageStart;
+    
+    // Modifier les données dans le buffer
+    memcpy(buffer + offset, data, size);
+    
+    // Modifier les protections de la page
+    DWORD oldProtect;
+    if (!VirtualProtectEx(
+            hProcess, pageStart, pageSize,
+            PAGE_READWRITE, &oldProtect
+        )) {
+        delete[] buffer;
+        return false;
+    }
+    
+    // Écrire la page modifiée
+    bool result = WriteProcessMemory(
+        hProcess, pageStart, buffer, pageSize, NULL
+    );
+    
+    // Restaurer les protections
+    VirtualProtectEx(
+        hProcess, pageStart, pageSize,
+        oldProtect, &oldProtect
+    );
+    
+    delete[] buffer;
+    return result;
+}</code></pre>
+                            
+                            <h4>Techniques de modification furtive:</h4>
+                            <ul>
+                                <li><strong>Modification temporaire:</strong> Modifier la mémoire uniquement quand nécessaire, puis restaurer</li>
+                                <li><strong>Modification par thread suspendu:</strong> Suspendre les threads avant modification</li>
+                                <li><strong>Utilisation de régions mémoire non surveillées:</strong> Exploiter des zones ignorées par l'anti-cheat</li>
+                                <li><strong>Modification indirecte:</strong> Modifier des valeurs qui affectent indirectement le comportement du jeu</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Protection contre les Scans Mémoire</h3>
+                            <p class="card-text">
+                                Techniques pour éviter la détection par les scans mémoire:
+                            </p>
+                            
+                            <h4>Chiffrement des données en mémoire:</h4>
+                            <pre><code class="language-cpp">// Exemple simplifié de valeur chiffrée en mémoire
+class EncryptedValue {
+private:
+    int encryptedValue;
+    int key;
+    
+    int Encrypt(int value, int key) {
+        return value ^ key;
+    }
+    
+    int Decrypt(int encrypted, int key) {
+        return encrypted ^ key;
+    }
+    
+public:
+    EncryptedValue(int initialValue) {
+        // Générer une clé aléatoire
+        key = rand();
+        encryptedValue = Encrypt(initialValue, key);
+    }
+    
+    int GetValue() {
+        return Decrypt(encryptedValue, key);
+    }
+    
+    void SetValue(int newValue) {
+        encryptedValue = Encrypt(newValue, key);
+    }
+};
+
+// Utilisation
+EncryptedValue health(100);
+int currentHealth = health.GetValue();  // 100
+health.SetValue(150);                   // Modifie la valeur</code></pre>
+                            
+                            <h4>Autres techniques:</h4>
+                            <ul>
+                                <li><strong>Stockage distribué:</strong> Répartir les données sur plusieurs emplacements mémoire</li>
+                                <li><strong>Obfuscation des structures:</strong> Modifier la disposition des structures de données</li>
+                                <li><strong>Utilisation de la mémoire partagée:</strong> Stocker les

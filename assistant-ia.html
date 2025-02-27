@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Assistant IA</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .chat-container {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user {
+            align-self: flex-end;
+            background-color: #2563eb;
+            color: white;
+            border-bottom-right-radius: 0.25rem;
+        }
+        
+        .message.assistant {
+            align-self: flex-start;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-bottom-left-radius: 0.25rem;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+            text-align: right;
+        }
+        
+        .chat-input {
+            padding: 1rem;
+            background-color: #0f172a;
+            border-top: 1px solid #1e293b;
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+        
+        .input-group {
+            background-color: #1e293b;
+            border-radius: 2rem;
+            overflow: hidden;
+        }
+        
+        .form-control {
+            background-color: transparent;
+            border: none;
+            color: white;
+            padding-left: 1.5rem;
+        }
+        
+        .form-control:focus {
+            box-shadow: none;
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-send {
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2563eb;
+            border: none;
+            margin-right: 0.5rem;
+        }
+        
+        .btn-send:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .btn-mic {
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1e293b;
+            border: 1px solid #4b5563;
+            color: #e2e8f0;
+            margin-left: 0.5rem;
+        }
+        
+        .btn-mic:hover {
+            background-color: #2d3748;
+        }
+        
+        .btn-mic.recording {
+            background-color: #ef4444;
+            border-color: #ef4444;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+        .assistant-avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            color: white;
+            font-size: 0.8rem;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            background-color: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            color: white;
+            font-size: 0.8rem;
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .message-content {
+            line-height: 1.5;
+        }
+        
+        .message-content pre {
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 0.75rem 0;
+        }
+        
+        .message-content code {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .message-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #a3a3a3;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 3px;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .suggestion-chip {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #4b5563;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .suggestion-chip:hover {
+            background-color: #2d3748;
+            transform: translateY(-2px);
+        }
+        
+        .features-list {
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: #10b981;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Particles Background -->
+    <div id="particles-js" class="particles-container"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#courses">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="cours/game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="cours/game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="cours/game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="cours/programmation/cpp/fondamentaux-part1.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="cours/programmation/java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="cours/programmation/python/fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="cours/osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="cours/osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#library">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="#exercises">Exercices</a></li>
+                            <li><a class="dropdown-item" href="#forum">Forum</a></li>
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Téléchargements</h6></li>
+                            <li><a class="dropdown-item" href="#cheatsheets">Cheatsheets</a></li>
+                            <li><a class="dropdown-item" href="#templates">Templates</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><h6 class="dropdown-header">Essentiels</h6></li>
+                            <li><a class="dropdown-item" href="#free-tools">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="#dev-tools">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="#practical-tools">Outils Pratiques</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Spécialisés</h6></li>
+                            <li><a class="dropdown-item" href="#game-hacking-tools">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="#game-engines">Moteurs de Jeux</a></li>
+                            <li><a class="dropdown-item" href="#mobile-hacking">Mobile Hacking</a></li>
+                            <li><a class="dropdown-item" href="#protection">Protection</a></li>
+                            <li><a class="dropdown-item" href="#advanced-techniques">Techniques Avancées</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#events">Événements</a></li>
+                            <li><a class="dropdown-item" href="#discord">Discord</a></li>
+                            <li><a class="dropdown-item" href="#contribute">Contribuer</a></li>
+                            <li><a class="dropdown-item" href="#partners">Partenaires</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link active" href="assistant-ia.html">
+                            <i class="fas fa-robot me-1"></i> Assistant IA
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-5 mt-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="text-primary mb-3" data-aos="fade-up">Assistant IA Trinity</h1>
+                <p class="lead text-light-muted" data-aos="fade-up" data-aos-delay="100">
+                    Posez vos questions sur la cybersécurité, le hacking éthique, la programmation ou tout autre sujet lié à nos cours. Notre assistant IA est là pour vous aider 24/7.
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Chat Interface -->
+                <div class="card bg-dark border-primary mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="assistant-avatar me-2">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h5 class="mb-0 text-primary">Assistant Trinity</h5>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary" id="clearChat">
+                                <i class="fas fa-trash-alt me-1"></i> Effacer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Message de l'assistant -->
+                            <div class="message assistant">
+                                <div class="message-header">
+                                    <div class="assistant-avatar">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div>Assistant Trinity</div>
+                                </div>
+                                <div class="message-content">
+                                    <p>Bonjour ! Je suis l'Assistant Trinity, votre guide pour tout ce qui concerne la cybersécurité, le hacking éthique, la programmation et plus encore. Comment puis-je vous aider aujourd'hui ?</p>
+                                </div>
+                                <div class="message-time">12:00</div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <div class="suggestions">
+                                <div class="suggestion-chip" onclick="selectSuggestion('Comment débuter en cybersécurité ?')">Comment débuter en cybersécurité ?</div>
+                                <div class="suggestion-chip" onclick="selectSuggestion('Expliquez-moi les bases du C++')">Expliquez-moi les bases du C++</div>
+                                <div class="suggestion-chip" onclick="selectSuggestion('Qu\'est-ce que le contournement d\'anti-cheat ?')">Qu'est-ce que le contournement d'anti-cheat ?</div>
+                                <div class="suggestion-chip" onclick="selectSuggestion('Outils recommandés pour l\'OSINT')">Outils recommandés pour l'OSINT</div>
+                            </div>
+                            <form id="chatForm" class="mt-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="userInput" placeholder="Posez votre question ici..." autocomplete="off">
+                                    <button type="button" class="btn btn-mic" id="micButton">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-send">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <!-- Fonctionnalités de l'Assistant -->
+                <div class="card bg-dark border-secondary" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header bg-dark">
+                        <h5 class="mb-0 text-secondary"><i class="fas fa-lightbulb me-2"></i>Fonctionnalités</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="features-list">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="feature-card">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <h5>Assistance aux cours</h5>
+                                        <p class="text-light-muted">Obtenez de l'aide sur n'importe quel sujet couvert dans nos cours, avec des explications détaillées et des exemples.</p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="feature-card">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                        <h5>Aide à la programmation</h5>
+                                        <p class="text-light-muted">Recevez de l'aide pour déboguer votre code, comprendre des concepts de programmation ou obtenir des exemples.</p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="feature-card">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-search"></i>
+                                        </div>
+                                        <h5>Recherche intelligente</h5>
+                                        <p class="text-light-muted">Trouvez rapidement des informations spécifiques dans notre vaste bibliothèque de ressources éducatives.</p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="feature-card">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-shield-alt"></i>
+                                        </div>
+                                        <h5>Conseils de sécurité</h5>
+                                        <p class="text-light-muted">Obtenez des recommandations sur les meilleures pratiques en matière de cybersécurité et de protection des données.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center mb-3" href="index.html">
+                        <div class="logo-icon me-2">
+                            <i class="fas fa-cube fa-lg text-success"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="fw-bold text-light">Trinity</span><span class="text-success fw-bold">Pro</span>
+                        </div>
+                    </a>
+                    <p class="text-light-muted">Plateforme de formation en cybersécurité, hacking éthique et programmation. Formez-vous avec des experts du domaine et rejoignez une communauté passionnée.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-discord fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="text-light mb-4">Liens Rapides</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-light-muted hover-success">Accueil</a></li>
+                        <li class="mb-2"><a href="#courses" class="text-light-muted hover-success">Cours</a></li>
+                        <li class="mb-2"><a href="#features" class="text-light-muted hover-success">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="inscription.html" class="text-light-muted hover-success">Inscription</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="text-light mb-4">Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#library" class="text-light-muted hover-success">Bibliothèque</a></li>
+                        <li class="mb-2"><a href="#exercises" class="text-light-muted hover-success">Exercices</a></li>
+                        <li class="mb-2"><a href="#forum" class="text-light-muted hover-success">Forum</a></li>
+                        <li class="mb-2"><a href="#faq" class="text-light-muted hover-success">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="text-light mb-4">Newsletter</h5>
+                    <p class="text-light-muted mb-3">Recevez nos dernières actualités et offres spéciales</p>
+                    <form class="d-flex">
+                        <input type="email" class="form-control bg-dark-card border-0 text-light me-2" placeholder="Votre email">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <hr class="border-secondary my-4">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="text-light-muted mb-md-0">© 2025 Trinity Pro. Tous droits réservés.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-light-muted hover-success">Conditions d'utilisation</a>
+                    <a href="#" class="text-light-muted hover-success">Politique de confidentialité</a>
+                    <a href="#" class="text-light-muted hover-success">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Highlight.js for code syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- Particles.js -->
+    <script src="js/particles.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Initialize Highlight.js
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+        
+        // Chat functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatForm = document.getElementById('chatForm');
+            const userInput = document.getElementById('userInput');
+            const chatMessages = document.getElementById('chatMessages');
+            const clearChatButton = document.getElementById('clearChat');
+            const micButton = document.getElementById('micButton');
+            
+            // Function to add a message to the chat
+            function addMessage(content, isUser = false) {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timeString = `${hours}:${minutes}`;
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+                
+                let headerHTML = '';
+                if (isUser) {
+                    headerHTML = `
+                        <div class="message-header">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>Vous</div>
+                        </div>
+                    `;
+                } else {
+                    headerHTML = `
+                        <div class="message-header">
+                            <div class="assistant-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>Assistant Trinity</div>
+                        </div>
+                    `;
+                }
+                
+                // Process content for code blocks
+                let processedContent = content;
+                if (!isUser) {
+                    // Replace markdown-style code blocks with HTML
+                    processedContent = processedContent.replace(/```(\w+)?\n([\s\S]*?)```/g, function(match, language, code) {
+                        return `<pre><code class="language-${language || 'plaintext'}">${code.trim()}</code></pre>`;
+                    });
+                    
+                    // Replace inline code
+                    processedContent = processedContent.replace(/`([^`]+)`/g, '<code>$1</code>');
+                }
+                
+                messageDiv.innerHTML = `
+                    ${headerHTML}
+                    <div class="message-content">
+                        ${isUser ? `<p>${processedContent}</p>` : processedContent}
+                    </div>
+                    <div class="message-time">${timeString}</div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Highlight code blocks in the new message
+                if (!isUser) {
+                    const codeBlocks = messageDiv.querySelectorAll('pre code');
+                    codeBlocks.forEach(block => {
+                        hljs.highlightElement(block);
+                    });
+                }
+            }
+            
+            // Function to show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message assistant typing-message';
+                typingDiv.innerHTML = `
+                    <div class="message-header">
+                        <div class="assistant-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>Assistant Trinity</div>
+                    </div>
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                `;
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return typingDiv;
+            }
+            
+            // Function to remove typing indicator
+            function removeTypingIndicator() {
+                const typingMessage = document.querySelector('.typing-message');
+                if (typingMessage) {
+                    typingMessage.remove();
+                }
+            }
+            
+            // Function to generate AI response
+            async function generateResponse(userMessage) {
+                // This is a placeholder for the actual Cloudflare AI integration
+                // In a real implementation, this would make an API call to Cloudflare's AI service
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Sample responses based on user input
+                const lowerCaseMessage = userMessage.toLowerCase();
+                
+                if (lowerCaseMessage.includes('cybersécurité') || lowerCaseMessage.includes('débuter')) {
+                    return `
+                        <p>Pour débuter en cybersécurité, je vous recommande de suivre ces étapes :</p>
+                        <ol>
+                            <li><strong>Acquérir des connaissances fondamentales</strong> en réseaux, systèmes d'exploitation (Windows, Linux) et programmation de base.</li>
+                            <li><strong>Suivre nos cours d'introduction</strong> à la cybersécurité et au hacking éthique pour comprendre les concepts essentiels.</li>
+                            <li><strong>Pratiquer dans des environnements sécurisés</strong> comme les plateformes CTF (Capture The Flag), HackTheBox ou TryHackMe.</li>
+                            <li><strong>Se familiariser avec les outils</strong> comme Kali Linux, Wireshark, Metasploit et Burp Suite.</li>
+                            <li><strong>Obtenir des certifications</strong> comme CompTIA Security+, CEH (Certified Ethical Hacker) ou OSCP (Offensive Security Certified Professional).</li>
+                        </ol>
+                        <p>Nos cours de <a href="cours/cybersecurite/hacking-ethique.html">Hacking Éthique</a> et <a href="cours/cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a> sont d'excellents points de départ.</p>
+                    `;
+                } else if (lowerCaseMessage.includes('c++') || lowerCaseMessage.includes('cpp')) {
+                    return `
+                        <p>Le C++ est un langage de programmation puissant et polyvalent. Voici les concepts fondamentaux :</p>
+                        <ul>
+                            <li><strong>Syntaxe de base</strong> : déclarations, variables, types de données, opérateurs</li>
+                            <li><strong>Structures de contrôle</strong> : if/else, switch, boucles (for, while, do-while)</li>
+                            <li><strong>Fonctions</strong> : déclaration, définition, paramètres, valeurs de retour</li>
+                            <li><strong>Programmation orientée objet</strong> : classes, objets, héritage, polymorphisme, encapsulation</li>
+                            <li><strong>Gestion de la mémoire</strong> : pointeurs, références, allocation dynamique</li>
+                        </ul>
+                        <p>Voici un exemple simple de programme C++ :</p>
+                        <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout << "Hello, World!" << endl;
+    
+    // Variables et types
+    int nombre = 42;
+    double pi = 3.14159;
+    string texte = "C++ est puissant";
+    
+    // Structure conditionnelle
+    if (nombre > 40) {
+        cout << "Le nombre est supérieur à 40" << endl;
+    } else {
+        cout << "Le nombre est inférieur ou égal à 40" << endl;
+    }
+    
+    // Boucle
+    for (int i = 0; i < 5; i++) {
+        cout << "Itération " << i << endl;
+    }
+    
+    return 0;
+}</code></pre>
+                        <p>Je vous recommande de consulter notre cours <a href="cours/programmation/cpp/fondamentaux-part1.html">C++ Fondamentaux</a> pour approfondir ces concepts.</p>
+                    `;
+                } else if (lowerCaseMessage.includes('anti-cheat') || lowerCaseMessage.includes('anticheat')) {
+                    return `
+                        <p>Le contournement d'anti-cheat est une pratique qui consiste à éviter ou neutraliser les systèmes de détection de triche dans les jeux vidéo. C'est un domaine complexe qui se situe à l'intersection de la rétro-ingénierie, de la programmation système et de l'analyse de sécurité.</p>
+                        <p><strong>Important</strong> : Cette connaissance est enseignée uniquement à des fins éducatives et de recherche en sécurité. L'utilisation de ces techniques pour tricher dans des jeux en ligne est généralement contraire aux conditions d'utilisation et peut entraîner des bannissements.</p>
+                        <p>Les systèmes anti-cheat modernes utilisent diverses techniques :</p>
+                        <ul>
+                            <li>Analyse de la mémoire du jeu</li>
+                            <li>Détection d'injection de code</li>
+                            <li>Surveillance des processus</li>
+                            <li>Vérification de l'intégrité des fichiers</li>
+                            <li>Détection comportementale</li>
+                        </ul>
+                        <p>Notre cours sur le <a href="cours/game-hacking/anticheat/contournement-introduction.html">Contournement d'Anti-Cheat</a> couvre ces sujets en profondeur, avec une approche éthique et responsable.</p>
+                    `;
+                } else if (lowerCaseMessage.includes('osint') || lowerCaseMessage.includes('outils')) {
+                    return `
+                        <p>L'OSINT (Open Source Intelligence) utilise une variété d'outils pour collecter et analyser des informations provenant de sources publiques. Voici quelques outils recommandés :</p>
+                        <h5>Recherche générale</h5>
+                        <ul>
+                            <li><strong>Maltego</strong> - Outil de visualisation de liens pour cartographier les relations</li>
+                            <li><strong>Google Dorks</strong> - Requêtes de recherche avancées pour trouver des informations spécifiques</li>
+                            <li><strong>Shodan</strong> - Moteur de recherche pour les appareils connectés à Internet</li>
+                        </ul>
+                        <h5>Réseaux sociaux</h5>
+                        <ul>
+                            <li><strong>Sherlock</strong> - Recherche de noms d'utilisateur sur différentes plateformes</li>
+                            <li><strong>Social Analyzer</strong> - Analyse de profils sur plus de 300 sites web</li>
+                            <li><strong>Twint</strong> - Outil avancé de scraping Twitter sans API</li>
+                        </ul>
+                        <h5>Analyse de domaines et d'adresses IP</h5>
+                        <ul>
+                            <li><strong>Whois</strong> - Informations sur l'enregistrement des domaines</li>
+                            <li><strong>DNSdumpster</strong> - Cartographie DNS</li>
+                            <li><strong>Censys</strong> - Informations sur les hôtes et réseaux exposés</li>
+                        </ul>
+                        <p>Notre cours <a href="cours/osint/introduction.html">Introduction à l'OSINT</a> couvre l'utilisation éthique de ces outils.</p>
+                    `;
+                } else {
+                    return `
+                        <p>Merci pour votre question. Pour vous aider plus efficacement, pourriez-vous préciser davantage ce que vous recherchez ? Je peux vous fournir des informations sur :</p>
+                        <ul>
+                            <li>La cybersécurité et le hacking éthique</li>
+                            <li>La programmation (C++, Java, Python, etc.)</li>
+                            <li>Le game hacking et les systèmes anti-cheat</li>
+                            <li>L'OSINT (Open Source Intelligence)</li>
+                            <li>Les outils spécialisés pour ces domaines</li>
+                        </ul>
+                        <p>N'hésitez pas à poser une question plus spécifique ou à explorer nos cours disponibles dans le menu principal.</p>
+                    `;
+                }
+            }
+            
+            // Handle form submission
+            chatForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const userMessage = userInput.value.trim();
+                if (!userMessage) return;
+                
+                // Add user message to chat
+                addMessage(userMessage, true);
+                userInput.value = '';
+                
+                // Show typing indicator
+                const typingIndicator = showTypingIndicator();
+                
+                try {
+                    // Generate AI response
+                    const response = await generateResponse(userMessage);
+                    
+                    // Remove typing indicator and add AI response
+                    removeTypingIndicator();
+                    addMessage(response);
+                } catch (error) {
+                    console.error('Error generating response:', error);
+                    removeTypingIndicator();
+                    addMessage('<p>Désolé, une erreur s\'est produite lors de la génération de la réponse. Veuillez réessayer.</p>');
+                }
+            });
+            
+            // Handle suggestion clicks
+            window.selectSuggestion = function(suggestion) {
+                userInput.value = suggestion;
+                userInput.focus();
+            };
+            
+            // Clear chat
+            clearChatButton.addEventListener('click', function() {
+                // Keep only the first welcome message
+                const welcomeMessage = chatMessages.firstElementChild;
+                chatMessages.innerHTML = '';
+                if (welcomeMessage) {
+                    chatMessages.appendChild(welcomeMessage);
+                }
+            });
+            
+            // Microphone functionality (placeholder)
+            micButton.addEventListener('click', function() {
+                // Toggle recording class for visual feedback
+                this.classList.toggle('recording');
+                
+                // In a real implementation, this would use the Web Speech API
+                // For now, just show a message after a delay
+                if (this.classList.contains('recording')) {
+                    setTimeout(() => {
+                        this.classList.remove('recording');
+                        alert('La reconnaissance vocale serait intégrée ici avec l\'API Cloudflare.');
+                    }, 2000);
+                }
+            });
+        });
+    </script>

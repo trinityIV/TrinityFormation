@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Inscription</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .form-control {
+            background-color: #1e1e1e;
+            border: 1px solid #2c3e50;
+            color: #fff;
+        }
+        .form-control:focus {
+            background-color: #1e1e1e;
+            border-color: #3498db;
+            color: #fff;
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        .form-label {
+            color: #e0e0e0;
+        }
+        .form-text {
+            color: #95a5a6;
+        }
+        .form-check-input {
+            background-color: #1e1e1e;
+            border: 1px solid #2c3e50;
+        }
+        .form-check-input:checked {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        .form-check-label {
+            color: #e0e0e0;
+        }
+        .card-header {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+        .password-strength {
+            height: 5px;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+        .password-feedback {
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Particles Background -->
+    <div id="particles-js" class="particles-container"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#courses">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="cours/cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="cours/game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="cours/game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="cours/game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="cours/programmation/cpp/fondamentaux-part1.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="cours/programmation/java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="cours/programmation/python/fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="cours/osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="cours/osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#library">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="#exercises">Exercices</a></li>
+                            <li><a class="dropdown-item" href="#forum">Forum</a></li>
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Téléchargements</h6></li>
+                            <li><a class="dropdown-item" href="#cheatsheets">Cheatsheets</a></li>
+                            <li><a class="dropdown-item" href="#templates">Templates</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><h6 class="dropdown-header">Essentiels</h6></li>
+                            <li><a class="dropdown-item" href="#free-tools">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="#dev-tools">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="#practical-tools">Outils Pratiques</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Spécialisés</h6></li>
+                            <li><a class="dropdown-item" href="#game-hacking-tools">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="#game-engines">Moteurs de Jeux</a></li>
+                            <li><a class="dropdown-item" href="#mobile-hacking">Mobile Hacking</a></li>
+                            <li><a class="dropdown-item" href="#protection">Protection</a></li>
+                            <li><a class="dropdown-item" href="#advanced-techniques">Techniques Avancées</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#events">Événements</a></li>
+                            <li><a class="dropdown-item" href="#discord">Discord</a></li>
+                            <li><a class="dropdown-item" href="#contribute">Contribuer</a></li>
+                            <li><a class="dropdown-item" href="#partners">Partenaires</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-5 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card bg-dark border-primary" data-aos="fade-up">
+                    <div class="card-header bg-dark text-primary">
+                        <h3 class="mb-0"><i class="fas fa-user-plus me-2"></i>Créer un compte</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-light-muted mb-4">Rejoignez notre communauté pour accéder à tous les cours, exercices et ressources de Trinity Pro.</p>
+                        
+                        <form id="signupForm" class="needs-validation" novalidate>
+                            <!-- Informations personnelles -->
+                            <div class="mb-4">
+                                <h5 class="text-primary mb-3">Informations personnelles</h5>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">Prénom</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez entrer votre prénom.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Nom</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez entrer votre nom.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <label for="email" class="form-label">Adresse e-mail</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">
+                                        Veuillez entrer une adresse e-mail valide.
+                                    </div>
+                                    <div class="form-text">Nous ne partagerons jamais votre e-mail avec des tiers.</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Informations de compte -->
+                            <div class="mb-4">
+                                <h5 class="text-primary mb-3">Informations de compte</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                                    <input type="text" class="form-control" id="username" required>
+                                    <div class="invalid-feedback">
+                                        Veuillez choisir un nom d'utilisateur.
+                                    </div>
+                                    <div class="form-text">Lettres, chiffres et tirets uniquement (3-20 caractères).</div>
+                                </div>
+                                
+                                <div class="mb-3 position-relative">
+                                    <label for="password" class="form-label">Mot de passe</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                    <span class="password-toggle" onclick="togglePasswordVisibility('password')">
+                                        <i class="far fa-eye"></i>
+                                    </span>
+                                    <div class="invalid-feedback">
+                                        Veuillez entrer un mot de passe.
+                                    </div>
+                                    <div class="progress password-strength">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                    <div class="password-feedback text-muted"></div>
+                                </div>
+                                
+                                <div class="mb-3 position-relative">
+                                    <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                    <span class="password-toggle" onclick="togglePasswordVisibility('confirmPassword')">
+                                        <i class="far fa-eye"></i>
+                                    </span>
+                                    <div class="invalid-feedback">
+                                        Les mots de passe ne correspondent pas.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Préférences -->
+                            <div class="mb-4">
+                                <h5 class="text-primary mb-3">Préférences</h5>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Domaines d'intérêt</label>
+                                    <div class="row g-2">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="interestCyber">
+                                                <label class="form-check-label" for="interestCyber">Cybersécurité</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="interestGameHacking">
+                                                <label class="form-check-label" for="interestGameHacking">Game Hacking</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="interestOSINT">
+                                                <label class="form-check-label" for="interestOSINT">OSINT</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="interestProgramming">
+                                                <label class="form-check-label" for="interestProgramming">Programmation</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="interestTools">
+                                                <label class="form-check-label" for="interestTools">Outils</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="interestOther">
+                                                <label class="form-check-label" for="interestOther">Autre</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="experienceLevel" class="form-label">Niveau d'expérience</label>
+                                    <select class="form-select bg-dark text-light border-secondary" id="experienceLevel">
+                                        <option value="beginner">Débutant</option>
+                                        <option value="intermediate">Intermédiaire</option>
+                                        <option value="advanced">Avancé</option>
+                                        <option value="expert">Expert</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Conditions -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                    <label class="form-check-label" for="termsCheck">
+                                        J'accepte les <a href="#" class="text-primary">conditions d'utilisation</a> et la <a href="#" class="text-primary">politique de confidentialité</a>
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Vous devez accepter les conditions pour continuer.
+                                    </div>
+                                </div>
+                                
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" id="newsletterCheck">
+                                    <label class="form-check-label" for="newsletterCheck">
+                                        Je souhaite recevoir la newsletter et les mises à jour
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Captcha -->
+                            <div class="mb-4">
+                                <div class="captcha-container p-3 border border-secondary rounded">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="captcha-text fw-bold fs-5 user-select-none">
+                                            <span class="text-primary">7</span><span class="text-success">D</span><span class="text-warning">9</span><span class="text-danger">F</span><span class="text-info">2</span>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="refreshCaptcha()">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-2">
+                                        <input type="text" class="form-control" id="captchaInput" placeholder="Entrez le code ci-dessus" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez entrer le code captcha.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-user-plus me-2"></i>Créer mon compte
+                                </button>
+                                <p class="text-center mt-3">
+                                    Vous avez déjà un compte? <a href="connexion.html" class="text-primary">Connectez-vous</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center mb-3" href="index.html">
+                        <div class="logo-icon me-2">
+                            <i class="fas fa-cube fa-lg text-success"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="fw-bold text-light">Trinity</span><span class="text-success fw-bold">Pro</span>
+                        </div>
+                    </a>
+                    <p class="text-light-muted">Plateforme de formation en cybersécurité, hacking éthique et programmation. Formez-vous avec des experts du domaine et rejoignez une communauté passionnée.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-light-muted hover-success"><i class="fab fa-discord fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="text-light mb-4">Liens Rapides</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-light-muted hover-success">Accueil</a></li>
+                        <li class="mb-2"><a href="#courses" class="text-light-muted hover-success">Cours</a></li>
+                        <li class="mb-2"><a href="#features" class="text-light-muted hover-success">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="inscription.html" class="text-light-muted hover-success">Inscription</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="text-light mb-4">Ressources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#library" class="text-light-muted hover-success">Bibliothèque</a></li>
+                        <li class="mb-2"><a href="#exercises" class="text-light-muted hover-success">Exercices</a></li>
+                        <li class="mb-2"><a href="#forum" class="text-light-muted hover-success">Forum</a></li>
+                        <li class="mb-2"><a href="#faq" class="text-light-muted hover-success">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="text-light mb-4">Newsletter</h5>
+                    <p class="text-light-muted mb-3">Recevez nos dernières actualités et offres spéciales</p>
+                    <form class="d-flex">
+                        <input type="email" class="form-control bg-dark-card border-0 text-light me-2" placeholder="Votre email">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <hr class="border-secondary my-4">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="text-light-muted mb-md-0">© 2025 Trinity Pro. Tous droits réservés.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-light-muted hover-success">Conditions d'utilisation</a>
+                    <a href="#" class="text-light-muted hover-success">Politique de confidentialité</a>
+                    <a href="#" class="text-light-muted hover-success">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Particles.js -->
+    <script src="js/particles.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <!-- Auth JS -->
+    <script src="js/auth.js"></script>

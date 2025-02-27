@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Introduction à l'OSINT</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .info-box {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 4px solid #ff5722;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .tool-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .osint-diagram {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            display: block;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #2196f3;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #2196f3;
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: #2196f3;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#courses">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="../cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="../cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="../cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="../cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="../cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="../game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="../game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="../game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="../programmation/cpp/fondamentaux-part1.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../programmation/java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../programmation/python/fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item active" href="introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#library">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="#exercises">Exercices</a></li>
+                            <li><a class="dropdown-item" href="#forum">Forum</a></li>
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#free-tools">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="#dev-tools">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="#practical-tools">Outils Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="#events">Événements</a></li>
+                            <li><a class="dropdown-item" href="#discord">Discord</a></li>
+                            <li><a class="dropdown-item" href="#contribute">Contribuer</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../../assistant-ia.html">
+                            <i class="fas fa-robot me-1"></i> Assistant IA
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="../../connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-9">
+                                <h1 class="card-title text-info">Introduction à l'OSINT</h1>
+                                <div class="d-flex align-items-center mb-3">
+                                    <span class="badge bg-success me-2">Niveau: Débutant</span>
+                                    <span class="badge bg-info me-2">Durée: 3 heures</span>
+                                    <span class="badge bg-primary">OSINT</span>
+                                </div>
+                                <p class="card-text">Ce cours vous introduit aux concepts fondamentaux de l'OSINT (Open Source Intelligence) ou renseignement en sources ouvertes. Vous découvrirez les principes, les méthodes et les outils utilisés pour collecter et analyser des informations provenant de sources publiques.</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <i class="fas fa-search-location text-info" style="font-size: 5rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#definition">1. Définition de l'OSINT</a>
+                            <a class="nav-link" href="#histoire">2. Histoire et Évolution</a>
+                            <a class="nav-link" href="#cycle">3. Le Cycle de l'OSINT</a>
+                            <a class="nav-link" href="#sources">4. Sources d'Information</a>
+                            <a class="nav-link" href="#outils">5. Outils Essentiels</a>
+                            <a class="nav-link" href="#ethique">6. Considérations Éthiques et Légales</a>
+                            <a class="nav-link" href="#methodologie">7. Méthodologie de Base</a>
+                            <a class="nav-link" href="#exercices">8. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <section id="definition">
+                            <h2 class="text-info">1. Définition de l'OSINT</h2>
+                            <p>L'OSINT (Open Source Intelligence) ou renseignement en sources ouvertes est le processus de collecte, d'analyse et de prise de décision basé sur des informations accessibles publiquement. Contrairement aux méthodes de renseignement traditionnelles, l'OSINT n'utilise que des sources d'information légalement accessibles au public.</p>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Qu'est-ce qu'une "source ouverte"?</h5>
+                                <p>Une source ouverte est toute information accessible légalement sans nécessiter d'autorisation spéciale, de moyens clandestins ou d'accès privilégié. Cela inclut:</p>
+                                <ul>
+                                    <li>Internet (sites web, blogs, forums, réseaux sociaux)</li>
+                                    <li>Médias traditionnels (journaux, magazines, télévision, radio)</li>
+                                    <li>Publications académiques et scientifiques</li>
+                                    <li>Données gouvernementales publiques</li>
+                                    <li>Conférences et présentations publiques</li>
+                                    <li>Images satellites commerciales</li>
+                                </ul>
+                            </div>
+                            
+                            <h3 class="text-info mt-4">1.1 Différence entre OSINT et autres formes de renseignement</h3>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Sources</th>
+                                            <th>Accessibilité</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>OSINT</strong><br>(Open Source Intelligence)</td>
+                                            <td>Renseignement basé sur des sources ouvertes et publiques</td>
+                                            <td>Internet, médias, publications, données publiques</td>
+                                            <td>Accessible à tous</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>HUMINT</strong><br>(Human Intelligence)</td>
+                                            <td>Renseignement obtenu par des sources humaines</td>
+                                            <td>Informateurs, agents, interrogatoires</td>
+                                            <td>Réservé aux agences officielles</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>SIGINT</strong><br>(Signals Intelligence)</td>
+                                            <td>Renseignement basé sur l'interception de signaux</td>
+                                            <td>Communications électroniques, radars</td>
+                                            <td>Réservé aux agences officielles</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>IMINT</strong><br>(Imagery Intelligence)</td>
+                                            <td>Renseignement basé sur l'imagerie</td>
+                                            <td>Satellites, drones, reconnaissance aérienne</td>
+                                            <td>Partiellement accessible (images satellites commerciales)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h3 class="text-info mt-4">1.2 Applications de l'OSINT</h3>
+                            
+                            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">Cybersécurité</h5>
+                                            <ul>
+                                                <li>Évaluation de la surface d'attaque</li>
+                                                <li>Recherche de fuites de données</li>
+                                                <li>Analyse des menaces</li>
+                                                <li>Threat Intelligence</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">Investigation</h5>
+                                            <ul>
+                                                <li>Journalisme d'investigation</li>
+                                                <li>Enquêtes criminelles</li>
+                                                <li>Due diligence</li>
+                                                <li>Vérification des faits</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">Business Intelligence</h5>
+                                            <ul>
+                                                <li>Analyse concurrentielle</li>
+                                                <li>Études de marché</li>
+                                                <li>Réputation en ligne</li>
+                                                <li>Veille stratégique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="histoire">
+                            <h2 class="text-info">2. Histoire et Évolution</h2>
+                            <p>L'OSINT n'est pas un concept nouveau, mais son importance et ses méthodes ont considérablement évolué avec l'avènement d'Internet et des technologies numériques.</p>
+                            
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Années 1940</div>
+                                    <div class="timeline-content">
+                                        <p>Pendant la Seconde Guerre mondiale, les services de renseignement analysaient systématiquement les journaux, les émissions radio et autres médias publics pour obtenir des informations sur l'ennemi.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">1941</div>
+                                    <div class="timeline-content">
+                                        <p>Création du Foreign Broadcast Information Service (FBIS) aux États-Unis pour surveiller les émissions de radio étrangères.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Guerre Froide</div>
+                                    <div class="timeline-content">
+                                        <p>L'OSINT devient une composante importante du renseignement, avec l'analyse des publications scientifiques, des discours politiques et des médias des pays du bloc soviétique.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Années 1990</div>
+                                    <div class="timeline-content">
+                                        <p>Avec l'émergence d'Internet, l'OSINT commence à prendre une nouvelle dimension. La quantité d'informations disponibles augmente exponentiellement.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">2001</div>
+                                    <div class="timeline-content">
+                                        <p>Après les attentats du 11 septembre, l'importance de l'OSINT est reconnue dans la lutte contre le terrorisme. La Commission du 11 septembre recommande un renforcement des capacités OSINT.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">2005-2010</div>
+                                    <div class="timeline-content">
+                                        <p>L'explosion des réseaux sociaux (Facebook, Twitter) crée de nouvelles sources d'information et de nouvelles méthodes d'analyse.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">2010-2020</div>
+                                    <div class="timeline-content">
+                                        <p>Développement d'outils spécialisés pour l'OSINT. Démocratisation des techniques auparavant réservées aux agences gouvernementales. Émergence du journalisme citoyen et des enquêtes collaboratives comme Bellingcat.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Aujourd'hui</div>
+                                    <div class="timeline-content">
+                                        <p>L'OSINT est devenu un domaine à part entière, avec ses propres méthodologies, outils et communautés. Il est utilisé dans de nombreux secteurs, de la cybersécurité au journalisme d'investigation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>L'impact de la révolution numérique</h5>
+                                <p>La révolution numérique a transformé l'OSINT de plusieurs façons:</p>
+                                <ul>
+                                    <li><strong>Volume</strong>: La quantité d'informations disponibles a explosé</li>
+                                    <li><strong>Accessibilité</strong>: Les outils et techniques sont désormais à la portée de tous</li>
+                                    <li><strong>Rapidité</strong>: L'information circule en temps réel</li>
+                                    <li><strong>Diversité</strong>: Multiplication des types de sources (réseaux sociaux, IoT, etc.)</li>
+                                </ul>
+                            </div>
+                        </section>
+                        
+                        <hr class="border-secondary my-5">
+                        
+                        <section id="cycle">
+                            <h2 class="text-info">3. Le Cycle de l'OSINT</h2>
+                            <p>Le processus OSINT suit généralement un cycle en plusieurs étapes, similaire au cycle du renseignement traditionnel.</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-8 mx-auto">
+                                    <div class="card bg-dark-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center text-info mb-4">Le Cycle de l'OSINT</h5>
+                                            <div class="text-center mb-4">
+                                                <img src="https://i.imgur.com/JQOJbVS.png" alt="Cycle OSINT" class="img-fluid rounded" style="max-width: 500px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-info mt-4">3.1 Planification et Direction</h3>
+                            <p>Cette première étape consiste à définir clairement les objectifs de la recherche et à planifier la collecte d'informations.</p>
+                            
+                            <ul>
+                                <li><strong>Définir les questions de recherche</strong>: Que cherchez-vous exactement?</li>
+                                <li><strong>Identifier les besoins en information</strong>: Quelles informations sont nécessaires pour répondre à ces questions?</li>
+                                <li><strong>Établir des priorités</strong>: Quelles informations sont les plus importantes?</li>
+                                <li><strong>Définir les contraintes</strong>: Temps, ressources, considérations légales et éthiques</li>
+                            </ul>
+                            
+                            <div class="tip-box">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>Conseil</h5>
+                                <p>Utilisez la méthode des 5W+H pour structurer vos questions de recherche:</p>
+                                <ul>
+                                    <li><strong>Who</strong> (Qui): Personnes ou organisations concernées</li>
+                                    <li><strong>What</strong> (Quoi): Nature de l'information recherchée</li>
+                                    <li><strong>When</strong> (Quand): Période concernée</li>
+                                    <li><strong>Where</strong> (Où): Localisation géographique</li>
+                                    <li><strong>Why</strong> (Pourquoi): Motivation ou contexte</li>
+                                    <li><strong>How</strong> (Comment): Méthodes ou processus</li>
+                                </ul>
+                            </div>
+                            
+                            <h3 class="text-info mt-4">3.2 Collecte</h3>
+                            <p>Cette étape consiste à rassembler les informations pertinentes à partir de diverses sources ouvertes.</p>
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">Méthodes de collecte</h5>
+                                            <ul>
+                                                <li>Recherche web (moteurs de recherche, recherche avancée)</li>
+                                                <li>Surveillance des réseaux sociaux</li>
+                                                <li>Analyse de métadonnées</li>
+                                                <li>Scraping de sites web</li>
+                                                <li>Utilisation d'API</li>
+                                                <li>Consultation d'archives</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-dark-card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">Bonnes pratiques</h5>
+                                            <ul>
+                                                <li>Documenter les sources (URL, date d'accès)</li>
+                                                <li>Sauvegarder les informations (captures d'écran, archives)</li>
+                                                <li>Diversifier les sources</li>
+                                                <li>Utiliser des outils spécialisés</li>
+                                                <li>Respecter les limites légales et éthiques</li>
+                                                <li>Protéger votre anonymat si nécessaire</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-info mt-4">3.3 Traitement et Exploitation</h3>
+                            <p>Cette étape consiste à organiser, filtrer et préparer les informations brutes collectées pour l'analyse.</p>
+                            
+                            <ul>
+                                <li><strong>Tri et organisation</strong>: Classer les informations par thème, date, source, etc.</li>
+                                <li><strong>Validation</strong>: Vérifier l'authenticité et la fiabilité des informations</li>
+                                <li><strong>Conversion</strong>: Transformer les données dans un format utilisable</li>
+                                <li><strong>

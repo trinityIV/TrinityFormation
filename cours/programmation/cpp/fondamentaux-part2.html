@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Fondamentaux C++ (Suite)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Fondamentaux C++ (Suite)</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant</span>
+                            <span class="badge bg-info me-2">Durée: 8 heures</span>
+                            <span class="badge bg-primary">Programmation</span>
+                        </div>
+                        <p class="card-text">Suite du cours sur les fondamentaux de C++. Cette partie couvre les tableaux et chaînes, les pointeurs et références, les classes et objets, ainsi que des exercices pratiques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 50%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="fondamentaux-part1.html#introduction">1. Introduction au C++</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#environnement">2. Environnement de développement</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#syntaxe">3. Syntaxe de base</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#variables">4. Variables et Types</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#operateurs">5. Opérateurs</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#controle">6. Structures de contrôle</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#fonctions">7. Fonctions</a>
+                            <a class="nav-link" href="fondamentaux-part1.html#tableaux">8. Tableaux et Chaînes</a>
+                            <a class="nav-link" href="#pointeurs">9. Pointeurs et Références</a>
+                            <a class="nav-link" href="#classes">10. Classes et Objets</a>
+                            <a class="nav-link" href="#exercices">11. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="tableaux-suite" class="mb-5">
+                    <h2 class="text-primary">8. Tableaux et Chaînes (Suite)</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Tableaux (Suite)</h3>
+                            <p class="card-text">
+                                Voici quelques opérations courantes sur les tableaux:
+                            </p>
+                            
+                            <h4>Déclaration et initialisation:</h4>
+                            <pre><code class="language-cpp">// Déclaration
+int nombres[5];  // Tableau de 5 entiers
+
+// Initialisation
+int scores[3] = {75, 83, 90};
+
+// Initialisation avec taille implicite
+char voyelles[] = {'a', 'e', 'i', 'o', 'u'};</code></pre>
+                            
+                            <h4>Accès aux éléments:</h4>
+                            <pre><code class="language-cpp">// Accès par indice (commence à 0)
+int premier = scores[0];  // 75
+scores[1] = 85;           // Modification</code></pre>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                <strong>Attention:</strong> C++ ne vérifie pas les limites des tableaux. Accéder à un indice hors limites peut causer des comportements indéfinis!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Chaînes de caractères</h3>
+                            <p class="card-text">
+                                Il existe deux façons principales de gérer les chaînes en C++:
+                            </p>
+                            
+                            <h4>Style C (tableaux de caractères):</h4>
+                            <pre><code class="language-cpp">// Chaîne terminée par le caractère nul '\0'
+char nom[10] = "Alice";
+
+// Équivalent à:
+char nom2[10] = {'A', 'l', 'i', 'c', 'e', '\0'};
+
+// Fonctions de manipulation (nécessite #include &lt;cstring&gt;)
+char dest[20];
+strcpy(dest, nom);      // Copie
+strcat(dest, " Smith"); // Concaténation
+int longueur = strlen(nom); // Longueur</code></pre>
+                            
+                            <h4>Classe std::string (moderne):</h4>
+                            <pre><code class="language-cpp">#include &lt;string&gt;
+
+// Déclaration et initialisation
+std::string prenom = "Alice";
+std::string nom = "Smith";
+
+// Concaténation
+std::string nom_complet = prenom + " " + nom;
+
+// Méthodes utiles
+int longueur = nom_complet.length();
+std::string sous_chaine = nom_complet.substr(0, 5);  // "Alice"
+nom_complet.replace(0, 5, "Bob");  // "Bob Smith"</code></pre>
+                            
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Conseil:</strong> Préférez std::string aux chaînes style C quand c'est possible. Elles sont plus sûres et plus faciles à utiliser.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pointeurs" class="mb-5">
+                    <h2 class="text-primary">9. Pointeurs et Références</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Pointeurs</h3>
+                            <p class="card-text">
+                                Les pointeurs sont des variables qui stockent des adresses mémoire:
+                            </p>
+                            
+                            <h4>Déclaration et initialisation:</h4>
+                            <pre><code class="language-cpp">// Déclaration d'un pointeur vers un int
+int* ptr;
+
+// Obtention de l'adresse d'une variable
+int nombre = 42;
+ptr = &nombre;  // & est l'opérateur d'adresse
+
+// Initialisation directe
+int* ptr2 = &nombre;</code></pre>
+                            
+                            <h4>Déréférencement:</h4>
+                            <pre><code class="language-cpp">// Accès à la valeur pointée avec *
+int valeur = *ptr;  // valeur = 42
+
+// Modification de la valeur pointée
+*ptr = 100;  // nombre vaut maintenant 100</code></pre>
+                            
+                            <h4>Pointeur nul:</h4>
+                            <pre><code class="language-cpp">// Pointeur qui ne pointe vers rien
+int* ptr_nul = nullptr;  // C++11 et plus
+
+// Vérification avant utilisation
+if (ptr_nul != nullptr) {
+    *ptr_nul = 10;  // Sécurisé
+}</code></pre>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                <strong>Attention:</strong> Déréférencer un pointeur nul ou non initialisé cause un comportement indéfini, souvent un plantage du programme!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Arithmétique des pointeurs</h3>
+                            <p class="card-text">
+                                Les opérations sur les pointeurs:
+                            </p>
+                            
+                            <pre><code class="language-cpp">int tableau[5] = {10, 20, 30, 40, 50};
+int* ptr = tableau;  // Pointe vers le premier élément
+
+// Accès aux éléments
+int premier = *ptr;        // 10
+int deuxieme = *(ptr + 1); // 20
+
+// Incrémentation
+ptr++;                     // Pointe maintenant vers tableau[1]
+int val = *ptr;            // 20
+
+// Relation avec les indices
+int val2 = *(tableau + 2); // Équivalent à tableau[2]</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> L'arithmétique des pointeurs tient compte de la taille du type. Pour un pointeur <code>int*</code>, <code>ptr + 1</code> avance de 4 octets (taille d'un int).
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Références</h3>
+                            <p class="card-text">
+                                Les références sont des alias pour des variables existantes:
+                            </p>
+                            
+                            <h4>Déclaration et initialisation:</h4>
+                            <pre><code class="language-cpp">int nombre = 42;
+int& ref = nombre;  // ref est une référence à nombre</code></pre>
+                            
+                            <h4>Utilisation:</h4>
+                            <pre><code class="language-cpp">// Modification via la référence
+ref = 100;  // nombre vaut maintenant 100
+
+// Pas besoin de déréférencement
+int valeur = ref;  // valeur = 100</code></pre>
+                            
+                            <h4>Références comme paramètres:</h4>
+                            <pre><code class="language-cpp">// Passage par référence
+void incrementer(int& x) {
+    x++;  // Modifie la variable originale
+}
+
+int n = 5;
+incrementer(n);  // n vaut maintenant 6</code></pre>
+                            
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Avantages des références:</strong>
+                                <ul>
+                                    <li>Syntaxe plus propre que les pointeurs (pas de déréférencement)</li>
+                                    <li>Ne peuvent pas être nulles</li>
+                                    <li>Doivent être initialisées à la déclaration</li>
+                                    <li>Ne peuvent pas être réassignées à une autre variable</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="classes" class="mb-5">
+                    <h2 class="text-primary">10. Classes et Objets</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Définition de classe</h3>
+                            <p class="card-text">
+                                Les classes sont les briques de base de la programmation orientée objet en C++:
+                            </p>
+                            
+                            <pre><code class="language-cpp">class Rectangle {
+private:
+    // Attributs (membres de données)
+    double largeur;
+    double hauteur;
+    
+public:
+    // Constructeur
+    Rectangle(double l, double h) {
+        largeur = l;
+        hauteur = h;
+    }
+    
+    // Méthodes (fonctions membres)
+    double calculerAire() {
+        return largeur * hauteur;
+    }
+    
+    double calculerPerimetre() {
+        return 2 * (largeur + hauteur);
+    }
+    
+    // Accesseurs (getters)
+    double getLargeur() {
+        return largeur;
+    }
+    
+    // Mutateurs (setters)
+    void setLargeur(double l) {
+        if (l > 0) largeur = l;
+    }
+};</code></pre>
+                            
+                            <h4>Utilisation:</h4>
+                            <pre><code class="language-cpp">// Création d'un objet
+Rectangle rect(5.0, 3.0);
+
+// Appel de méthodes
+double aire = rect.calculerAire();       // 15.0
+double perimetre = rect.calculerPerimetre(); // 16.0
+
+// Utilisation des accesseurs/mutateurs
+double l = rect.getLargeur();  // 5.0
+rect.setLargeur(6.0);          // Modification</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Constructeurs et destructeurs</h3>
+                            <p class="card-text">
+                                Fonctions spéciales pour l'initialisation et le nettoyage:
+                            </p>
+                            
+                            <pre><code class="language-cpp">class Personne {
+private:
+    std::string nom;
+    int age;
+    
+public:
+    // Constructeur par défaut
+    Personne() {
+        nom = "Inconnu";
+        age = 0;
+    }
+    
+    // Constructeur avec paramètres
+    Personne(std::string n, int a) {
+        nom = n;
+        age = a;
+    }
+    
+    // Constructeur de copie
+    Personne(const Personne& autre) {
+        nom = autre.nom;
+        age = autre.age;
+    }
+    
+    // Destructeur
+    ~Personne() {
+        // Nettoyage des ressources si nécessaire
+        std::cout << "Destruction de " << nom << std::endl;
+    }
+};</code></pre>
+                            
+                            <h4>Liste d'initialisation:</h4>
+                            <pre><code class="language-cpp">// Syntaxe alternative pour les constructeurs
+Personne(std::string n, int a) : nom(n), age(a) {
+    // Corps du constructeur (peut être vide)
+}</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> La liste d'initialisation est plus efficace, surtout pour les membres constants et les objets.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Héritage et polymorphisme</h3>
+                            <p class="card-text">
+                                L'héritage permet de créer des hiérarchies de classes:
+                            </p>
+                            
+                            <pre><code class="language-cpp">// Classe de base
+class Forme {
+protected:
+    std::string couleur;
+    
+public:
+    Forme(std::string c) : couleur(c) {}
+    
+    // Méthode virtuelle
+    virtual double calculerAire() {
+        return 0.0;
+    }
+    
+    // Destructeur virtuel (important!)
+    virtual ~Forme() {}
+};
+
+// Classe dérivée
+class Cercle : public Forme {
+private:
+    double rayon;
+    
+public:
+    Cercle(std::string c, double r) : Forme(c), rayon(r) {}
+    
+    // Redéfinition de la méthode
+    double calculerAire() override {
+        return 3.14159 * rayon * rayon;
+    }
+};</code></pre>
+                            
+                            <h4>Polymorphisme:</h4>
+                            <pre><code class="language-cpp">// Utilisation polymorphique
+Forme* forme1 = new Cercle("Rouge", 5.0);
+double aire = forme1->calculerAire();  // Appelle Cercle::calculerAire()
+
+// Nettoyage
+delete forme1;  // Appelle le destructeur de Cercle</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Important:</strong> Toujours déclarer le destructeur comme virtuel dans les classes de base pour assurer un nettoyage correct des objets dérivés.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercices" class="mb-5">
+                    <h2 class="text-primary">11. Exercices Pratiques</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Exercice 1: Calculatrice simple</h3>
+                            <p class="card-text">
+                                Créez une calculatrice qui effectue les opérations de base (+, -, *, /).
+                            </p>
+                            
+                            <div class="alert alert-secondary">
+                                <h4>Consignes:</h4>
+                                <ol>
+                                    <li>Créez une classe <code>Calculatrice</code> avec des méthodes pour chaque opération</li>
+                                    <li>Implémentez un menu utilisateur dans la fonction <code>main()</code></li>
+                                    <li>Gérez les erreurs (division par zéro)</li>
+                                </ol>
+                            </div>
+                            
+                            <h4>Solution partielle:</h4>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Calculatrice {
+public:
+    double additionner(double a, double b) {
+        return a + b;
+    }
+    
+    // Implémentez les autres méthodes...
+};
+
+int main() {
+    Calculatrice calc;
+    char operation;
+    double a, b;
+    
+    std::cout << "Entrez une opération (+, -, *, /): ";
+    std::cin >> operation;
+    
+    std::cout << "Entrez deux nombres: ";
+    std::cin >> a >> b;
+    
+    // Implémentez le reste...
+    
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Exercice 2: Gestionnaire de contacts</h3>
+                            <p class="card-text">
+                                Créez un système simple de gestion de contacts.
+                            </p>
+                            
+                            <div class="alert alert-secondary">
+                                <h4>Consignes:</h4>
+                                <ol>
+                                    <li>Créez une classe <code>Contact</code> avec des attributs comme nom, téléphone, email</li>
+                                    <li>Créez une classe <code>GestionnaireContacts</code> qui stocke et gère une liste de contacts</li>
+                                    <li>Implémentez des fonctionnalités pour ajouter, supprimer, rechercher et afficher des contacts</li>
+                                    <li>Utilisez des vecteurs (<code>std::vector</code>) pour stocker les contacts</li>
+                                </ol>
+                            </div>
+                            
+                            <h4>Structure suggérée:</h4>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+class Contact {
+private:
+    std::string nom;
+    std::string telephone;
+    std::string email;
+    
+public:
+    // Constructeur, getters, setters...
+};
+
+class GestionnaireContacts {
+private:
+    std::vector&lt;Contact&gt; contacts;
+    
+public:
+    void ajouterContact(const Contact& c) {
+        contacts.push_back(c);
+    }
+    
+    // Autres méthodes...
+};
+
+int main() {
+    // Implémentez un menu utilisateur
+    return 0;
+}</code></pre>
+                            
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Conseil:</strong> Cet exercice vous permet de pratiquer plusieurs concepts: classes, vecteurs, entrées/sorties, et gestion de la mémoire.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="text-center mb-5">
+                    <a href="fondamentaux-part1.html" class="btn btn-primary me-2">
+                        <i class="fas fa-arrow-left me-2"></i>Partie précédente
+                    </a>
+                    <a href="../avance.html" class="btn btn-success">
+                        Cours avancé<i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-4">
+        <p>Trinity Pro © 2025 - Cours Fondamentaux C++</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = 50 + (completedSections / totalSections) * 50;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

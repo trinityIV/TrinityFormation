@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - IDA Pro Basics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-danger">
+                    <div class="card-body">
+                        <h1 class="card-title text-danger">IDA Pro Basics</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 10 heures</span>
+                            <span class="badge bg-danger">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Introduction au reverse engineering avec IDA Pro. Ce cours vous enseignera les bases de l'utilisation d'IDA Pro pour analyser et comprendre le code des jeux, une compétence essentielle pour le game hacking avancé et le reverse engineering.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction à IDA Pro</a>
+                            <a class="nav-link" href="#installation">2. Installation et Configuration</a>
+                            <a class="nav-link" href="#interface">3. Interface Utilisateur</a>
+                            <a class="nav-link" href="#assembleur">4. Bases du Langage Assembleur</a>
+                            <a class="nav-link" href="#analyse">5. Analyse de Binaires</a>
+                            <a class="nav-link" href="#fonctions">6. Identification des Fonctions</a>
+                            <a class="nav-link" href="#graphes">7. Graphes et Visualisation</a>
+                            <a class="nav-link" href="#pratique">8. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-danger">1. Introduction à IDA Pro</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Qu'est-ce qu'IDA Pro?</h3>
+                            <p class="card-text">
+                                IDA Pro (Interactive Disassembler Professional) est l'un des désassembleurs et débogueurs les plus puissants et les plus utilisés dans l'industrie. Développé par Hex-Rays, cet outil permet d'analyser le code machine des programmes compilés et de le convertir en code assembleur plus lisible, facilitant ainsi le reverse engineering des applications, y compris les jeux vidéo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Pourquoi Utiliser IDA Pro?</h3>
+                            <p class="card-text">
+                                IDA Pro est un outil essentiel pour le game hacking avancé et le reverse engineering pour plusieurs raisons:
+                            </p>
+                            <ul>
+                                <li>Analyse statique approfondie des binaires</li>
+                                <li>Support pour une large gamme d'architectures processeur</li>
+                                <li>Capacités de débogage puissantes</li>
+                                <li>Extensibilité via des plugins et des scripts</li>
+                                <li>Fonctionnalités avancées comme la décompilation (avec le décompilateur Hex-Rays)</li>
+                                <li>Outils d'analyse de flux de contrôle et de données</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Note importante:</strong> IDA Pro est un logiciel commercial coûteux. Pour l'apprentissage, vous pouvez utiliser la version gratuite d'IDA (avec des fonctionnalités limitées) ou des alternatives open-source comme Ghidra, développé par la NSA. Ce cours se concentre sur les concepts qui sont applicables à la plupart des désassembleurs.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+/* 
+ * Trinity Pro - Style principal
+ * Un thème moderne et professionnel pour la plateforme de formation en cybersécurité
+ */
+
+/* ===== Variables ===== */
+:root {
+    /* Couleurs principales */
+    --primary: #00ff00;
+    --primary-dark: #00cc00;
+    --primary-light: #66ff66;
+    --secondary: #0a0a0a;
+    --dark: #121212;
+    --darker: #0a0a0a;
+    --light: #f8f9fa;
+    --light-muted: rgba(255, 255, 255, 0.7);
+    --success: #00ff00;
+    --danger: #ff4d4d;
+    --warning: #ffcc00;
+    --info: #00ccff;
+    
+    /* Couleurs de fond */
+    --bg-dark: #121212;
+    --bg-darker: #0a0a0a;
+    --bg-card: rgba(30, 30, 30, 0.6);
+    
+    /* Ombres */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-success: 0 0 15px rgba(0, 255, 0, 0.5);
+    
+    /* Transitions */
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+    
+    /* Bordures */
+    --border-radius-sm: 0.25rem;
+    --border-radius: 0.5rem;
+    --border-radius-lg: 1rem;
+    --border-width: 1px;
+    --border-width-lg: 2px;
+}
+
+/* ===== Base ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--light);
+    overflow-x: hidden;
+    position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+code, pre {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.text-light-muted {
+    color: var(--light-muted);
+}
+
+.bg-dark {
+    background-color: var(--bg-dark) !important;
+}
+
+.bg-darker {
+    background-color: var(--bg-darker) !important;
+}
+
+.bg-dark-card {
+    background-color: var(--bg-card) !important;
+}
+
+/* ===== Particles Background ===== */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    transition: var(--transition-normal);
+    z-index: 1000;
+}
+
+.navbar-blur {
+    backdrop-filter: blur(10px);
+    background-color: rgba(10, 10, 10, 0.8);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--primary) !important;
+}
+
+.dropdown-menu-blur {
+    backdrop-filter: blur(10px);
+    background-color: rgba(20, 20, 20, 0.9);
+    border: var(--border-width) solid rgba(0, 255, 0, 0.1);
+    box-shadow: var(--shadow-md);
+}
+
+.dropdown-item {
+    transition: var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 255, 0, 0.1);
+    color: var(--primary);
+}
+
+/* ===== Hero Section ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 0;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #ffffff, #00ff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-image-container {
+    position: relative;
+}
+
+.hero-image {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: var(--border-width) solid rgba(0, 255, 0, 0.2);
+}
+
+.hero-image img {
+    transition: var(--transition-slow);
+}
+
+.hero-image:hover img {
+    transform: scale(1.05);
+}
+
+.hero-card {
+    position: absolute;
+    background-color: rgba(20, 20, 20, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    z-index: 2;
+    border: var(--border-width) solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition-normal);
+}
+
+.hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-card-1 {
+    top: 10%;
+    right: -10%;
+    max-width: 250px;
+}
+
+.hero-card-2 {
+    bottom: 10%;
+    left: -10%;
+    max-width: 280px;
+}
+
+.hero-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Avatar Stack */
+.avatar-stack {
+    display: flex;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-dark);
+    margin-left: -10px;
+    object-fit: cover;
+}
+
+.avatar:first-child {
+    margin-left: 0;
+}
+
+.avatar-more {
+    background-color: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* ===== Feature Icons ===== */
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* ===== Counter Section ===== */
+.counter-item {
+    text-align: center;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-card);
+    border: var(--border-width) solid rgba(0, 255, 0, 0.1);
+    transition: var(--transition-normal);
+}
+
+.counter-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-success);
+}
+
+.counter-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--primary), var(--info));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.counter-label {
+    font-size: 1.1rem;
+    color: var(--light-muted);
+}
+
+/* ===== Feature Cards ===== */
+.feature-card {
+    transition: var(--transition-normal);
+    border: var(--border-width) solid rgba(0, 255, 0, 0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-success);
+    border-color: rgba(0, 255, 0, 0.3);
+}
+
+/* ===== Course Cards ===== */
+.course-card {
+    transition: var(--transition-normal);
+    border: none;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    height: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.course-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.2) 100%);
+    border-radius: var(--border-radius);
+}
+
+.category-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    transition: var(--transition-normal);
+}
+
+.btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn-success {
+    background-color: var(--success);
+    border-color: var(--success);
+    color: var(--dark);
+}
+
+.btn-success:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.btn-outline-success {
+    color: var(--success);
+    border-color: var(--success);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--success);
+    color: var(--dark);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+    border: var(--border-width-lg) solid var(--primary);
+    color: var(--light);
+    background-color: transparent;
+    z-index: 1;
+}
+
+.btn-glow:hover {
+    color: var(--dark);
+    box-shadow: 0 0 20px var(--primary);
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--primary);
+    transition: var(--transition-normal);
+    z-index: -1;
+}
+
+.btn-glow:hover::before {
+    width: 100%;
+}
+
+/* ===== Badges ===== */
+.badge {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 992px) {
+    .hero-card-1, .hero-card-2 {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .counter-item {
+        padding: 1.5rem;
+    }
+    
+    .counter-value {
+        font-size: 2rem;
+    }
+    
+    .counter-label {
+        font-size: 1rem;
+    }
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 0, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 0, 0.5);
+}
