@@ -51,27 +51,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Gestion des événements de navigation
+    // Gestion des événements de navigation pour les liens d'ancrage internes uniquement
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // Vérifier que le lien pointe uniquement vers une ancre et non vers une autre page
+        // Les liens vers d'autres pages avec des ancres contiennent généralement '/' ou '.html'
+        if (anchor.getAttribute('href').indexOf('/') === -1 && anchor.getAttribute('href').indexOf('.html') === -1) {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
                 
-                // Fermer le menu mobile après un clic
-                const navbarCollapse = document.querySelector('.navbar-collapse');
-                if (navbarCollapse.classList.contains('show')) {
-                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                    bsCollapse.hide();
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Fermer le menu mobile après un clic
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                        bsCollapse.hide();
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 });

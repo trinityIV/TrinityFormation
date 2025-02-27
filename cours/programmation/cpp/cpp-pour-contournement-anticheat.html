@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - C++ pour le Contournement d'Anti-Cheat</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .warning-box {
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 4px solid #ff5722;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .info-box {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .code-diagram {
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            overflow-x: auto;
+        }
+        
+        .memory-diagram {
+            width: 100%;
+            height: 400px;
+            margin: 1.5rem 0;
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../../index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../cours/index.html">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="fondamentaux.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="avance.html">C++ Avancé</a></li>
+                            <li><a class="dropdown-item active" href="cpp-pour-contournement-anticheat.html">C++ pour Anti-Cheat</a></li>
+                            <li><a class="dropdown-item" href="../java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../python/fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="../../osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="../../osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../ressources/bibliotheque.html">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="../../../ressources/exercices.html">Exercices</a></li>
+                            <li><a class="dropdown-item" href="../../../ressources/forum.html">Forum</a></li>
+                            <li><a class="dropdown-item" href="../../../ressources/faq.html">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../outils/outils-gratuits.html">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="../../../outils/outils-developpement.html">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="../../../outils/outils-pratiques.html">Outils Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../communauté/evenements.html">Événements</a></li>
+                            <li><a class="dropdown-item" href="../../../communauté/discord.html">Discord</a></li>
+                            <li><a class="dropdown-item" href="../../../communauté/contribuer.html">Contribuer</a></li>
+                            <li><a class="dropdown-item" href="../../../communauté/partenaires.html">Partenaires</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../../../assistant-ia.html">
+                            <i class="fas fa-robot me-1"></i> Assistant IA
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="../../../connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">C++ pour le Contournement d'Anti-Cheat</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger me-2">Niveau: Avancé</span>
+                            <span class="badge bg-info me-2">Durée: 8 heures</span>
+                            <span class="badge bg-primary">Programmation</span>
+                            <span class="badge bg-warning text-dark ms-2">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Ce cours explore l'utilisation avancée du C++ spécifiquement pour comprendre et analyser les systèmes anti-triche dans les jeux vidéo. Vous apprendrez à appliquer les concepts avancés du C++ pour développer des outils d'analyse et comprendre les mécanismes de protection.</p>
+                        
+                        <div class="warning-box">
+                            <h5><i class="fas fa-exclamation-triangle text-warning me-2"></i>Avertissement Éthique et Légal</h5>
+                            <p>Les connaissances présentées dans ce cours sont destinées exclusivement à des fins éducatives, de recherche en sécurité et de développement de contre-mesures. L'utilisation de ces techniques pour tricher dans des jeux en ligne est:</p>
+                            <ul>
+                                <li>Généralement contraire aux conditions d'utilisation des jeux</li>
+                                <li>Peut entraîner des bannissements permanents de comptes</li>
+                                <li>Peut potentiellement violer des lois sur la propriété intellectuelle ou l'accès non autorisé</li>
+                                <li>Nuit à l'expérience de jeu des autres joueurs</li>
+                            </ul>
+                            <p class="mb-0">Nous encourageons une approche éthique et responsable de ces connaissances.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#windows-api">2. Windows API et C++</a>
+                            <a class="nav-link" href="#memoire">3. Manipulation de Mémoire</a>
+                            <a class="nav-link" href="#hooks">4. Hooking et Détournement</a>
+                            <a class="nav-link" href="#injection">5. Techniques d'Injection</a>
+                            <a class="nav-link" href="#obfuscation">6. Obfuscation et Protection</a>
+                            <a class="nav-link" href="#kernel">7. Programmation Kernel</a>
+                            <a class="nav-link" href="#patterns">8. Design Patterns pour Anti-Cheat</a>
+                            <a class="nav-link" href="#outils">9. Développement d'Outils</a>
+                            <a class="nav-link" href="#exercices">10. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Pourquoi C++ pour l'Anti-Cheat?</h3>
+                            <p>Le C++ est le langage de prédilection pour l'analyse et le développement d'anti-cheat pour plusieurs raisons:</p>
+                            
+                            <ul>
+                                <li><strong>Performance</strong> - Le C++ offre des performances proches du métal, essentielles pour les opérations sensibles au timing</li>
+                                <li><strong>Accès bas niveau</strong> - Permet la manipulation directe de la mémoire et des ressources système</li>
+                                <li><strong>Compatibilité</strong> - La plupart des jeux et anti-cheats sont développés en C++</li>
+                                <li><strong>Flexibilité</strong> - Supporte à la fois la programmation orientée objet et la programmation procédurale</li>
+                                <li><strong>Écosystème</strong> - Riche bibliothèque d'outils et de frameworks pour le reverse engineering</li>
+                            </ul>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Prérequis</h5>
+                                <p>Ce cours suppose que vous avez déjà une bonne compréhension des fondamentaux du C++ et des concepts avancés comme les pointeurs, la gestion de mémoire, et les templates. Si ce n'est pas le cas, nous vous recommandons de suivre d'abord nos cours <a href="fondamentaux.html" class="text-info">C++ Fondamentaux</a> et <a href="avance.html" class="text-info">C++ Avancé</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Compétences Requises</h3>
+                            <p>Pour tirer le meilleur parti de ce cours, vous devriez être familier avec:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Compétences C++</h5>
+                                            <ul>
+                                                <li>Pointeurs et références</li>
+                                                <li>Gestion de mémoire (new/delete)</li>
+                                                <li>Classes et héritage</li>
+                                                <li>Templates et STL</li>
+                                                <li>Manipulation de bits</li>
+                                                <li>Programmation multi-thread</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Autres connaissances</h5>
+                                            <ul>
+                                                <li>Architecture x86/x64</li>
+                                                <li>Bases d'assembleur</li>
+                                                <li>Système d'exploitation Windows</li>
+                                                <li>Concepts de sécurité informatique</li>
+                                                <li>Bases du reverse engineering</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mt-4">Structure du cours</h4>
+                            <p>Ce cours est structuré pour couvrir progressivement les aspects du C++ pertinents pour l'analyse et le contournement d'anti-cheat:</p>
+                            <ol>
+                                <li>Nous commencerons par les fondamentaux de l'API Windows en C++</li>
+                                <li>Nous explorerons ensuite les techniques de manipulation de mémoire</li>
+                                <li>Nous aborderons les méthodes avancées comme le hooking et l'injection</li>
+                                <li>Nous terminerons par le développement d'outils d'analyse complets</li>
+                            </ol>
+                            
+                            <div class="tip-box">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>Conseil</h5>
+                                <p>Pratiquez régulièrement les concepts présentés dans un environnement de test sécurisé. La compréhension théorique est importante, mais c'est la pratique qui vous permettra de maîtriser ces techniques complexes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="windows-api" class="mb-5">
+                    <h2 class="text-primary">2. Windows API et C++</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Fondamentaux de l'API Windows</h3>
+                            <p>L'API Windows est essentielle pour interagir avec les processus et la mémoire sous Windows:</p>
+                            
+                            <h4>Headers et bibliothèques importantes:</h4>
+                            <pre><code class="language-cpp">#include &lt;windows.h&gt;      // API Windows de base
+#include &lt;tlhelp32.h&gt;      // Fonctions d'énumération de processus
+#include &lt;psapi.h&gt;         // Informations sur les processus
+#include &lt;winternl.h&gt;      // Fonctions NT non documentées
+#include &lt;dbghelp.h&gt;       // Fonctions de débogage</code></pre>
+                            
+                            <h4>Types de données Windows essentiels:</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Équivalent C++</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>HANDLE</code></td>
+                                            <td>Référence à un objet système</td>
+                                            <td><code>void*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>HWND</code></td>
+                                            <td>Handle de fenêtre</td>
+                                            <td><code>void*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>DWORD</code></td>
+                                            <td>Entier 32 bits non signé</td>
+                                            <td><code>unsigned long</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LPVOID</code></td>
+                                            <td>Pointeur générique</td>
+                                            <td><code>void*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LPCSTR</code></td>
+                                            <td>Pointeur vers chaîne constante</td>
+                                            <td><code>const char*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LPWSTR</code></td>
+                                            <td>Pointeur vers chaîne Unicode</td>
+                                            <td><code>wchar_t*</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Manipulation de Processus</h3>
+                            <p>Techniques pour interagir avec les processus Windows:</p>
+                            
+                            <h4>Énumération des processus:</h4>
+                            <pre><code class="language-cpp">// Exemple d'énumération des processus
+void EnumerateProcesses() {
+    // Créer un snapshot des processus
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
+        std::cerr << "CreateToolhelp32Snapshot failed: " << GetLastError() << std::endl;
+        return;
+    }
+    
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+    
+    // Obtenir le premier processus
+    if (!Process32First(hSnapshot, &pe32)) {
+        std::cerr << "Process32First failed: " << GetLastError() << std::endl;
+        CloseHandle(hSnapshot);
+        return;
+    }
+    
+    // Parcourir tous les processus
+    do {
+        std::cout << "Process ID: " << pe32.th32ProcessID << ", Name: " << pe32.szExeFile << std::endl;
+    } while (Process32Next(hSnapshot, &pe32));
+    
+    CloseHandle(hSnapshot);
+}</code></pre>
+                            
+                            <h4>Obtention d'un handle de processus:</h4>
+                            <pre><code class="language-cpp">// Exemple d'obtention d'un handle de processus par nom
+HANDLE GetProcessHandleByName(const std::string& processName) {
+    DWORD pid = 0;
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
+        return NULL;
+    }
+    
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+    
+    if (Process32First(hSnapshot, &pe32)) {
+        do {
+            if (processName == pe32.szExeFile) {
+                pid = pe32.th32ProcessID;
+                break;
+            }
+        } while (Process32Next(hSnapshot, &pe32));
+    }
+    
+    CloseHandle(hSnapshot);
+    
+    if (pid == 0) {
+        return NULL;
+    }
+    
+    // Ouvrir le processus avec les droits nécessaires
+    return OpenProcess(
+        PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION,
+        FALSE,
+        pid
+    );
+}</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Attention:</strong> Les anti-cheats modernes surveillent les appels à <code>OpenProcess</code> et peuvent détecter les tentatives d'accès non autorisées. Des techniques plus avancées sont nécessaires pour éviter la détection.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Énumération des Modules</h3>
+                            <p>Techniques pour énumérer et analyser les modules chargés dans un processus:</p>
+                            
+                            <h4>Énumération des modules:</h4>
+                            <pre><code class="language-cpp">// Exemple d'énumération des modules d'un processus
+void EnumerateModules(DWORD processId) {
+    // Créer un snapshot des modules
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, processId);
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
+        std::cerr << "CreateToolhelp32Snapshot failed: " << GetLastError() << std::endl;
+        return;
+    }
+    
+    MODULEENTRY32 me32;
+    me32.dwSize = sizeof(MODULEENTRY32);
+    
+    // Obtenir le premier module
+    if (!Module32First(hSnapshot, &me32)) {
+        std::cerr << "Module32First failed: " << GetLastError() << std::endl;
+        CloseHandle(hSnapshot);
+        return;
+    }
+    
+    // Parcourir tous les modules
+    do {
+        std::cout << "Module: " << me32.szModule << std::endl;
+        std::cout << "  Base Address: 0x" << std::hex << (uintptr_t)me32.modBaseAddr << std::endl;
+        std::cout << "  Size: 0x" << std::hex << me32.modBaseSize << std::endl;
+        std::cout << "  Path: " << me32.szExePath << std::endl;
+        std::cout << std::dec; // Revenir en décimal
+    } while (Module32Next(hSnapshot, &me32));
+    
+    CloseHandle(hSnapshot);
+}</code></pre>
+                            
+                            <h4>Obtention d'informations sur un module spécifique:</h4>
+                            <pre><code class="language-cpp">// Exemple d'obtention d'informations sur un module spécifique
+MODULEINFO GetModuleInfo(HANDLE hProcess, const std::string& moduleName) {
+    MODULEINFO moduleInfo = {0};
+    HMODULE hMods[1024];
+    DWORD cbNeeded;
+    
+    // Énumérer tous les modules du processus
+    if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded)) {
+        for (unsigned int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++) {
+            char szModName[MAX_PATH];
+            
+            // Obtenir le nom du module
+            if (GetModuleBaseNameA(hProcess, hMods[i], szModName, sizeof(szModName))) {
+                // Vérifier si c'est le module recherché
+                if (moduleName == szModName) {
+                    // Obtenir les informations du module
+                    GetModuleInformation(hProcess, hMods[i], &moduleInfo, sizeof(moduleInfo));
+                    break;
+                }
+            }
+        }
+    }
+    
+    return moduleInfo;
+}</code></pre>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Astuce</h5>
+                                <p>L'énumération des modules est souvent la première étape pour analyser un jeu ou un anti-cheat. Elle permet d'identifier les composants du système et leurs adresses en mémoire, essentielles pour les étapes suivantes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="memoire" class="mb-5">
+                    <h2 class="text-primary">3. Manipulation de Mémoire</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Lecture et Écriture de Mémoire</h3>
+                            <p>Les opérations de lecture et d'écriture de mémoire sont fondamentales pour l'analyse d'anti-cheat:</p>
+                            
+                            <h4>Lecture de mémoire:</h4>
+                            <pre><code class="language-cpp">// Template pour lire n'importe quel type de données
+template&lt;typename T&gt;
+T ReadMemory(HANDLE hProcess, uintptr_t address) {
+    T value;
+    SIZE_T bytesRead;
+    
+    if (!ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(T), &bytesRead) || bytesRead != sizeof(T)) {
+        throw std::runtime_error("Failed to read memory");
+    }
+    
+    return value;
+}
+
+// Utilisation
+int health = ReadMemory<int>(hProcess, healthAddress);
+float position[3] = ReadMemory<float[3]>(hProcess, positionAddress);</code></pre>
+                            
+                            <h4>Écriture de mémoire:</h4>
+                            <pre><code class="language-cpp">// Template pour écrire n'importe quel type de données
+template&lt;typename T&gt;
+void WriteMemory(HANDLE hProcess, uintptr_t address, const T& value) {
+    SIZE_T bytesWritten;
+    
+    if (!WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), &bytesWritten) || bytesWritten != sizeof(T)) {
+        throw std::runtime_error("Failed to write memory");
+    }
+}
+
+// Utilisation
+WriteMemory<int>(hProcess, healthAddress, 100);
+float newPosition[3] = {0.0f, 0.0f, 0.0f};
+WriteMemory<float[3]>(hProcess, positionAddress, newPosition);</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Attention:</strong> Les anti-cheats modernes peuvent détecter les appels à <code>ReadProcessMemory</code> et <code>WriteProcessMemory</code>. Des techniques plus avancées sont souvent nécessaires.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Techniques de Scan Mémoire</h3>
+                            <p>Pour localiser des valeurs spécifiques en mémoire:</p>
+                            
+                            <h4>Scan de valeur simple:</h4>
+                            <pre><code class="language-cpp">// Exemple de scan pour une valeur spécifique
+std::vector&lt;uintptr_t&gt; ScanMemoryForValue(HANDLE hProcess, uintptr_t startAddress, 
+                                        uintptr_t endAddress, int valueToFind) {
+    std::vector&lt;uintptr_t&gt; results;
+    const size_t bufferSize = 4096;
+    BYTE buffer[bufferSize];
+    
+    for (uintptr_t currentAddress = startAddress; currentAddress < endAddress; currentAddress += bufferSize) {
+        SIZE_T bytesRead;
+        SIZE_T bytesToRead = std::min(bufferSize, (size_t)(endAddress - currentAddress));
+        
+        if (ReadProcessMemory(hProcess, (LPCVOID)currentAddress, buffer, bytesToRead, &bytesRead)) {
+            // Parcourir le buffer
+            for (size_t i = 0; i <= bytesRead - sizeof(int); i += sizeof(int)) {
+                int* value = (int*)(buffer + i);
+                
+                if (*value == valueToFind) {
+                    results.push_back(currentAddress + i);
+                }
+            }
+        }
+    }
+    
+    return results;
+}</code></pre>
+                            
+                            <h4>Scan par pattern (signature):</h4>
+                            <pre><code class="language-cpp">// Exemple de scan par pattern
+std::vector&lt;uintptr_t&gt; PatternScan(HANDLE hProcess, uintptr_t startAddress, 
+                                 uintptr_t endAddress, const std::string& pattern, 
+                                 const std::string& mask) {
+    std::vector&lt;uintptr_t&gt; results;
+    const size_t bufferSize = 4096;
+    BYTE buffer[bufferSize];
+    
+    for (uintptr_t currentAddress = startAddress; currentAddress < endAddress; currentAddress += bufferSize) {
+        SIZE_T bytesRead;
+        SIZE_T bytesToRead = std::min(bufferSize, (size_t)(endAddress - currentAddress));
+        
+        if (ReadProcessMemory(hProcess, (LPCVOID)currentAddress, buffer, bytesToRead, &bytesRead)) {
+            // Parcourir le buffer
+            for (size_t i = 0; i <= bytesRead - mask.length(); i++) {
+                bool found = true;
+                
+                for (size_t j = 0; j < mask.length(); j++) {
+                    if (mask[j] != '?' && pattern[j] != buffer[i + j]) {
+                        found = false;
+                        break;
+                    }
+                }
+                
+                if (found) {
+                    results.push_back(currentAddress + i);
+                }
+            }
+        }
+    }
+    
+    return results;
+}
+
+// Utilisation
+std::string pattern = "\x55\x8B\xEC\x83\xEC\x10\x53\x56\x57";
+std::string mask = "xxxxxxxxx";
+auto addresses = PatternScan(hProcess, moduleBase, moduleBase + moduleSize, pattern, mask);</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Pointeurs Multi-niveaux</h3>
+                            <p>Les pointeurs multi-niveaux sont couramment utilisés dans les jeux pour accéder à des données dynamiques:</p>
+                            
+                            <h4>Résolution de pointeurs:</h4>
+                            <pre><code class="language-cpp">// Exemple de résolution de pointeur multi-niveau
+template&lt;typename T&gt;
+T ReadMultiLevelPointer(HANDLE hProcess, uintptr_t baseAddress, 
+                        const std::vector&lt;uintptr_t&gt;& offsets) {
+    uintptr_t address = baseAddress;
+    
+    for (size_t i = 0; i < offsets.size() - 1; i++) {
+        address = ReadMemory&lt;uintptr_t&gt;(hProcess, address + offsets[i]);
+        
+        if (address == 0) {
+            throw std::runtime_error("Null pointer encountered");
+        }
+    }
+    
+    return ReadMemory&lt;T&gt;(hProcess, address + offsets.back());
+}
+
+// Utilisation
+std::vector&lt;uintptr_t&gt; offsets = {0x10, 0x20, 0x30, 0x40};
+int health = ReadMultiLevelPointer&lt;int&gt;(hProcess, playerBase, offsets);</code></pre>
+                            
+                            <div class="memory-diagram">
+                                <svg width="100%" height="100%" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Base Address -->
+                                    <rect x="50" y="50" width="150" height="50" fill="#2a2a2a" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="125" y="80" font-family="monospace" font-size="14" fill="#e0e0e0" text-anchor="middle">Base: 0x12345678</text>
+                                    
+                                    <!-- Offset 1 -->
+                                    <line x1="200" y1="75" x2="250" y2="75" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="225" y="65" font-family="monospace" font-size="12" fill="#e0e0e0" text-anchor="middle">+0x10</text>
+                                    
+                                    <!-- Level 1 -->
+                                    <rect x="250" y="50" width="150" height="50" fill="#2a2a2a" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="325" y="80" font-family="monospace" font-size="14" fill="#e0e0e0" text-anchor="middle">0xAABBCCDD</text>
+                                    
+                                    <!-- Offset 2 -->
+                                    <line x1="400" y1="75" x2="450" y2="75" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="425" y="65" font-family="monospace" font-size="12" fill="#e0e0e0" text-anchor="middle">+0x20</text>
+                                    
+                                    <!-- Level 2 -->
+                                    <rect x="450" y="50" width="150" height="50" fill="#2a2a2a" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="525" y="80" font-family="monospace" font-size="14" fill="#e0e0e0" text-anchor="middle">0x11223344</text>
+                                    
+                                    <!-- Offset 3 -->
+                                    <line x1="600" y1="75" x2="650" y2="125" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="610" y="110" font-family="monospace" font-size="12" fill="#e0e0e0">+0x30</text>
+                                    
+                                    <!-- Level 3 -->
+                                    <rect x="600" y="125" width="150" height="50" fill="#2a2a2a" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="675" y="155" font-family="monospace" font-size="14" fill="#e0e0e0" text-anchor="middle">0x55667788</text>
+                                    
+                                    <!-- Offset 4 -->
+                                    <line x1="675" y1="175" x2="675" y2="225" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="685" y="200" font-family="monospace" font-size="12" fill="#e0e0e0">+0x40</text>
+                                    
+                                    <!-- Final Value -->
+                                    <rect x="600" y="225" width="150" height="50" fill="#2a2a2a" stroke="#ff5722" stroke-width="2"/>
+                                    <text x="675" y="255" font-family="monospace" font-size="14" fill="#e0e0e0" text-anchor="middle">Value: 100</text>
+                                    
+                                    <!-- Legend -->
+                                    <rect x="50" y="300" width="20" height="20" fill="#2a2a2a" stroke="#4caf50" stroke-width="2"/>
+                                    <text x="80" y="315" font-family="monospace" font-size="12" fill="#e0e0e0">Adresse mémoire</text>
+                                    
+                                    <rect x="200" y="300" width="20" height="20" fill="#2a2a2a" stroke="#ff5722" stroke-width="2"/>
+                                    <text x="230" y="315" font-family="monospace" font-size="12" fill="#e0e0e0">Valeur finale</text>
+                                </svg>
+                            </div>
+                            
+                            <div class="tip-box">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>Conseil</h5>
+                                <p>Les pointeurs multi-niveaux sont souvent utilisés pour accéder aux données des entités dans les jeux. Comprendre comment les résoudre est essentiel pour l'analyse d'anti-cheat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="hooks" class="mb-5">
+                    <h2 class="text-primary">4. Hooking et Détournement</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Concepts de Base du Hooking</h3>
+                            <p>Le hooking est une technique qui permet d'intercepter des appels de fonction:</p>
+                            
+                            <ul>
+                                <li><strong>Inline Hooking</strong> - Modification du code de la fonction cible</li>
+                                <li><strong>IAT Hooking</strong> - Modification de la table d'importation</li>
+                                <li><strong>VTable Hooking</strong> - Modification des tables virtuelles d'objets</li>
+                                <li><strong>Detour Hooking</strong> - Redirection de l'exécution vers une fonction personnalisée</li>
+                            </ul>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Applications</h5>
+                                <p>Le hooking permet d'observer et de modifier le comportement d'un programme sans modifier son code source. Dans le contexte des anti-cheats, il peut être utilisé pour:</p>
+                                <ul>
+                                    <li>Intercepter les appels aux fonctions de rendu pour implémenter des ESP (Extra Sensory Perception)</li>
+                                    <li>Modifier les calculs de physique ou de dommages</li>
+                                    <li>Contourner les vérifications d'intégrité</li>
+                                    <li>Analyser le fonctionnement interne de l'anti-cheat lui-même</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Inline Hooking</h3>
+                            <p>L'inline hooking consiste à remplacer les premiers octets d'une fonction par un saut vers notre fonction:</p>
+                            
+                            <pre><code class="language-cpp">// Structure pour stocker les informations du hook
+struct Hook {
+    void* targetFunction;
+    void* detourFunction;
+    BYTE originalBytes[5];
+    bool isEnabled;
+};
+
+// Fonction pour installer un hook
+bool InstallHook(Hook& hook) {
+    if (hook.isEnabled) {
+        return false;
+    }
+    
+    // Sauvegarder les octets originaux
+    memcpy(hook.originalBytes, hook.targetFunction, sizeof(hook.originalBytes));
+    
+    // Calculer le déplacement relatif pour le saut
+    DWORD relativeAddress = (DWORD)hook.detourFunction - (DWORD)hook.targetFunction - 5;
+    
+    // Modifier les protections mémoire
+    DWORD oldProtect;
+    if (!VirtualProtect(hook.targetFunction, sizeof(hook.originalBytes), PAGE_EXECUTE_READWRITE, &oldProtect)) {
+        return false;
+    }
+    
+    // Écrire l'instruction de saut (E9 = JMP relatif)
+    *(BYTE*)hook.targetFunction = 0xE9;
+    *(DWORD*)((DWORD)hook.targetFunction + 1) = relativeAddress;
+    
+    // Restaurer les protections mémoire
+    VirtualProtect(hook.targetFunction, sizeof(hook.originalBytes), oldProtect, &oldProtect);
+    
+    hook.isEnabled = true;
+    return true;
+}
+
+// Fonction pour désinstaller un hook
+bool RemoveHook(Hook& hook) {
+    if (!hook.isEnabled) {
+        return false;
+    }
+    
+    // Modifier les protections mémoire
+    DWORD oldProtect;
+    if (!VirtualProtect(hook.targetFunction, sizeof(hook.originalBytes), PAGE_EXECUTE_READWRITE, &oldProtect)) {
+        return false;
+    }
+    
+    // Restaurer les octets originaux
+    memcpy(hook.targetFunction, hook.originalBytes, sizeof(hook.originalBytes));
+    
+    // Restaurer les protections mémoire
+    VirtualProtect(hook.targetFunction, sizeof(hook.originalBytes), oldProtect, &oldProtect);
+    
+    hook.isEnabled = false;
+    return true;
+}</code></pre>
+                            
+                            <h4>Exemple d'utilisation:</h4>
+                            <pre><code class="language-cpp">// Fonction originale
+typedef int (*OriginalFunction)(int a, int b);
+OriginalFunction originalFunc = nullptr;
+
+// Notre fonction de détournement
+int DetourFunction(int a, int b) {
+    std::cout << "Appel intercepté avec a=" << a << ", b=" << b << std::endl;
+    
+    // Appeler la fonction originale
+    int result = originalFunc(a, b);
+    
+    std::cout << "Résultat original: " << result << std::endl;
+    
+    // Modifier le résultat
+    return result * 2;
+}
+
+// Installation du hook
+void SetupHook() {
+    // Adresse de la fonction à hooker
+    void* targetAddress = GetProcAddress(GetModuleHandle("game.dll"), "CalculateDamage");
+    
+    // Créer le hook
+    Hook damageHook;
+    damageHook.targetFunction = targetAddress;
+    damageHook.detourFunction = &DetourFunction;
+    damageHook.isEnabled = false;
+    
+    // Sauvegarder un pointeur vers la fonction originale
+    // (nécessite un trampoline pour les hooks plus complexes)
+    originalFunc = (OriginalFunction)targetAddress;
+    
+    // Installer le hook
+    InstallHook(damageHook);
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Bibliothèques de Hooking</h3>
+                            <p>Plusieurs bibliothèques facilitent l'implémentation de hooks:</p>
+                            
+                            <h4>Microsoft Detours:</h4>
+                            <pre><code class="language-cpp">#include <detours.h>
+
+// Fonction originale
+int (WINAPI *OriginalMessageBox)(HWND, LPCSTR, LPCSTR, UINT) = MessageBoxA;
+
+// Fonction de détournement
+int WINAPI DetourMessageBox(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
+    // Modifier les paramètres
+    return OriginalMessageBox(hWnd, "Texte modifié", "Titre modifié", uType);
+}
+
+// Installation du hook
+void InstallHook() {
+    DetourTransactionBegin();
+    DetourUpdateThread(GetCurrentThread());
+    DetourAttach(&(PVOID&)OriginalMessageBox, DetourMessageBox);
+    DetourTransactionCommit();
+}</code></pre>
+                            
+                            <h4>MinHook:</h4>
+                            <pre><code class="language-cpp">#include <MinHook.h>
+
+// Fonction originale
+typedef int (WINAPI *OriginalMessageBox)(HWND, LPCSTR, LPCSTR, UINT);
+OriginalMessageBox originalMessageBox = nullptr;
+
+// Fonction de détournement
+int WINAPI DetourMessageBox(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
+    // Modifier les paramètres
+    return originalMessageBox(hWnd, "Texte modifié", "Titre modifié", uType);
+}
+
+// Installation du hook
+void InstallHook() {
+    // Initialiser MinHook
+    MH_Initialize();
+    
+    // Créer le hook
+    MH_CreateHook(
+        &MessageBoxA,
+        &DetourMessageBox,
+        reinterpret_cast<LPVOID*>(&originalMessageBox)
+    );
+    
+    // Activer le hook
+    MH_EnableHook(&MessageBoxA);
+}</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Attention:</strong> Les anti-cheats modernes peuvent détecter les hooks en vérifiant l'intégrité du code en mémoire. Des techniques plus avancées comme le hooking au niveau kernel peuvent être nécessaires pour éviter la détection.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="injection" class="mb-5">
+                    <h2 class="text-primary">5. Techniques d'Injection</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Injection de DLL</h3>
+                            <p>L'injection de DLL permet d'exécuter du code personnalisé dans l'espace d'adressage d'un autre processus:</p>
+                            
+                            <h4>Méthode CreateRemoteThread:</h4>
+                            <pre><code class="language-cpp">// Exemple d'injection de DLL avec CreateRemoteThread
+bool InjectDLL(DWORD processId, const std::string& dllPath) {
+    // Ouvrir le processus cible
+    HANDLE hProcess = OpenProcess(
+        PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION |
+        PROCESS_VM_WRITE | PROCESS_VM_READ,
+        FALSE, processId
+    );
+    
+    if (!hProcess) {
+        std::cerr << "Failed to open process: " << GetLastError() << std::endl;
+        return false;
+    }
+    
+    // Allouer de la mémoire dans le processus cible pour le chemin de la DLL
+    LPVOID remoteBuffer = VirtualAllocEx(
+        hProcess, NULL, dllPath.length() + 1,
+        MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE
+    );
+    
+    if (!remoteBuffer) {
+        std::cerr << "Failed to allocate memory: " << GetLastError() << std::endl;
+        CloseHandle(hProcess);
+        return false;
+    }
+    
+    // Écrire le chemin de la DLL dans la mémoire allouée
+    if (!WriteProcessMemory(
+            hProcess, remoteBuffer, dllPath.c_str(),
+            dllPath.length() + 1, NULL
+        )) {
+        std::cerr << "Failed to write memory: " << GetLastError() << std::endl;
+        VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+        CloseHandle(hProcess);
+        return false;
+    }
+    
+    // Obtenir l'adresse de LoadLibraryA
+    LPVOID loadLibraryAddr = (LPVOID)GetProcAddress(
+        GetModuleHandle("kernel32.dll"), "LoadLibraryA"
+    );
+    
+    if (!loadLibraryAddr) {
+        std::cerr << "Failed to get LoadLibraryA address: " << GetLastError() << std::endl;
+        VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+        CloseHandle(hProcess);
+        return false;
+    }
+    
+    // Créer un thread distant qui appelle LoadLibraryA avec le chemin de la DLL
+    HANDLE hThread = CreateRemoteThread(
+        hProcess, NULL, 0,
+        (LPTHREAD_START_ROUTINE)loadLibraryAddr,
+        remoteBuffer, 0, NULL
+    );
+    
+    if (!hThread) {
+        std::cerr << "Failed to create remote thread: " << GetLastError() << std::endl;
+        VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+        CloseHandle(hProcess);
+        return false;
+    }
+    
+    // Attendre la fin du thread
+    WaitForSingleObject(hThread, INFINITE);
+    
+    // Nettoyer
+    CloseHandle(hThread);
+    VirtualFreeEx(hProcess, remoteBuffer, 0, MEM_RELEASE);
+    CloseHandle(hProcess);
+    
+    return true;
+}</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Détection:</strong> Cette méthode est facilement détectable par les anti-cheats modernes qui surveillent les appels à <code>CreateRemoteThread</code> et <code>LoadLibrary</code>.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Techniques d'Injection Avancées</h3>
+                            <p>Des méthodes plus sophistiquées pour éviter la détection:</p>
+                            
+                            <h4>Injection par SetWindowsHookEx:</h4>
+                            <pre><code class="language-cpp">// Exemple d'injection par SetWindowsHookEx
+HHOOK g_hook = NULL;
+HINSTANCE g_hInstance = NULL;
+
+// Fonction de hook (dans la DLL à injecter)
+LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+    // Code à exécuter dans le processus cible
+    
+    // Appeler le hook suivant dans la chaîne
+    return CallNextHookEx(g_hook, nCode, wParam, lParam);
+}
+
+// Fonction pour installer le hook (dans l'injecteur)
+bool InjectWithHook(DWORD threadId, const std::string& dllPath) {
+    // Charger la DLL
+    g_hInstance = LoadLibraryA(dllPath.c_str());
+    
+    if (!g_hInstance) {
+        std::cerr << "Failed to load DLL: " << GetLastError() << std::endl;
+        return false;
+    }
+    
+    // Obtenir l'adresse de la fonction de hook
+    HOOKPROC hookProc = (HOOKPROC)GetProcAddress(g_hInstance, "KeyboardProc");
+    
+    if (!hookProc) {
+        std::cerr << "Failed to get hook procedure: " << GetLastError() << std::endl;
+        FreeLibrary(g_hInstance);
+        return false;
+    }
+    
+    // Installer le hook
+    g_hook = SetWindowsHookEx(WH_KEYBOARD, hookProc, g_hInstance, threadId);
+    
+    if (!g_hook) {
+        std::cerr << "Failed to set hook: " << GetLastError() << std::endl;
+        FreeLibrary(g_hInstance);
+        return false;
+    }
+    
+    return true;
+}</code></pre>
+                            
+                            <h4>Injection par APC (Asynchronous Procedure Call):</h4>
+                            <pre><code class="language-cpp">// Exemple d'injection par APC
+bool InjectWithAPC(DWORD processId, const std::string& dllPath) {
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - C++ pour le Contournement d'Anti-Cheat</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .warning-box {
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 4px solid #ff5722;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .info-box {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .tip-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .code-diagram {
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            overflow-x: auto;
+        }
+        
+        .memory-diagram {
+            width: 100%;
+            height: 400px;
+            margin: 1.5rem 0;
+            background-color: #1a1a1a;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../../index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../cours/index.html">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="../../cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="../../game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="fondamentaux.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="avance.html">C++ Avancé</a></li>
+                            <li><a class="dropdown-item active" href="cpp-pour-contournement-anticheat.html">C++ pour Anti-Cheat</a></li>
+                            <li><a class="dropdown-item" href="../java/fondamentaux.html">Java Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="../python/fondamentaux-part1.html">Python Fondamentaux</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="../../osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="../../osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../ressources/bibliotheque.html">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="../../../ressources/exercices.html">Exercices</a></li>
+                            <li><a class="dropdown-item" href="../../../ressources/forum.html">Forum</a></li>
+                            <li><a class="dropdown-item" href="../../../ressources/faq.html">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../outils/outils-gratuits.html">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="../../../outils/outils-developpement.html">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="../../../outils/outils-pratiques.html">Outils Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="../../../communauté/evenements.html">Événements</a></li>
+                            <li><a class="dropdown-item" href="../../../communauté/discord.html">Discord</a></li>
+                            <li><a class="dropdown-item" href="../../../communauté/contribuer.html">Contribuer</a></li>
+                            <li><a class="dropdown-item" href="../../../communauté/partenaires.html">Partenaires</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../../../assistant-ia.html">
+                            <i class="fas fa-robot me-1"></i> Assistant IA
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="../../../connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">C++ pour le Contournement d'Anti-Cheat</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger me-2">Niveau: Avancé</span>
+                            <span class="badge bg-info me-2">Durée: 8 heures</span>
+                            <span class="badge bg-primary">Programmation</span>
+                            <span class="badge bg-warning text-dark ms-2">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Ce cours explore l'utilisation avancée du C++ spécifiquement pour comprendre et analyser les systèmes anti-triche dans les jeux vidéo. Vous apprendrez à appliquer les concepts avancés du C++ pour développer des outils d'analyse et comprendre les mécanismes de protection.</p>
+                        
+                        <div class="warning-box">
+                            <h5><i class="fas fa-exclamation-triangle text-warning me-2"></i>Avertissement Éthique et Légal</h5>
+                            <p>Les connaissances présentées dans ce cours sont destinées exclusivement à des fins éducatives, de recherche en sécurité et de développement de contre-mesures. L'utilisation de ces techniques pour tricher dans des jeux en ligne est:</p>
+                            <ul>
+                                <li>Généralement contraire aux conditions d'utilisation des jeux</li>
+                                <li>Peut entraîner des bannissements permanents de comptes</li>
+                                <li>Peut potentiellement violer des lois sur la propriété intellectuelle ou l'accès non autorisé</li>
+                                <li>Nuit à l'expérience de jeu des autres joueurs</li>
+                            </ul>
+                            <p class="mb-0">Nous encourageons une approche éthique et responsable de ces connaissances.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#windows-api">2. Windows API et C++</a>
+                            <a class="nav-link" href="#memoire">3. Manipulation de Mémoire</a>
+                            <a class="nav-link" href="#hooks">4. Hooking et Détournement</a>
+                            <a class="nav-link" href="#injection">5. Techniques d'Injection</a>
+                            <a class="nav-link" href="#obfuscation">6. Obfuscation et Protection</a>
+                            <a class="nav-link" href="#kernel">7. Programmation Kernel</a>
+                            <a class="nav-link" href="#patterns">8. Design Patterns pour Anti-Cheat</a>
+                            <a class="nav-link" href="#outils">9. Développement d'Outils</a>
+                            <a class="nav-link" href="#exercices">10. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Pourquoi C++ pour l'Anti-Cheat?</h3>
+                            <p>Le C++ est le langage de prédilection pour l'analyse et le développement d'anti-cheat pour plusieurs raisons:</p>
+                            
+                            <ul>
+                                <li><strong>Performance</strong> - Le C++ offre des performances proches du métal, essentielles pour les opérations sensibles au timing</li>
+                                <li><strong>Accès bas niveau</strong> - Permet la manipulation directe de la mémoire et des ressources système</li>
+                                <li><strong>Compatibilité</strong> - La plupart des jeux et anti-cheats sont développés en C++</li>
+                                <li><strong>Flexibilité</strong> - Supporte à la fois la programmation orientée objet et la programmation procédurale</li>
+                                <li><strong>Écosystème</strong> - Riche bibliothèque d'outils et de frameworks pour le reverse engineering</li>
+                            </ul>
+                            
+                            <div class="info-box">
+                                <h5><i class="fas fa-info-circle text-info me-2"></i>Prérequis</h5>
+                                <p>Ce cours suppose que vous avez déjà une bonne compréhension des fondamentaux du C++ et des concepts avancés comme les pointeurs, la gestion de mémoire, et les templates. Si ce n'est pas le cas, nous vous recommandons de suivre d'abord nos cours <a href="fondamentaux.html" class="text-info">C++ Fondamentaux</a> et <a href="avance.html" class="text-info">C++ Avancé</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Compétences Requises</h3>
+                            <p>Pour tirer le meilleur parti de ce cours, vous devriez être familier avec:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Compétences C++</h5>
+                                            <ul>
+                                                <li>Pointeurs et références</li>
+                                                <li>Gestion de mémoire (new/delete)</li>
+                                                <li>Classes et héritage</li>
+                                                <li>Templates et STL</li>
+                                                <li>Manipulation de bits</li>
+                                                <li>Programmation multi-thread</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark-card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Autres connaissances</h5>
+                                            <ul>
+                                                <li>Architecture x86/x64</li>
+                                                <li>Bases d'assembleur</li>
+                                                <li>Système d'exploitation Windows</li>
+                                                <li>Concepts de sécurité informatique</li>
+                                                <li>Bases du reverse engineering</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mt-4">Structure du cours</h4>
+                            <p>Ce cours est structuré pour couvrir progressivement les aspects du C++ pertinents pour l'analyse et le contournement d'anti-cheat:</p>
+                            <ol>
+                                <li>Nous commencerons par les fondamentaux de l'API Windows en C++</li>
+                                <li>Nous explorerons ensuite les techniques de manipulation de mémoire</li>
+                                <li>Nous aborderons les méthodes avancées comme le hooking et l'injection</li>
+                                <li>Nous terminerons par le développement d'outils d'analyse complets</li>
+                            </ol>
+                            
+                            <div class="tip-box">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>Conseil</h5>
+                                <p>Pratiquez régulièrement les concepts présentés dans un environnement de test sécurisé. La compréhension théorique est importante, mais c'est la pratique qui vous permettra de maîtriser ces techniques complexes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="windows-api" class="mb-5">
+                    <h2 class="text-primary">2. Windows API et C++</h2>
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Fondamentaux de l'API Windows</h3>
+                            <p>L'API Windows est essentielle pour interagir avec les processus et la mémoire sous Windows:</p>
+                            
+                            <h4>Headers et bibliothèques importantes:</h4>
+                            <pre><code class="language-cpp">#include &lt;windows.h&gt;      // API Windows de base
+#include &lt;tlhelp32.h&gt;      // Fonctions d'énumération de processus
+#include &lt;psapi.h&gt;         // Informations sur les processus
+#include &lt;winternl.h&gt;      // Fonctions NT non documentées
+#include &lt;dbghelp.h&gt;       // Fonctions de débogage</code></pre>
+                            
+                            <h4>Types de données Windows essentiels:</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Équivalent C++</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>HANDLE</code></td>
+                                            <td>Référence à un objet système</td>
+                                            <td><code>void*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>HWND</code></td>
+                                            <td>Handle de fenêtre</td>
+                                            <td><code>void*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>DWORD</code></td>
+                                            <td>Entier 32 bits non signé</td>
+                                            <td><code>unsigned long</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LPVOID</code></td>
+                                            <td>Pointeur générique</td>
+                                            <td><code>void*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LPCSTR</code></td>
+                                            <td>Pointeur vers chaîne constante</td>
+                                            <td><code>const char*</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LPWSTR</code></td>
+                                            <td>Pointeur vers chaîne Unicode</td>
+                                            <td><code>wchar_t*</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Manipulation de Processus</h3>
+                            <p>Techniques pour interagir avec les processus Windows:</p>
+                            
+                            <h4>Énumération des processus:</h4>
+                            <pre><code class="language-cpp">// Exemple d'énumération des processus
+void EnumerateProcesses() {
+    // Créer un snapshot des processus
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
+        std::cerr << "CreateToolhelp32Snapshot failed: " << GetLastError() << std::endl;
+        return;
+    }
+    
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+    
+    // Obtenir le premier processus
+    if (!Process32First(hSnapshot, &pe32)) {
+        std::cerr << "Process32First failed: " << GetLastError() << std::endl;
+        CloseHandle(hSnapshot);
+        return;
+    }
+    
+    // Parcourir tous les processus
+    do {
+        std::cout << "Process ID: " << pe32.th32ProcessID << ", Name: " << pe32.szExeFile << std::endl;
+    } while (Process32Next(hSnapshot, &pe32));
+    
+    CloseHandle(hSnapshot);
+}</code></pre>
+                            
+                            <h4>Obtention d'un handle de processus:</h4>
+                            <pre><code class="language-cpp">// Exemple d'obtention d'un handle de processus par nom
+HANDLE GetProcessHandleByName(const std::string& processName) {
+    DWORD pid = 0;
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
+        return NULL;
+    }
+    
+    PROCESSENTRY32 pe32;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+    
+    if (Process32First(hSnapshot, &pe32)) {
+        do {
+            if (processName == pe32.szExeFile) {
+                pid = pe32.th32ProcessID;
+                break;
+            }
+        } while (Process32Next(hSnapshot, &pe32));
+    }
+    
+    CloseHandle(hSnapshot);
+    
+    if (pid == 0) {
+        return NULL;
+    }
+    
+    // Ouvrir le processus avec les droits nécessaires
+    return OpenProcess(
+        PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION,
+        FALSE,
+        pid
+    );
+}</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Attention:</strong> Les anti-cheats modernes surveillent les appels à <code>OpenProcess</code> et peuvent détecter les tentatives d'accès non autorisées. Des techniques plus avancées sont nécessaires pour éviter la détection.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h3 class="card-title">Énumération des Modules</h3>
+                            <p>Techniques pour énumérer et analyser les modules chargés dans un processus:</p>
+                            
+                            <h4>Énumération des modules:</h4>
+                            <pre><code class="language-cpp">// Exemple d'énumération des modules d'un processus
+void EnumerateModules(DWORD processId) {
+    // Créer un snapshot des modules
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, processId);
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
+        std::cerr << "CreateToolhelp32Snapshot failed: " << GetLastError() << std::endl;
+        return;
+    }
+    
+    MODULEENTRY32 me32;
+    me32.dwSize = sizeof(MODULEENTRY32);
+    
+    // Obtenir le premier module
+    if (!Module32First(hSnapshot, &me32)) {
+        std::cerr << "Module32First failed: " << GetLastError() << std::endl;
+        CloseHandle(hSnapshot);
+        return;
+    }
+    
+    // Parcourir tous les modules
+    do {
+        std::cout << "Module: " << me32.szModule << std::endl;
+        std::cout << "  Base Address: 0x" << std::hex << (uintptr_t)me32.modBaseAddr << std::endl;
+        std::cout << "  Size: 0x" << std::hex << me32.modBaseSize << std::endl;
+        std::cout << "  Path: " << me32.szExePath << std::endl;
+        std::cout << std::dec; // Revenir en décimal
+    } while (Module32Next(hSnapshot, &me32));
+    
+    CloseHandle(hSnapshot);
+}</code></pre>
+                            
+                            <h4>Obtention d'informations sur un module spécifique:</h4>
+                            <pre><code class="language-cpp">// Exemple d'obtention d'informations sur un module spécifique
+MODULEINFO GetModuleInfo(HANDLE hProcess, const std::string& moduleName) {
+    MODULEINFO moduleInfo = {0};
+    HMODULE hMods[1024];
+    DWORD cbNeeded;
+    
+    // Énumérer tous les modules du processus
+    if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded)) {
+        for (unsigned int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++) {
+            char szModName[MAX_PATH];
+            
+            // Obtenir le nom du module
+            if
