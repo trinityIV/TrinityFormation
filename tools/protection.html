@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Protection et Reverse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .protection-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+        }
+        .code-block {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="game-hacking.html">Game Hacking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="protection.html">Protection</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Protection et Reverse Engineering</h1>
+
+        <!-- Anti-Debug -->
+        <section class="mb-5">
+            <div class="card protection-card">
+                <div class="card-body">
+                    <h3>Analyse des Protections Anti-Debug</h3>
+                    <p>Techniques de détection et contournement du debugging</p>
+                    <ul>
+                        <li>IsDebuggerPresent Detection</li>
+                        <li>Hardware Breakpoints</li>
+                        <li>Timing Checks</li>
+                        <li>Anti-Debugging avancé</li>
+                    </ul>
+                    <div class="code-block">
+// Exemple de détection de debugger
+bool IsBeingDebugged() {
+    if (IsDebuggerPresent()) return true;
+    
+    BOOL bDebugger = FALSE;
+    CheckRemoteDebuggerPresent(
+        GetCurrentProcess(), 
+        &bDebugger
+    );
+    return bDebugger;
+}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anti-Cheat -->
+        <section class="mb-5">
+            <div class="card protection-card">
+                <div class="card-body">
+                    <h3>Bypass des Protections Anti-Cheat</h3>
+                    <p>Analyse et contournement des systèmes anti-triche</p>
+                    <ul>
+                        <li>EasyAntiCheat Analysis</li>
+                        <li>BattlEye Protection</li>
+                        <li>Kernel Mode Detection</li>
+                        <li>Memory Integrity Checks</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Obfuscation -->
+        <section class="mb-5">
+            <div class="card protection-card">
+                <div class="card-body">
+                    <h3>Techniques d'Obfuscation</h3>
+                    <p>Protection du code contre la rétro-ingénierie</p>
+                    <ul>
+                        <li>Control Flow Obfuscation</li>
+                        <li>String Encryption</li>
+                        <li>Anti-Disassembly</li>
+                        <li>Code Virtualization</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cryptographie -->
+        <section class="mb-5">
+            <div class="card protection-card">
+                <div class="card-body">
+                    <h3>Cryptographie dans les Jeux</h3>
+                    <p>Implémentation et analyse de la cryptographie</p>
+                    <ul>
+                        <li>Save Game Encryption</li>
+                        <li>Network Protocol Security</li>
+                        <li>Anti-Tampering</li>
+                        <li>Key Management</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protection Mémoire -->
+        <section class="mb-5">
+            <div class="card protection-card">
+                <div class="card-body">
+                    <h3>Protection de la Mémoire</h3>
+                    <p>Techniques de protection de la mémoire du jeu</p>
+                    <ul>
+                        <li>Memory Encryption</li>
+                        <li>CRC Checks</li>
+                        <li>VMProtect Integration</li>
+                        <li>Code Integrity</li>
+                    </ul>
+                    <div class="code-block">
+// Exemple de protection mémoire
+class ProtectedMemory {
+    private:
+        std::vector<uint8_t> encryptedData;
+        uint32_t checksum;
+    
+    public:
+        void EncryptRegion(void* data, size_t size);
+        bool ValidateChecksum();
+};</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/background.js"></script>
+</body>
+</html>

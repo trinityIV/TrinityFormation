@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Java Fondamentaux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            Programming
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><h6 class="dropdown-header">Java</h6></li>
+                            <li><a class="dropdown-item active" href="java-basics.html">Bases Java</a></li>
+                            <li><a class="dropdown-item" href="java-advanced.html">Java Avancé</a></li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li><h6 class="dropdown-header">Python</h6></li>
+                            <li><a class="dropdown-item" href="python-basics.html">Bases Python</a></li>
+                            <li><a class="dropdown-item" href="python-advanced.html">Python Avancé</a></li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li><h6 class="dropdown-header">C++</h6></li>
+                            <li><a class="dropdown-item" href="cpp-fundamentals.html">Fondamentaux C++</a></li>
+                            <li><a class="dropdown-item" href="cpp-advanced.html">C++ Avancé</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Cours : Fondamentaux Java</h1>
+
+        <!-- Course Progress -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" 
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                0% Complété
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <section class="mb-5 content-section" id="introduction">
+            <h2>Introduction à Java</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Premier Programme</h3>
+                    <pre><code class="java">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+
+                    <h3>Installation et Configuration</h3>
+                    <pre><code class="bash"># Vérifier l'installation Java
+java -version
+javac -version
+
+# Compiler et exécuter
+javac HelloWorld.java
+java HelloWorld</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variables and Types -->
+        <section class="mb-5 content-section" id="variables">
+            <h2>Variables et Types</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Types Primitifs</h3>
+                    <pre><code class="java">// Types numériques
+byte b = 100;
+short s = 30000;
+int i = 2000000000;
+long l = 9000000000000000000L;
+float f = 3.14f;
+double d = 3.14159;
+
+// Autres types primitifs
+char c = 'A';
+boolean bool = true;</code></pre>
+
+                    <h3>Types Référence</h3>
+                    <pre><code class="java">// Chaînes de caractères
+String text = "Hello Java";
+
+// Tableaux
+int[] numbers = new int[5];
+String[] words = {"Hello", "World"};
+
+// Classes wrapper
+Integer wrappedInt = 42;
+Double wrappedDouble = 3.14;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Control Flow -->
+        <section class="mb-5 content-section" id="control">
+            <h2>Structures de Contrôle</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Conditions</h3>
+                    <pre><code class="java">int age = 18;
+
+if (age >= 18) {
+    System.out.println("Majeur");
+} else if (age >= 13) {
+    System.out.println("Adolescent");
+} else {
+    System.out.println("Enfant");
+}
+
+// Switch
+switch (age) {
+    case 18:
+        System.out.println("Tout juste majeur");
+        break;
+    default:
+        System.out.println("Autre âge");
+}</code></pre>
+
+                    <h3>Boucles</h3>
+                    <pre><code class="java">// Boucle for
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}
+
+// For-each
+String[] fruits = {"pomme", "banane", "orange"};
+for (String fruit : fruits) {
+    System.out.println(fruit);
+}
+
+// While
+int count = 0;
+while (count < 5) {
+    System.out.println(count);
+    count++;
+}
+
+// Do-while
+do {
+    System.out.println(count);
+    count--;
+} while (count > 0);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methods -->
+        <section class="mb-5 content-section" id="methods">
+            <h2>Méthodes</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Définition et Surcharge</h3>
+                    <pre><code class="java">public class Calculator {
+    // Méthode simple
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // Surcharge de méthode
+    public double add(double a, double b) {
+        return a + b;
+    }
+
+    // Méthode avec paramètres variables
+    public int add(int... numbers) {
+        int sum = 0;
+        for (int n : numbers) {
+            sum += n;
+        }
+        return sum;
+    }
+}</code></pre>
+
+                    <h3>Méthodes Statiques</h3>
+                    <pre><code class="java">public class MathUtils {
+    public static double square(double x) {
+        return x * x;
+    }
+
+    public static int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classes and Objects -->
+        <section class="mb-5 content-section" id="classes">
+            <h2>Classes et Objets</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Définition de Classe</h3>
+                    <pre><code class="java">public class Person {
+    // Attributs
+    private String name;
+    private int age;
+
+    // Constructeur
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters et Setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Méthode toString
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}</code></pre>
+
+                    <h3>Héritage</h3>
+                    <pre><code class="java">public class Student extends Person {
+    private String studentId;
+
+    public Student(String name, int age, String studentId) {
+        super(name, age);
+        this.studentId = studentId;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Student{id='" + studentId + "'}";
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interfaces and Abstract Classes -->
+        <section class="mb-5 content-section" id="interfaces">
+            <h2>Interfaces et Classes Abstraites</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Interface</h3>
+                    <pre><code class="java">public interface Shape {
+    double getArea();
+    double getPerimeter();
+}
+
+public class Circle implements Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+}</code></pre>
+
+                    <h3>Classe Abstraite</h3>
+                    <pre><code class="java">public abstract class Animal {
+    protected String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public abstract void makeSound();
+
+    public void sleep() {
+        System.out.println(name + " is sleeping");
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collections -->
+        <section class="mb-5 content-section" id="collections">
+            <h2>Collections</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>List</h3>
+                    <pre><code class="java">import java.util.*;
+
+// ArrayList
+List<String> list = new ArrayList<>();
+list.add("First");
+list.add("Second");
+
+// LinkedList
+List<Integer> numbers = new LinkedList<>();
+numbers.add(1);
+numbers.add(2);</code></pre>
+
+                    <h3>Set et Map</h3>
+                    <pre><code class="java">// HashSet
+Set<String> set = new HashSet<>();
+set.add("unique1");
+set.add("unique2");
+
+// HashMap
+Map<String, Integer> map = new HashMap<>();
+map.put("one", 1);
+map.put("two", 2);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exception Handling -->
+        <section class="mb-5 content-section" id="exceptions">
+            <h2>Gestion des Exceptions</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Try-Catch</h3>
+                    <pre><code class="java">try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Division par zéro!");
+} catch (Exception e) {
+    System.out.println("Autre erreur: " + e.getMessage());
+} finally {
+    System.out.println("Toujours exécuté");
+}</code></pre>
+
+                    <h3>Création d'Exception</h3>
+                    <pre><code class="java">public class CustomException extends Exception {
+    public CustomException(String message) {
+        super(message);
+    }
+}
+
+public void checkAge(int age) throws CustomException {
+    if (age < 0) {
+        throw new CustomException("L'âge ne peut pas être négatif");
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- File I/O -->
+        <section class="mb-5 content-section" id="file-io">
+            <h2>Entrées/Sorties Fichiers</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Lecture/Écriture de Fichiers</h3>
+                    <pre><code class="java">// Lecture avec BufferedReader
+try (BufferedReader reader = new BufferedReader(new FileReader("file.txt"))) {
+    String line;
+    while ((line = reader.readLine()) != null) {
+        System.out.println(line);
+    }
+}
+
+// Écriture avec BufferedWriter
+try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
+    writer.write("Hello Java!");
+    writer.newLine();
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practical Exercise -->
+        <section class="mb-5 content-section" id="exercise">
+            <h2>Exercice Pratique</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Projet : Système de Gestion de Bibliothèque</h3>
+                    <p>Créez un système de gestion de bibliothèque avec :</p>
+                    <ul>
+                        <li>Classes pour Livre, Membre, Emprunt</li>
+                        <li>Gestion des emprunts/retours</li>
+                        <li>Persistance dans des fichiers</li>
+                        <li>Gestion des exceptions</li>
+                        <li>Interface utilisateur console</li>
+                    </ul>
+
+                    <div class="alert alert-info">
+                        <strong>Conseil :</strong> Utilisez les concepts vus dans le cours : classes, interfaces, collections, exceptions, et I/O.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>Trinity Project © 2025 - Cours Java Fondamentaux</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // Gestion de la progression
+        function updateProgress() {
+            const sections = document.querySelectorAll('.content-section');
+            const progressBar = document.querySelector('.progress-bar');
+            const completed = Math.round((Array.from(sections).filter(section => 
+                section.getBoundingClientRect().top < window.innerHeight/2).length / sections.length) * 100);
+            progressBar.style.width = completed + '%';
+            progressBar.textContent = completed + '% Complété';
+            progressBar.setAttribute('aria-valuenow', completed);
+        }
+
+        // Mise à jour de la progression au scroll
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

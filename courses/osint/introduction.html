@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Bases de l'OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Bases de l'OSINT</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant</span>
+                            <span class="badge bg-info me-2">Durée: 6h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours vous introduit aux principes fondamentaux de l'OSINT (Open Source Intelligence). Vous découvrirez les méthodologies, les sources d'information et les techniques de base pour collecter, analyser et exploiter les informations disponibles publiquement, tout en respectant les aspects légaux et éthiques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction à l'OSINT</a>
+                            <a class="nav-link" href="#legal-framework">2. Cadre Légal et Éthique</a>
+                            <a class="nav-link" href="#methodology">3. Méthodologie OSINT</a>
+                            <a class="nav-link" href="#sources">4. Sources d'Information</a>
+                            <a class="nav-link" href="#basic-techniques">5. Techniques de Base</a>
+                            <a class="nav-link" href="#tools">6. Outils Essentiels</a>
+                            <a class="nav-link" href="#analysis">7. Analyse des Informations</a>
+                            <a class="nav-link" href="#reporting">8. Documentation et Rapports</a>
+                            <a class="nav-link" href="#exercises">9. Exercices Pratiques</a>
+                            <a class="nav-link" href="#resources">10. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#cheatsheets">Cheatsheets</a>
+                                    <a class="nav-link" href="#videos">Vidéos</a>
+                                    <a class="nav-link" href="#community">Communauté</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction à l'OSINT</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Qu'est-ce que l'OSINT?</h4>
+                            <p>L'OSINT (Open Source Intelligence) est le processus de collecte, d'analyse et d'exploitation d'informations provenant de sources publiquement accessibles pour produire du renseignement exploitable. Contrairement aux méthodes de renseignement traditionnelles, l'OSINT ne repose que sur des informations disponibles légalement et publiquement.</p>
+                            
+                            <h4 class="text-info mt-4">Domaines d'application</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Domaine</th>
+                                            <th>Applications</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cybersécurité</td>
+                                            <td>Évaluation des menaces, analyse de vulnérabilités, investigation d'incidents</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Entreprises</td>
+                                            <td>Intelligence économique, due diligence, analyse concurrentielle</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Journalisme</td>
+                                            <td>Journalisme d'investigation, vérification des faits</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sécurité nationale</td>
+                                            <td>Analyse des menaces, contre-terrorisme, surveillance des acteurs malveillants</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Histoire et évolution</h4>
+                            <p>L'OSINT existe depuis longtemps, mais l'avènement d'Internet et des réseaux sociaux a considérablement transformé ce domaine :</p>
+                            <ul>
+                                <li><strong>Années 1940-1950</strong> : Analyse des médias étrangers et publications publiques</li>
+                                <li><strong>Années 1990</strong> : Émergence d'Internet et accès à de nouvelles sources d'information</li>
+                                <li><strong>Années 2000</strong> : Explosion des réseaux sociaux et des données personnelles en ligne</li>
+                                <li><strong>Aujourd'hui</strong> : Big data, automatisation et outils spécialisés</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="legal-framework" class="mb-5">
+                    <h2 class="text-info">2. Cadre Légal et Éthique</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Considérations légales</h4>
+                            <p>L'OSINT implique uniquement l'utilisation de sources publiques, mais certaines pratiques peuvent franchir des limites légales :</p>
+                            <ul>
+                                <li>Respect des lois sur la protection des données (RGPD en Europe)</li>
+                                <li>Éviter les intrusions informatiques (même accidentelles)</li>
+                                <li>Respecter la propriété intellectuelle</li>
+                                <li>Connaître les limites légales spécifiques à chaque pays</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> La disponibilité publique d'une information ne signifie pas nécessairement que son utilisation est légale dans tous les contextes.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Éthique de l'OSINT</h4>
+                            <p>Au-delà des considérations légales, l'OSINT soulève des questions éthiques importantes :</p>
+                            <ul>
+                                <li>Respect de la vie privée des individus</li>
+                                <li>Évaluation de l'impact potentiel de vos recherches</li>
+                                <li>Vérification et validation des informations avant utilisation</li>
+                                <li>Transparence sur les méthodes utilisées (dans la mesure du possible)</li>
+                                <li>Utilisation responsable des informations collectées</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Bonnes pratiques</h4>
+                            <div class="card bg-dark border-info mb-3">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Documenter vos sources et méthodes</li>
+                                        <li>Obtenir les autorisations nécessaires avant de commencer une investigation</li>
+                                        <li>Définir clairement les limites de votre recherche</li>
+                                        <li>Protéger les données sensibles collectées</li>
+                                        <li>Signaler les vulnérabilités découvertes de manière responsable</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="methodology" class="mb-5">
+                    <h2 class="text-info">3. Méthodologie OSINT</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Cycle du renseignement</h4>
+                            <p>L'OSINT suit généralement un cycle structuré :</p>
+                            <ol>
+                                <li><strong>Planification et direction</strong> - Définir les objectifs et les besoins en information</li>
+                                <li><strong>Collecte</strong> - Rassembler les informations pertinentes de diverses sources</li>
+                                <li><strong>Traitement</strong> - Organiser et préparer les données pour l'analyse</li>
+                                <li><strong>Analyse</strong> - Interpréter les données pour en extraire du sens</li>
+                                <li><strong>Diffusion</strong> - Communiquer les résultats aux parties prenantes</li>
+                                <li><strong>Feedback</strong> - Évaluer l'efficacité et ajuster la méthodologie</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Définition des objectifs</h4>
+                            <p>Une investigation OSINT efficace commence par des objectifs clairs :</p>
+                            <ul>
+                                <li>Formuler des questions précises</li>
+                                <li>Définir la portée de l'investigation</li>
+                                <li>Identifier les informations nécessaires</li>
+                                <li>Établir des critères de succès</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Approches méthodologiques</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Approche</th>
+                                            <th>Description</th>
+                                            <th>Avantages</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pivot</td>
+                                            <td>Utiliser une information connue pour en découvrir d'autres</td>
+                                            <td>Efficace pour élargir progressivement la recherche</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Concentrique</td>
+                                            <td>Commencer par le sujet central et explorer en cercles concentriques</td>
+                                            <td>Maintient le focus sur le sujet principal</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chronologique</td>
+                                            <td>Suivre l'évolution temporelle des informations</td>
+                                            <td>Idéal pour comprendre les séquences d'événements</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Topographique</td>
+                                            <td>Organiser les recherches par zones géographiques</td>
+                                            <td>Pertinent pour les investigations liées à des lieux</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="sources" class="mb-5">
+                    <h2 class="text-info">4. Sources d'Information</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Types de sources</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Réseaux sociaux</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Facebook, Twitter, Instagram, LinkedIn</li>
+                                                <li>YouTube, TikTok, Snapchat</li>
+                                                <li>Reddit, forums spécialisés</li>
+                                                <li>Plateformes professionnelles</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Moteurs de recherche</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Google, Bing, DuckDuckGo</li>
+                                                <li>Moteurs spécialisés (Scholar, Patents)</li>
+                                                <li>Métamoteurs</li>
+                                                <li>Archives web (Wayback Machine)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Bases de données publiques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Registres d'entreprises</li>
+                                                <li>Cadastres et propriétés</li>
+                                                <li>Données gouvernementales</li>
+                                                <li>Publications scientifiques</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Médias et publications</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Presse en ligne et traditionnelle</li>
+                                                <li>Blogs et sites spécialisés</li>
+                                                <li>Podcasts et webinaires</li>
+                                                <li>Livres et publications académiques</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Évaluation des sources</h4>
+                            <p>Toutes les sources ne se valent pas. Utilisez le modèle CRAAP pour évaluer leur fiabilité :</p>
+                            <ul>
+                                <li><strong>C</strong>urrency (Actualité) - L'information est-elle à jour?</li>
+                                <li><strong>R</strong>elevance (Pertinence) - L'information répond-elle à vos besoins?</li>
+                                <li><strong>A</strong>uthority (Autorité) - Qui est la source et quelle est sa crédibilité?</li>
+                                <li><strong>A</strong>ccuracy (Exactitude) - L'information est-elle précise et vérifiable?</li>
+                                <li><strong>P</strong>urpose (Objectif) - Pourquoi cette information a-t-elle été publiée?</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Privilégiez toujours la triangulation des sources. Une information confirmée par plusieurs sources indépendantes est généralement plus fiable.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="basic-techniques" class="mb-5">
+                    <h2 class="text-info">5. Techniques de Base</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Recherche avancée</h4>
+                            <p>Maîtriser les opérateurs de recherche est essentiel pour l'OSINT :</p>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Opérateur</th>
+                                            <th>Fonction</th>
+                                            <th>Exemple</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>site:</td>
+                                            <td>Limite la recherche à un domaine spécifique</td>
+                                            <td>cybersecurity site:edu</td>
+                                        </tr>
+                                        <tr>
+                                            <td>filetype:</td>
+                                            <td>Recherche des types de fichiers spécifiques</td>
+                                            <td>budget filetype:pdf</td>
+                                        </tr>
+                                        <tr>
+                                            <td>intitle:</td>
+                                            <td>Recherche dans les titres de pages</td>
+                                            <td>intitle:"rapport confidentiel"</td>
+                                        </tr>
+                                        <tr>
+                                            <td>inurl:</td>
+                                            <td>Recherche dans les URLs</td>
+                                            <td>inurl:admin</td>
+                                        </tr>
+                                        <tr>
+                                            <td>-</td>
+                                            <td>Exclut un terme</td>
+                                            <td>cybersecurity -cours</td>
+                                        </tr>
+                                        <tr>
+                                            <td>" "</td>
+                                            <td>Recherche une expression exacte</td>
+                                            <td>"John Smith"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de métadonnées</h4>
+                            <p>Les métadonnées sont des "données sur les données" qui peuvent révéler des informations précieuses :</p>
+                            <ul>
+                                <li><strong>Images</strong> : Coordonnées GPS, date/heure, appareil utilisé, logiciel d'édition</li>
+                                <li><strong>Documents</strong> : Auteur, organisation, dates de création/modification, commentaires cachés</li>
+                                <li><strong>Sites web</strong> : Technologies utilisées, structure des répertoires, informations de contact</li>
+                                <li><strong>Emails</strong> : En-têtes, serveurs de transit, informations sur l'expéditeur</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Techniques de base pour les réseaux sociaux</h4>
+                            <ul>
+                                <li>Recherche par nom d'utilisateur à travers différentes plateformes</li>
+                                <li>Analyse des connexions et relations</li>
+                                <li>Identification des habitudes et patterns</li>
+                                <li>Géolocalisation à partir de publications</li>
+                                <li>Analyse chronologique des activités</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Techniques de base pour les domaines</h4>
+                            <ul>
+                                <li>Recherche WHOIS pour les informations d'enregistrement</li>
+                                <li>Analyse DNS pour comprendre l'infrastructure</li>
+                                <li>Découverte de sous-domaines</li>
+                                <li>Recherche d'historique de domaine</li>
+                                <li>Analyse des technologies utilisées</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tools" class="mb-5">
+                    <h2 class="text-info">6. Outils Essentiels</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Outils de recherche générale</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Google Dorks</td>
+                                            <td>Requêtes de recherche avancées pour Google</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shodan</td>
+                                            <td>Moteur de recherche pour appareils connectés</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wayback Machine</td>
+                                            <td>Archive de pages web historiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SpiderFoot</td>
+                                            <td>Outil d'automatisation OSINT</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils pour réseaux sociaux</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sherlock</td>
+                                            <td>Recherche de noms d'utilisateur sur de multiples plateformes</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Social Analyzer</td>
+                                            <td>Analyse de profils sociaux</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Twint</td>
+                                            <td>Outil avancé de scraping Twitter</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>IntelX</td>
+                                            <td>Moteur de recherche pour OSINT</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse de domaines</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Maltego</td>
+                                            <td>Plateforme d'analyse de liens et visualisation</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sublist3r</td>
+                                            <td>Énumération de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DNSDumpster</td>
+                                            <td>Recherche d'enregistrements DNS</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wappalyzer</td>
+                                            <td>Identification des technologies web</td>
+                                            <td><span class="badge bg-success">Gratuit (extension)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analysis" class="mb-5">
+                    <h2 class="text-info">7. Analyse des Informations</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Techniques d'analyse</h4>
+                            <p>L'analyse est l'étape où les données brutes sont transformées en renseignement exploitable :</p>
+                            <ul>
+                                <li><strong>Analyse temporelle</strong> - Établir des chronologies d'événements</li>
+                                <li><strong>Analyse de liens</strong> - Identifier les relations entre entités</li>
+                                <li><strong>Analyse géospatiale</strong> - Cartographier les informations géographiques</li>
+                                <li><strong>Analyse comportementale</strong> - Identifier des patterns et habitudes</li>
+                                <li><strong>Analyse comparative</strong> - Comparer différentes sources d'information</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Visualisation des données</h4>
+                            <p>La visualisation facilite la compréhension et l'identification de patterns :</p>
+                            <ul>
+                                <li>Graphes de relations (avec Maltego, Gephi)</li>
+                                <li>Chronologies interactives</li>
+                                <li>Cartes géographiques</li>
+                                <li>Tableaux de bord analytiques</li>
+                                <li>Infographies</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Éviter les biais cognitifs</h4>
+                            <p>Les biais cognitifs peuvent affecter la qualité de votre analyse :</p>
+                            <ul>
+                                <li><strong>Biais de confirmation</strong> - Tendance à favoriser les informations qui confirment nos hypothèses</li>
+                                <li><strong>Effet d'ancrage</strong> - Trop s'appuyer sur la première information reçue</li>
+                                <li><strong>Biais de disponibilité</strong> - Surestimer l'importance des informations facilement accessibles</li>
+                                <li><strong>Effet de halo</strong> - Laisser une impression générale influencer l'évaluation de caractéristiques spécifiques</li>
+                                <li><strong>Pensée de groupe</strong> - Adopter une opinion pour se conformer au groupe</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Soyez conscient de vos propres biais et utilisez des méthodes structurées d'analyse pour les minimiser.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="reporting" class="mb-5">
+                    <h2 class="text-info">8. Documentation et Rapports</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Structure d'un rapport OSINT</h4>
+                            <p>Un rapport OSINT efficace suit généralement cette structure :</p>
+                            <ol>
+                                <li><strong>Résumé exécutif</strong> - Synthèse des principales découvertes et conclusions</li>
+                                <li><strong>Objectifs et portée</strong> - Définition claire de ce qui a été recherché</li>
+                                <li><strong>Méthodologie</strong> - Description des techniques et outils utilisés</li>
+                                <li><strong>Résultats détaillés</strong> - Présentation organisée des informations collectées</li>
+                                <li><strong>Analyse</strong> - Interprétation des données et identification des patterns</li>
+                                <li><strong>Conclusions</strong> - Synthèse des découvertes principales</li>
+                                <li><strong>Recommandations</strong> - Actions suggérées basées sur les résultats</li>
+                                <li><strong>Annexes</strong> - Sources, données brutes, captures d'écran, etc.</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Bonnes pratiques de documentation</h4>
+                            <ul>
+                                <li>Documenter systématiquement toutes les sources</li>
+                                <li>Horodater les informations collectées</li>
+                                <li>Capturer des preuves (captures d'écran, archives)</li>
+                                <li>Distinguer clairement les faits des hypothèses</li>
+                                <li>Utiliser un système de classification de la fiabilité des informations</li>
+                                <li>Maintenir une chaîne de traçabilité des informations</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Outils de documentation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Joplin</td>
+                                            <td>Prise de notes sécurisée et organisée</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CherryTree</td>
+                                            <td>Organisation hiérarchique des informations</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Obsidian</td>
+                                            <td>Notes interconnectées avec visualisation des liens</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MindMaps</td>
+                                            <td>Visualisation des relations entre informations</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercises" class="mb-5">
+                    <h2 class="text-info">9. Exercices Pratiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Exercice 1: Recherche de base</h4>
+                            <p>Pratiquez les techniques de recherche avancée :</p>
+                            <ol>
+                                <li>Choisissez une entreprise ou une organisation</li>
+                                <li>Utilisez les opérateurs de recherche Google pour trouver :
+                                    <ul>
+                                        <li>Documents PDF sur leur site (site:example.com filetype:pdf)</li>
+                                        <li>Pages contenant des informations de contact (site:example.com "contact" OR "email" OR "téléphone")</li>
+                                        <li>Mentions dans la presse (intitle:example.com -site:example.com)</li>
+                                    </ul>
+                                </li>
+                                <li>Documentez vos résultats et méthodes</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Exercice 2: Analyse de profil social</h4>
+                            <p>Pratiquez l'OSINT sur les réseaux sociaux (avec un compte fictif ou votre propre compte) :</p>
+                            <ol>
+                                <li>Identifiez un nom d'utilisateur sur une plateforme</li>
+                                <li>Recherchez ce nom d'utilisateur sur d'autres plateformes</li>
+                                <li>Collectez les informations publiques disponibles</li>
+                                <li>Créez une chronologie d'activités</li>
+                                <li>Identifiez les connexions et relations</li>
+                            </ol>
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> Cet exercice doit être réalisé dans le respect de la vie privée et uniquement à des fins éducatives.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exercice 3: Analyse de domaine</h4>
+                            <p>Pratiquez l'OSINT sur un domaine web :</p>
+                            <ol>
+                                <li>Choisissez un domaine (idéalement le vôtre ou un domaine public)</li>
+                                <li>Effectuez une recherche WHOIS</li>
+                                <li>Identifiez les sous-domaines</li>
+                                <li>Analysez l'historique du domaine avec Wayback Machine</li>
+                                <li>Identifiez les technologies utilisées</li>
+                                <li>Créez un rapport de vos découvertes</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="resources" class="mb-5">
+                    <h2 class="text-info">10. Ressources</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Livres recommandés</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Auteur</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Open Source Intelligence Techniques</td>
+                                            <td>Michael Bazzell</td>
+                                            <td>Guide pratique des techniques OSINT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Intelligence-Led Security</td>
+                                            <td>Scott Swanson</td>
+                                            <td>Application de l'OSINT à la sécurité</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OSINT Framework</td>
+                                            <td>Collectif</td>
+                                            <td>Ressource en ligne avec de nombreux outils</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Sites web et blogs</h4>
+                            <ul>
+                                <li><a href="#" class="text-light">OSINT Framework</a> - Collection organisée d'outils OSINT</li>
+                                <li><a href="#" class="text-light">IntelTechniques</a> - Blog et podcasts de Michael Bazzell</li>
+                                <li><a href="#" class="text-light">Bellingcat</a> - Journalisme d'investigation utilisant l'OSINT</li>
+                                <li><a href="#" class="text-light">OSINT Curious</a> - Projet collaboratif de ressources OSINT</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Formations et certifications</h4>
+                            <ul>
+                                <li>SANS FOR498: Battlefield Forensics & Data Acquisition</li>
+                                <li>SANS SEC487: Open-Source Intelligence Gathering and Analysis</li>
+                                <li>Inteltechniques OSINT Training</li>
+                                <li>Toddington International OSINT Courses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cheatsheets" class="mb-5">
+                    <h2 class="text-info">Cheatsheets</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Aide-mémoire OSINT</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5>Google Dorks</h5>
+                                            <p>Opérateurs de recherche avancée</p>
+                                            <a href="#" class="btn btn-sm btn-info">Télécharger PDF</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5>Méthodologie OSINT</h5>
+                                            <p>Étapes et processus structurés</p>
+                                            <a href="#" class="btn btn-sm btn-info">Télécharger PDF</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5>Outils OSINT</h5>
+                                            <p>Liste organisée par catégorie</p>
+                                            <a href="#" class="btn btn-sm btn-info">Télécharger PDF</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5>Analyse de métadonnées</h5>
+                                            <p>Guide d'extraction et d'interprétation</p>
+                                            <a href="#" class="btn btn-sm btn-info">Télécharger PDF</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="videos" class="mb-5">
+                    <h2 class="text-info">Vidéos</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Tutoriels vidéo</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger">
+                                        <div class="card-body">
+                                            <h5>Introduction à l'OSINT</h5>
+                                            <p>Durée: 45 minutes</p>
+                                            <a href="#" class="btn btn-sm btn-danger">Regarder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger">
+                                        <div class="card-body">
+                                            <h5>Techniques de recherche avancée</h5>
+                                            <p>Durée: 60 minutes</p>
+                                            <a href="#" class="btn btn-sm btn-danger">Regarder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger">
+                                        <div class="card-body">
+                                            <h5>OSINT sur les réseaux sociaux</h5>
+                                            <p>Durée: 75 minutes</p>
+                                            <a href="#" class="btn btn-sm btn-danger">Regarder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger">
+                                        <div class="card-body">
+                                            <h5>Analyse de domaines</h5>
+                                            <p>Durée: 50 minutes</p>
+                                            <a href="#" class="btn btn-sm btn-danger">Regarder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="community" class="mb-5">
+                    <h2 class="text-info">Communauté</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Forums et communautés</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-success">
+                                        <div class="card-body">
+                                            <h5>Forum Trinity</h5>
+                                            <p>Rejoignez notre communauté d'analystes OSINT</p>
+                                            <a href="../../forum/index.html" class="btn btn-sm btn-success">Accéder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-success">
+                                        <div class="card-body">
+                                            <h5>Discord Trinity</h5>
+                                            <p>Discussions en temps réel avec des experts</p>
+                                            <a href="../../community/discord.html" class="btn btn-sm btn-success">Rejoindre</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-success">
+                                        <div class="card-body">
+                                            <h5>Événements</h5>
+                                            <p>Webinaires et ateliers à venir</p>
+                                            <a href="../../community/events.html" class="btn btn-sm btn-success">Calendrier</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-success">
+                                        <div class="card-body">
+                                            <h5>Contribuer</h5>
+                                            <p>Partagez vos connaissances avec la communauté</p>
+                                            <a href="../../community/contribute.html" class="btn btn-sm btn-success">En savoir plus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-4 mt-5">
+        <p>Trinity Project © 2025 - Cours OSINT</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/background.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

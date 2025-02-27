@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Développement Anti-Cheat - Partie 2 | Trinity Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/prism.css">
+</head>
+<body><div id="navigation-placeholder"></div><canvas id="background-canvas"></canvas>
+    <header>
+        <nav>
+            <a href="../../index.html">Accueil</a>
+            <a href="anticheat-dev-part1.html">Partie 1</a>
+            <a href="#" class="active">Partie 2</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h1>Protection Mémoire et Anti-Debug Avancé</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Dans cette deuxième partie, nous plongeons dans les techniques avancées de protection mémoire et de détection de débogage. Ces techniques sont essentielles pour protéger efficacement vos jeux contre la triche.</p>
+            </section>
+
+            <section id="memory-protection">
+                <h2>Protection Mémoire</h2>
+                <div class="diagram">
+                    <img src="resources/diagrams/memory_protection.svg" alt="Protection Mémoire">
+                </div>
+                <h3>Techniques de Base</h3>
+                <ul>
+                    <li>Modification des protections de page</li>
+                    <li>Chiffrement en mémoire</li>
+                    <li>Vérification d'intégrité</li>
+                </ul>
+                <h3>Techniques Avancées</h3>
+                <ul>
+                    <li>Pages Guard</li>
+                    <li>Hooks mémoire</li>
+                    <li>Protection multicouche</li>
+                </ul>
+                <div class="code-example">
+                    <pre><code class="language-cpp">
+// Exemple de protection mémoire
+DWORD oldProtect;
+VirtualProtect(address, size, PAGE_GUARD | PAGE_READWRITE, &oldProtect);
+                    </code></pre>
+                </div>
+            </section>
+
+            <section id="anti-debug">
+                <h2>Techniques Anti-Debug</h2>
+                <div class="diagram">
+                    <img src="resources/diagrams/anti_debug_techniques.svg" alt="Techniques Anti-Debug">
+                </div>
+                <h3>Détection de Débogueur</h3>
+                <ul>
+                    <li>API Windows</li>
+                    <li>PEB (Process Environment Block)</li>
+                    <li>Breakpoints Hardware</li>
+                </ul>
+                <h3>Contre-Mesures</h3>
+                <ul>
+                    <li>Obfuscation</li>
+                    <li>Anti-tampering</li>
+                    <li>Détection en temps réel</li>
+                </ul>
+                <div class="code-example">
+                    <pre><code class="language-cpp">
+// Exemple de détection de débogueur
+bool isBeingDebugged() {
+    return IsDebuggerPresent() || 
+           CheckRemoteDebuggerPresent(GetCurrentProcess(), nullptr);
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <section id="memory-hooks">
+                <h2>Hooks Mémoire</h2>
+                <div class="diagram">
+                    <img src="resources/diagrams/memory_hooks.svg" alt="Hooks Mémoire">
+                </div>
+                <h3>Types de Hooks</h3>
+                <ul>
+                    <li>IAT Hooks</li>
+                    <li>Inline Hooks</li>
+                    <li>VTable Hooks</li>
+                </ul>
+                <h3>Implémentation</h3>
+                <ul>
+                    <li>Trampolines</li>
+                    <li>Protection des hooks</li>
+                    <li>Gestion des exceptions</li>
+                </ul>
+                <div class="code-example">
+                    <pre><code class="language-cpp">
+// Exemple de hook inline
+void* CreateInlineHook(void* target, void* hook) {
+    unsigned char* trampoline = AllocateTrampoline();
+    // Code du hook...
+    return trampoline;
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <section id="practice">
+                <h2>Exercices Pratiques</h2>
+                <div id="practice-container">
+                    <!-- Chargé dynamiquement via practice-data.js -->
+                </div>
+            </section>
+
+            <section id="quiz">
+                <h2>Quiz</h2>
+                <div id="quiz-container">
+                    <!-- Chargé dynamiquement via quiz-data.js -->
+                </div>
+            </section>
+
+            <section id="resources">
+                <h2>Ressources</h2>
+                <div id="resources-container">
+                    <!-- Chargé dynamiquement via resources-data.js -->
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Trinity Learning Platform - Tous droits réservés</p>
+    </footer>
+
+    <script src="../../js/prism.js"></script>
+    <script src="../../js/quiz-data.js"></script>
+    <script src="../../js/practice-data.js"></script>
+    <script src="../../js/resources-data.js"></script>
+    <script src="../../js/course.js"></script>
+<script src="../../js/background.js"></script><script src="../../js/navigation.js"></script></body>
+</html>
+

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Cours de Mobile Game Hacking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .course-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        .code-block {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .progress {
+            background-color: #333;
+        }
+        .list-group-item {
+            background-color: #1a1a1a;
+            border-color: #333;
+            color: #fff;
+        }
+        .platform-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            Fondamentaux
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="game-hacking-courses.html">Game Hacking</a></li>
+                            <li><a class="dropdown-item active" href="mobile-hacking-courses.html">Mobile Hacking</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Avancé
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="protection-courses.html">Protection & RE</a></li>
+                            <li><a class="dropdown-item" href="practical-courses.html">Techniques Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="dev-tools-courses.html">Outils de Développement</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Cours de Mobile Game Hacking</h1>
+
+        <!-- Android Courses -->
+        <section class="mb-5">
+            <h2><i class="platform-icon">🤖</i> Android Game Hacking</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Fondamentaux Android</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%">Débutant</div>
+                            </div>
+                            <div class="accordion" id="androidBasicsAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAndroidBasics">
+                                            Module 1: Introduction
+                                        </button>
+                                    </h2>
+                                    <div id="collapseAndroidBasics" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">1.1 Root et préparation</li>
+                                                <li class="list-group-item">1.2 GameGuardian basics</li>
+                                                <li class="list-group-item">1.3 Memory scanning</li>
+                                                <li class="list-group-item">1.4 APK modification</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Techniques Avancées Android</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 100%">Avancé</div>
+                            </div>
+                            <div class="accordion" id="androidAdvancedAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAndroidAdvanced">
+                                            Module 2: Techniques Pro
+                                        </button>
+                                    </h2>
+                                    <div id="collapseAndroidAdvanced" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">2.1 Frida scripting</li>
+                                                <li class="list-group-item">2.2 Native library hooking</li>
+                                                <li class="list-group-item">2.3 Anti-cheat bypass</li>
+                                                <li class="list-group-item">2.4 Custom tools</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- iOS Courses -->
+        <section class="mb-5">
+            <h2><i class="platform-icon">🍎</i> iOS Game Hacking</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Fondamentaux iOS</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%">Débutant</div>
+                            </div>
+                            <div class="accordion" id="iosBasicsAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIOSBasics">
+                                            Module 1: Préparation
+                                        </button>
+                                    </h2>
+                                    <div id="collapseIOSBasics" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">1.1 Jailbreak setup</li>
+                                                <li class="list-group-item">1.2 Cydia essentials</li>
+                                                <li class="list-group-item">1.3 IPA analysis</li>
+                                                <li class="list-group-item">1.4 Basic tweaks</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Développement iOS Avancé</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 100%">Avancé</div>
+                            </div>
+                            <div class="accordion" id="iosAdvancedAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIOSAdvanced">
+                                            Module 2: Développement Pro
+                                        </button>
+                                    </h2>
+                                    <div id="collapseIOSAdvanced" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">2.1 Theos mastery</li>
+                                                <li class="list-group-item">2.2 Runtime manipulation</li>
+                                                <li class="list-group-item">2.3 Security bypass</li>
+                                                <li class="list-group-item">2.4 Custom frameworks</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unity Mobile -->
+        <section class="mb-5">
+            <h2><i class="platform-icon">🎮</i> Unity Mobile</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Unity Mobile Basics</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 100%">Spécialisé</div>
+                            </div>
+                            <div class="accordion" id="unityBasicsAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUnityBasics">
+                                            Module: Unity Fundamentals
+                                        </button>
+                                    </h2>
+                                    <div id="collapseUnityBasics" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">1.1 IL2CPP basics</li>
+                                                <li class="list-group-item">1.2 Asset extraction</li>
+                                                <li class="list-group-item">1.3 Memory structure</li>
+                                                <li class="list-group-item">1.4 Basic modding</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ressources -->
+        <section class="mb-5">
+            <h2>Ressources Complémentaires</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h4>Outils Recommandés</h4>
+                            <ul class="list-unstyled">
+                                <li>🛠️ GameGuardian Pro</li>
+                                <li>🔧 Frida Tools</li>
+                                <li>📱 Mobile Debug Suite</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h4>Scripts & Templates</h4>
+                            <ul class="list-unstyled">
+                                <li>📝 Frida Scripts</li>
+                                <li>🔍 Memory Patterns</li>
+                                <li>📚 Code Examples</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h4>Support</h4>
+                            <ul class="list-unstyled">
+                                <li>👥 Forum Mobile</li>
+                                <li>💬 Chat Support</li>
+                                <li>📱 Mobile News</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/background.js"></script>
+</body>
+</html>

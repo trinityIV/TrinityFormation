@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Programmation Sécurisée</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+<main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Programmation Sécurisée</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 4h</span>
+                            <span class="badge bg-success">Sécurité</span>
+                        </div>
+                        <p class="card-text">Ce cours vous apprend les principes et pratiques de la programmation sécurisée pour développer des applications robustes face aux menaces modernes. Vous découvrirez comment intégrer la sécurité dès la conception et tout au long du cycle de développement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#principles">2. Principes de Sécurité</a>
+                            <a class="nav-link" href="#input-validation">3. Validation des Entrées</a>
+                            <a class="nav-link" href="#authentication">4. Authentification et Autorisation</a>
+                            <a class="nav-link" href="#cryptography">5. Cryptographie</a>
+                            <a class="nav-link" href="#sdlc">6. Sécurité dans le SDLC</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>La programmation sécurisée est l'art de développer des applications qui restent fiables même face à des attaques. Plutôt que de traiter la sécurité comme une fonctionnalité à ajouter après le développement, elle doit être intégrée dès la conception.</p>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Important :</strong> Le coût de correction d'une faille de sécurité augmente exponentiellement à mesure que l'on avance dans le cycle de développement. Une vulnérabilité découverte en production peut coûter jusqu'à 100 fois plus cher à corriger qu'une vulnérabilité identifiée pendant la phase de conception.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="principles" class="mb-5">
+                    <h2 class="text-primary">2. Principes de Sécurité</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Principes fondamentaux</h4>
+                            <ul>
+                                <li><strong>Défense en profondeur</strong> - Mettre en place plusieurs couches de sécurité</li>
+                                <li><strong>Principe du moindre privilège</strong> - Accorder uniquement les droits nécessaires</li>
+                                <li><strong>Séparation des préoccupations</strong> - Diviser le système en composants distincts</li>
+                                <li><strong>Fail secure</strong> - En cas d'erreur, privilégier la sécurité</li>
+                                <li><strong>Ne jamais faire confiance aux entrées</strong> - Toujours valider les données</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-info mt-4">
+                                <div class="card-header text-info">
+                                    <i class="fas fa-lightbulb me-2"></i>Principe KISS (Keep It Simple and Secure)
+                                </div>
+                                <div class="card-body">
+                                    <p>La complexité est l'ennemie de la sécurité. Plus un système est complexe, plus il est difficile de l'analyser et de garantir sa sécurité. Privilégiez des solutions simples et bien comprises.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="input-validation" class="mb-5">
+                    <h2 class="text-primary">3. Validation des Entrées</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>La validation des entrées est la première ligne de défense contre de nombreuses attaques. Toutes les données provenant de sources externes doivent être considérées comme non fiables.</p>
+                            
+                            <h4 class="text-info">Stratégies de validation</h4>
+                            <ul>
+                                <li><strong>Validation par liste blanche</strong> - N'accepter que les entrées connues comme sûres</li>
+                                <li><strong>Validation par liste noire</strong> - Rejeter les entrées connues comme dangereuses</li>
+                                <li><strong>Canonicalisation</strong> - Convertir les données en format standard avant validation</li>
+                                <li><strong>Validation côté serveur</strong> - Ne jamais se fier uniquement à la validation côté client</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-danger mb-3">
+                                <div class="card-header text-danger">
+                                    <i class="fas fa-times-circle me-2"></i>Mauvaise pratique
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-javascript">// Validation côté client uniquement
+function validateForm() {
+    var email = document.getElementById("email").value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-dark border-success mb-3">
+                                <div class="card-header text-success">
+                                    <i class="fas fa-check-circle me-2"></i>Bonne pratique
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-php">// Validation côté serveur
+function validateEmail($email) {
+    // Nettoyage
+    $email = trim($email);
+    
+    // Validation par expression régulière
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+    
+    // Vérification supplémentaire (ex: domaine valide)
+    $domain = substr(strrchr($email, "@"), 1);
+    if (!checkdnsrr($domain, "MX")) {
+        return false;
+    }
+    
+    return true;
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="authentication" class="mb-5">
+                    <h2 class="text-primary">4. Authentification et Autorisation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Authentification sécurisée</h4>
+                            <ul>
+                                <li>Utiliser des algorithmes de hachage forts (bcrypt, Argon2) pour les mots de passe</li>
+                                <li>Implémenter l'authentification multi-facteurs</li>
+                                <li>Appliquer des politiques de mots de passe robustes</li>
+                                <li>Limiter les tentatives de connexion</li>
+                                <li>Utiliser des jetons d'authentification à durée limitée</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-success mb-3">
+                                <div class="card-header text-success">
+                                    <i class="fas fa-check-circle me-2"></i>Exemple de hachage sécurisé
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-php">// PHP - Utilisation de password_hash (basé sur bcrypt)
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
+
+// Vérification
+if (password_verify($inputPassword, $hashedPassword)) {
+    // Authentification réussie
+}</code></pre>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Autorisation</h4>
+                            <p>L'autorisation détermine ce qu'un utilisateur authentifié est autorisé à faire.</p>
+                            <ul>
+                                <li>Implémenter un contrôle d'accès basé sur les rôles (RBAC)</li>
+                                <li>Appliquer le principe du moindre privilège</li>
+                                <li>Vérifier les autorisations à chaque action sensible</li>
+                                <li>Centraliser la logique d'autorisation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cryptography" class="mb-5">
+                    <h2 class="text-primary">5. Cryptographie</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>La cryptographie est essentielle pour protéger les données sensibles, mais son implémentation incorrecte peut créer un faux sentiment de sécurité.</p>
+                            
+                            <div class="alert alert-danger mt-3 mb-4">
+                                <i class="fas fa-lock me-2"></i>
+                                <strong>Règle d'or :</strong> N'implémentez jamais vos propres algorithmes cryptographiques. Utilisez des bibliothèques éprouvées et maintenues.
+                            </div>
+                            
+                            <h4 class="text-info">Bonnes pratiques</h4>
+                            <ul>
+                                <li>Utiliser des algorithmes standards (AES, RSA, ECC)</li>
+                                <li>Gérer correctement les clés (rotation, stockage sécurisé)</li>
+                                <li>Utiliser des vecteurs d'initialisation (IV) uniques</li>
+                                <li>Implémenter le chiffrement authentifié (AEAD)</li>
+                                <li>Maintenir les bibliothèques cryptographiques à jour</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-success mb-3">
+                                <div class="card-header text-success">
+                                    <i class="fas fa-check-circle me-2"></i>Exemple de chiffrement sécurisé
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-python"># Python - Utilisation de cryptography.io
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+import os
+
+# Générer une clé
+key = AESGCM.generate_key(bit_length=256)
+
+# Chiffrement
+aesgcm = AESGCM(key)
+nonce = os.urandom(12)  # Nonce unique pour chaque message
+ciphertext = aesgcm.encrypt(nonce, plaintext, associated_data)
+
+# Déchiffrement
+plaintext = aesgcm.decrypt(nonce, ciphertext, associated_data)</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="sdlc" class="mb-5">
+                    <h2 class="text-primary">6. Sécurité dans le SDLC</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>La sécurité doit être intégrée à chaque étape du cycle de développement logiciel (SDLC).</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Phase</th>
+                                            <th>Activités de sécurité</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Planification</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Définir les exigences de sécurité</li>
+                                                    <li>Évaluer les risques</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Conception</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Modélisation des menaces</li>
+                                                    <li>Conception sécurisée</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Développement</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Revue de code</li>
+                                                    <li>Analyse statique</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Test</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Tests de sécurité</li>
+                                                    <li>Analyse dynamique</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Déploiement</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Durcissement des environnements</li>
+                                                    <li>Gestion des secrets</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maintenance</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Surveillance de sécurité</li>
+                                                    <li>Gestion des vulnérabilités</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'intégration continue</h4>
+                            <ul>
+                                <li><strong>SAST</strong> (Static Application Security Testing) - Analyse du code source</li>
+                                <li><strong>DAST</strong> (Dynamic Application Security Testing) - Tests dynamiques</li>
+                                <li><strong>SCA</strong> (Software Composition Analysis) - Analyse des dépendances</li>
+                                <li><strong>IAST</strong> (Interactive Application Security Testing) - Tests interactifs</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                <strong>DevSecOps :</strong> L'intégration de la sécurité dans les pratiques DevOps permet d'automatiser les contrôles de sécurité tout au long du pipeline de développement et de déploiement.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script src="../../js/courses.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+    <script src="../../js/background.js"></script>
+<script src="../../js/navigation.js"></script></body>
+</html>
+
+

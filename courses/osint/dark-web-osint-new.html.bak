@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Dark Web OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Fondamentaux
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="../../tools/courses/game-hacking-courses.html">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="../../tools/courses/mobile-hacking-courses.html">Mobile Hacking</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Avancé
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="../../tools/courses/protection-courses.html">Protection & RE</a></li>
+                            <li><a class="dropdown-item" href="../../tools/courses/practical-courses.html">Techniques Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            OSINT
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="osint-tools-methodology-new.html">Outils & Méthodologie</a></li>
+                            <li><a class="dropdown-item active" href="dark-web-osint-new.html">Dark Web OSINT</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Dark Web OSINT</h1>
+
+        <!-- Dark Web Navigation Section -->
+        <section class="course-section mb-5">
+            <h2 class="mb-4">Navigation sur le Dark Web</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h3>Fondamentaux Dark Web</h3>
+                            <div class="mb-4">
+                                <span class="badge bg-success mb-2">Niveau: Débutant</span>
+                                <p class="text-muted">Introduction à la navigation sécurisée sur le Dark Web</p>
+                            </div>
+                            <div class="accordion" id="darkWebBasicsAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBasics">
+                                            Module 1: Introduction Dark Web
+                                        </button>
+                                    </h2>
+                                    <div id="collapseBasics" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">1.1 Comprendre le Dark Web</li>
+                                                <li class="list-group-item">1.2 Configuration de Tor</li>
+                                                <li class="list-group-item">1.3 Sécurité de base</li>
+                                                <li class="list-group-item">1.4 Navigation anonyme</li>
+                                            </ul>
+                                            <div class="code-block mt-3">
+# Configuration Tor Browser
+sudo apt update
+sudo apt install tor torbrowser-launcher
+torbrowser-launcher</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h3>Techniques Avancées</h3>
+                            <div class="mb-4">
+                                <span class="badge bg-warning mb-2">Niveau: Intermédiaire</span>
+                                <p class="text-muted">Techniques avancées de recherche sur le Dark Web</p>
+                            </div>
+                            <div class="accordion" id="advancedTechniquesAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvanced">
+                                            Module 2: Recherche Avancée
+                                        </button>
+                                    </h2>
+                                    <div id="collapseAdvanced" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">2.1 Moteurs de recherche .onion</li>
+                                                <li class="list-group-item">2.2 Techniques de recherche</li>
+                                                <li class="list-group-item">2.3 Validation des sources</li>
+                                                <li class="list-group-item">2.4 Documentation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section class="course-section mb-5">
+            <h2 class="mb-4">Sécurité OSINT</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h3>Protection Avancée</h3>
+                            <div class="mb-4">
+                                <span class="badge bg-danger mb-2">Niveau: Expert</span>
+                                <p class="text-muted">Techniques de protection avancées pour l'OSINT</p>
+                            </div>
+                            <div class="accordion" id="securityAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSecurity">
+                                            Module 3: Sécurité Avancée
+                                        </button>
+                                    </h2>
+                                    <div id="collapseSecurity" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">3.1 VPN et Proxies</li>
+                                                <li class="list-group-item">3.2 Machines virtuelles</li>
+                                                <li class="list-group-item">3.3 OPSEC</li>
+                                                <li class="list-group-item">3.4 Contre-surveillance</li>
+                                            </ul>
+                                            <div class="code-block mt-3">
+# Configuration d'une VM sécurisée
+sudo apt install virtualbox
+VBoxManage createvm --name "OSINT-VM" --ostype "Debian_64" --register
+VBoxManage modifyvm "OSINT-VM" --memory 4096 --acpi on --boot1 dvd</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h3>Analyse de Données</h3>
+                            <div class="mb-4">
+                                <span class="badge bg-info mb-2">Niveau: Spécialisé</span>
+                                <p class="text-muted">Techniques d'analyse de données du Dark Web</p>
+                            </div>
+                            <div class="accordion" id="analysisAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAnalysis">
+                                            Module 4: Analyse
+                                        </button>
+                                    </h2>
+                                    <div id="collapseAnalysis" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">4.1 Collecte de données</li>
+                                                <li class="list-group-item">4.2 Analyse de contenu</li>
+                                                <li class="list-group-item">4.3 Visualisation</li>
+                                                <li class="list-group-item">4.4 Reporting</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ressources Section -->
+        <section class="course-section mb-5">
+            <h2 class="mb-4">Ressources Dark Web</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h4>Documentation</h4>
+                            <ul class="list-unstyled">
+                                <li>📚 Guides sécurité</li>
+                                <li>📝 Best practices</li>
+                                <li>🔍 Études de cas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h4>Outils Recommandés</h4>
+                            <ul class="list-unstyled">
+                                <li>🛡️ Outils de sécurité</li>
+                                <li>🔍 Outils d'analyse</li>
+                                <li>📊 Visualisation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <div class="course-content">
+                            <h4>Support</h4>
+                            <ul class="list-unstyled">
+                                <li>👥 Communauté</li>
+                                <li>💬 Assistance</li>
+                                <li>📢 Updates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>Trinity Project - 2025 - Cours Dark Web OSINT</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/background.js"></script>
+    <script src="../../js/courses.js"></script>
+</body>
+</html>

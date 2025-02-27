@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Sécurité Réseau Anti-Cheat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light"><canvas id="background-canvas"></canvas>
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Sécurité Réseau Anti-Cheat</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Partie 3/5</span>
+                            <span class="badge bg-info me-2">Durée: 10h</span>
+                            <span class="badge bg-success">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Découvrez comment sécuriser les communications réseau de votre jeu, détecter les modifications de paquets, et implémenter des systèmes de vérification côté serveur robustes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#packet-validation">1. Validation des Paquets</a>
+                            <a class="nav-link" href="#encryption">2. Chiffrement</a>
+                            <a class="nav-link" href="#server-auth">3. Authentification Serveur</a>
+                            <a class="nav-link" href="#replay-protection">4. Protection Anti-Replay</a>
+                            <a class="nav-link" href="#implementation">5. Implémentation</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="packet-validation" class="mb-5">
+                    <h2 class="text-primary">1. Validation des Paquets</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Système de Validation</h3>
+                            <div class="alert alert-info mb-3">
+                                <i class="fas fa-shield-alt"></i> Vérification de l'intégrité des paquets :
+                            </div>
+                            <pre><code class="language-cpp">class PacketValidator {
+private:
+    struct PacketHeader {
+        uint32_t signature;
+        uint32_t timestamp;
+        uint16_t size;
+        uint16_t checksum;
+    };
+    
+public:
+    bool ValidatePacket(const Packet& packet) {
+        // Vérifier la signature
+        if (packet.header.signature != VALID_SIGNATURE)
+            return false;
+            
+        // Vérifier la taille
+        if (packet.header.size != packet.data.size())
+            return false;
+            
+        // Vérifier le checksum
+        uint16_t calculated = CalculateChecksum(
+            packet.data.data(),
+            packet.data.size()
+        );
+        
+        if (calculated != packet.header.checksum)
+            return false;
+            
+        // Vérifier le timestamp
+        return ValidateTimestamp(packet.header.timestamp);
+    }
+    
+private:
+    bool ValidateTimestamp(uint32_t timestamp) {
+        uint32_t currentTime = GetServerTime();
+        uint32_t diff = currentTime - timestamp;
+        
+        // Rejeter si trop vieux ou futur
+        return diff < MAX_PACKET_AGE;
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="encryption" class="mb-5">
+                    <h2 class="text-primary">2. Chiffrement</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Cryptographie Réseau</h3>
+                            <div class="alert alert-warning mb-3">
+                                <i class="fas fa-lock"></i> Utilisation de cryptographie forte pour les communications :
+                            </div>
+                            <pre><code class="language-cpp">class NetworkEncryption {
+private:
+    std::array<uint8_t, 32> key;
+    std::unique_ptr<AES_KEY> aesKey;
+    
+public:
+    bool Initialize(const std::string& serverKey) {
+        // Dériver la clé
+        if (!DeriveKey(serverKey, key.data()))
+            return false;
+            
+        // Initialiser AES
+        aesKey = std::make_unique<AES_KEY>();
+        if (AES_set_encrypt_key(key.data(), 256, 
+            aesKey.get()) != 0)
+            return false;
+            
+        return true;
+    }
+    
+    std::vector<uint8_t> EncryptPacket(
+        const std::vector<uint8_t>& data
+    ) {
+        std::vector<uint8_t> encrypted;
+        encrypted.resize(data.size() + 16); // IV + données
+        
+        // Générer IV aléatoire
+        GenerateRandomIV(encrypted.data());
+        
+        // Chiffrer avec AES-CBC
+        AES_cbc_encrypt(
+            data.data(),
+            encrypted.data() + 16,
+            data.size(),
+            aesKey.get(),
+            encrypted.data(), // IV
+            AES_ENCRYPT
+        );
+        
+        return encrypted;
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="server-auth" class="mb-5">
+                    <h2 class="text-primary">3. Authentification Serveur</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Système d'Authentification</h3>
+                            <div class="alert alert-success mb-3">
+                                <i class="fas fa-key"></i> Authentification sécurisée client-serveur :
+                            </div>
+                            <pre><code class="language-cpp">class ServerAuthenticator {
+private:
+    struct AuthSession {
+        std::string sessionId;
+        std::vector<uint8_t> challenge;
+        uint64_t timestamp;
+    };
+    
+    std::unordered_map<std::string, AuthSession> sessions;
+    
+public:
+    AuthChallenge CreateChallenge(
+        const std::string& clientId
+    ) {
+        AuthSession session;
+        session.sessionId = GenerateSessionId();
+        session.challenge = GenerateChallenge();
+        session.timestamp = GetCurrentTime();
+        
+        sessions[clientId] = session;
+        
+        return {
+            session.sessionId,
+            session.challenge
+        };
+    }
+    
+    bool VerifyResponse(
+        const std::string& clientId,
+        const AuthResponse& response
+    ) {
+        auto it = sessions.find(clientId);
+        if (it == sessions.end())
+            return false;
+            
+        const auto& session = it->second;
+        
+        // Vérifier expiration
+        if (IsSessionExpired(session.timestamp))
+            return false;
+            
+        // Vérifier réponse
+        bool valid = ValidateResponse(
+            session.challenge,
+            response
+        );
+        
+        // Nettoyer session
+        sessions.erase(it);
+        
+        return valid;
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="replay-protection" class="mb-5">
+                    <h2 class="text-primary">4. Protection Anti-Replay</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Prévention des Attaques Replay</h3>
+                            <pre><code class="language-cpp">class ReplayProtection {
+private:
+    struct PacketHistory {
+        std::deque<uint32_t> sequences;
+        uint32_t windowSize;
+        uint32_t lastSequence;
+    };
+    
+    std::unordered_map<
+        std::string,  // ClientId
+        PacketHistory
+    > clientHistory;
+    
+public:
+    bool ValidateSequence(
+        const std::string& clientId,
+        uint32_t sequence
+    ) {
+        auto& history = clientHistory[clientId];
+        
+        // Vérifier séquence future
+        if (sequence <= history.lastSequence)
+            return false;
+            
+        // Vérifier dans la fenêtre
+        if (sequence - history.lastSequence > 
+            history.windowSize)
+            return false;
+            
+        // Vérifier doublon
+        if (std::find(
+            history.sequences.begin(),
+            history.sequences.end(),
+            sequence) != history.sequences.end())
+            return false;
+            
+        // Mettre à jour historique
+        history.sequences.push_back(sequence);
+        if (history.sequences.size() > 
+            history.windowSize)
+            history.sequences.pop_front();
+            
+        history.lastSequence = sequence;
+        return true;
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="implementation" class="mb-5">
+                    <h2 class="text-primary">5. Implémentation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Système de Sécurité Réseau Complet</h3>
+                            <div class="alert alert-success mb-4">
+                                <i class="fas fa-network-wired"></i> Implémentation d'un système de sécurité réseau complet
+                            </div>
+                            <pre><code class="language-cpp">class NetworkSecuritySystem {
+private:
+    PacketValidator packetValidator;
+    NetworkEncryption encryption;
+    ServerAuthenticator authenticator;
+    ReplayProtection replayProtection;
+    
+    struct ClientState {
+        bool authenticated;
+        std::string sessionId;
+        uint32_t lastSequence;
+    };
+    
+    std::unordered_map<
+        std::string,  // ClientId
+        ClientState
+    > clients;
+    
+public:
+    bool Initialize(
+        const std::string& serverKey
+    ) {
+        if (!encryption.Initialize(serverKey))
+            return false;
+            
+        return true;
+    }
+    
+    bool ProcessPacket(
+        const std::string& clientId,
+        const NetworkPacket& packet
+    ) {
+        // 1. Valider le paquet
+        if (!packetValidator.ValidatePacket(packet))
+            return false;
+            
+        // 2. Vérifier séquence
+        if (!replayProtection.ValidateSequence(
+            clientId, packet.sequence))
+            return false;
+            
+        // 3. Déchiffrer
+        auto decrypted = encryption.DecryptPacket(
+            packet.data);
+        if (decrypted.empty())
+            return false;
+            
+        // 4. Traiter selon type
+        switch (packet.type) {
+            case PacketType::AUTH_REQUEST:
+                return HandleAuthRequest(
+                    clientId, decrypted);
+                    
+            case PacketType::GAME_DATA:
+                return HandleGameData(
+                    clientId, decrypted);
+                    
+            default:
+                return false;
+        }
+    }
+    
+private:
+    bool HandleAuthRequest(
+        const std::string& clientId,
+        const std::vector<uint8_t>& data
+    ) {
+        AuthRequest request;
+        if (!request.Deserialize(data))
+            return false;
+            
+        // Créer challenge
+        auto challenge = 
+            authenticator.CreateChallenge(clientId);
+            
+        // Envoyer challenge
+        SendChallenge(clientId, challenge);
+        return true;
+    }
+    
+    bool HandleGameData(
+        const std::string& clientId,
+        const std::vector<uint8_t>& data
+    ) {
+        auto it = clients.find(clientId);
+        if (it == clients.end() || 
+            !it->second.authenticated)
+            return false;
+            
+        // Traiter données de jeu
+        return ProcessGameData(data);
+    }
+};</code></pre>
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-lightbulb"></i> Ce système combine toutes les techniques vues dans cette partie pour une sécurité réseau complète.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+<script src="../../js/background.js"></script><script src="../../js/navigation.js"></script></body>
+</html>
+

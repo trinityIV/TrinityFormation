@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Fondamentaux Anti-Cheat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Fondamentaux du Développement Anti-Cheat</h1>
+                        <div class="d-flex flex-wrap align-items-center mb-3">
+                            <span class="badge bg-primary me-2 mb-2 mb-md-0">Partie 1/5</span>
+                            <span class="badge bg-info me-2 mb-2 mb-md-0">Durée: 8h</span>
+                            <span class="badge bg-success mb-2 mb-md-0">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Découvrez les principes fondamentaux du développement d'anti-cheat. Cette première partie pose les bases essentielles pour comprendre les menaces et concevoir une architecture de protection efficace.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <div class="col-lg-9">
+                <!-- Section Contenu -->
+                <section id="content" class="mb-5">
+                    <h2 class="text-success">Introduction aux Anti-Cheats</h2>
+                    <p>Dans cette première partie, nous allons explorer les fondamentaux du développement d'anti-cheat et comprendre les différentes approches de protection.</p>
+                    
+                    <h3 class="text-info mt-4">Architecture de Base</h3>
+                    <div class="resource-container mb-4">
+                        <img src="resources/diagrams/architecture.svg" alt="Architecture Anti-Cheat" class="img-fluid mb-3">
+                        <p>L'architecture ci-dessus illustre les composants principaux d'un système anti-cheat moderne.</p>
+                    </div>
+
+                    <h3 class="text-info mt-4">Flux de Détection</h3>
+                    <div class="resource-container mb-4">
+                        <img src="resources/diagrams/detection_flow.svg" alt="Flux de Détection" class="img-fluid mb-3">
+                        <p>Le diagramme montre le processus de détection des modifications mémoire suspectes.</p>
+                    </div>
+
+                    <h3 class="text-info mt-4">Exemples de Code</h3>
+                    <div class="code-examples mb-4">
+                        <h4>Détecteur de Base</h4>
+                        <pre><code class="language-cpp" id="basic-detector"></code></pre>
+                        
+                        <h4>Scanner de Mémoire</h4>
+                        <pre><code class="language-cpp" id="memory-scanner"></code></pre>
+                    </div>
+                </section>
+
+                <!-- Section Quiz -->
+                <section id="quiz" class="mb-5">
+                    <h2 class="text-primary">Quiz - Vérifiez vos connaissances</h2>
+                    <div id="quiz-container"></div>
+                </section>
+
+                <!-- Section Exercices Pratiques -->
+                <section id="practice" class="mb-5">
+                    <h2 class="text-warning">Exercices Pratiques</h2>
+                    <div id="practice-container"></div>
+                </section>
+
+                <!-- Section Ressources -->
+                <section id="resources" class="mb-5">
+                    <h2 class="text-info">Ressources Supplémentaires</h2>
+                    <div id="resources-container"></div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 2rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Navigation Rapide</h5>
+                        <nav class="nav flex-column">
+                            <a class="nav-link" href="#content">Introduction</a>
+                            <a class="nav-link" href="#quiz">Quiz</a>
+                            <a class="nav-link" href="#practice">Exercices</a>
+                            <a class="nav-link" href="#resources">Ressources</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+    <script src="../../js/load-nav.js"></script>
+    <script src="../../js/quiz-data.js"></script>
+    <script src="../../js/quiz-system.js"></script>
+    <script src="../../js/practice-data.js"></script>
+    <script src="../../js/practice-system.js"></script>
+    <script src="../../js/resources-data.js"></script>
+    <script src="../../js/resources-system.js"></script>
+    <script>
+        // Initialisation des systèmes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chargement des exemples de code
+            fetch('resources/examples/basic_detector.cpp')
+                .then(response => response.text())
+                .then(code => {
+                    document.getElementById('basic-detector').textContent = code;
+                    Prism.highlightElement(document.getElementById('basic-detector'));
+                });
+
+            fetch('resources/examples/memory_scanner.cpp')
+                .then(response => response.text())
+                .then(code => {
+                    document.getElementById('memory-scanner').textContent = code;
+                    Prism.highlightElement(document.getElementById('memory-scanner'));
+                });
+
+            // Initialisation des systèmes
+            const quizSystem = new QuizSystem();
+            quizSystem.loadQuiz(quizData.part1);
+
+            const practiceSystem = new PracticeSystem();
+            practiceSystem.loadExercise(practiceData.part1);
+
+            const resourcesSystem = new ResourcesSystem();
+            resourcesSystem.loadResources(resourcesData.part1);
+        });
+
+        // Gestion de la progression
+        function updateProgress() {
+            const sections = ['content', 'quiz', 'practice', 'resources'];
+            const windowHeight = window.innerHeight;
+            let completedSections = 0;
+
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const rect = section.getBoundingClientRect();
+                
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / sections.length) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

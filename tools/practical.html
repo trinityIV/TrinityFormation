@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Sections Pratiques</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .practice-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+        }
+        .code-block {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="game-hacking.html">Game Hacking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="practical.html">Sections Pratiques</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Sections Pratiques</h1>
+
+        <!-- Trainer -->
+        <section class="mb-5">
+            <div class="card practice-card">
+                <div class="card-body">
+                    <h3>Création d'un Trainer Complet</h3>
+                    <p>Guide étape par étape pour créer un trainer de jeu</p>
+                    <ul>
+                        <li>Interface utilisateur avec ImGui</li>
+                        <li>Gestion des hotkeys</li>
+                        <li>Modifications de mémoire en temps réel</li>
+                        <li>Sauvegarde des offsets</li>
+                    </ul>
+                    <div class="code-block">
+// Exemple de base d'un trainer
+class GameTrainer {
+    private:
+        HANDLE processHandle;
+        std::vector<DWORD> offsets;
+        bool bHealth, bAmmo, bSpeed;
+    
+    public:
+        void ToggleGodMode();
+        void SetInfiniteAmmo();
+        void UpdateSpeed(float value);
+};</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overlay -->
+        <section class="mb-5">
+            <div class="card practice-card">
+                <div class="card-body">
+                    <h3>Développement d'Overlay</h3>
+                    <p>Création d'overlays pour les jeux</p>
+                    <ul>
+                        <li>DirectX Hooking</li>
+                        <li>ESP (Extra Sensory Perception)</li>
+                        <li>Aimbot basique</li>
+                        <li>Interface utilisateur en jeu</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bot Development -->
+        <section class="mb-5">
+            <div class="card practice-card">
+                <div class="card-body">
+                    <h3>Bot Development</h3>
+                    <p>Développement de bots de jeu</p>
+                    <ul>
+                        <li>Computer Vision avec OpenCV</li>
+                        <li>Input Simulation</li>
+                        <li>Pathfinding Algorithms</li>
+                        <li>Pattern Recognition</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Packet Sniffing -->
+        <section class="mb-5">
+            <div class="card practice-card">
+                <div class="card-body">
+                    <h3>Packet Sniffing</h3>
+                    <p>Analyse du trafic réseau des jeux</p>
+                    <ul>
+                        <li>Wireshark Filters</li>
+                        <li>Custom Packet Parser</li>
+                        <li>Protocol Analysis</li>
+                        <li>Packet Manipulation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Scanning -->
+        <section class="mb-5">
+            <div class="card practice-card">
+                <div class="card-body">
+                    <h3>Memory Scanning Optimisé</h3>
+                    <p>Techniques de scan mémoire efficaces</p>
+                    <ul>
+                        <li>Pattern Scanning</li>
+                        <li>Signature Scanning</li>
+                        <li>Multi-threaded Scanning</li>
+                        <li>Memory Mapping</li>
+                    </ul>
+                    <div class="code-block">
+// Exemple de scanner de mémoire optimisé
+void ScanMemory(const std::vector<BYTE>& pattern) {
+    MEMORY_BASIC_INFORMATION mbi;
+    for(LPVOID addr = 0; 
+        VirtualQueryEx(hProcess, addr, &mbi, sizeof(mbi));
+        addr = (LPBYTE)mbi.BaseAddress + mbi.RegionSize) {
+        
+        if(mbi.State == MEM_COMMIT && 
+           (mbi.Protect & PAGE_READWRITE)) {
+            // Scan cette région
+        }
+    }
+}</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/background.js"></script>
+</body>
+</html>

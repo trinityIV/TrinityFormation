@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Formation Cybersécurité & Hacking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark text-light">
+    <canvas id="background-canvas"></canvas>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Trinity
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#accueil">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#cybersecurity">Cybersécurité</a></li>
+                            <li><a class="dropdown-item" href="#game-hacking">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="#osint">OSINT</a></li>
+                            <li><a class="dropdown-item" href="#programming">Programmation</a></li>
+                            <li><a class="dropdown-item" href="#security">Sécurité</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <section id="accueil" class="text-center mb-5 animate-fade-in">
+            <h1 class="display-4 mb-4 fw-bold" style="text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);">
+                Trinity
+            </h1>
+            <p class="lead fs-4">
+                Votre plateforme d'apprentissage complète en cybersécurité, hacking et programmation
+            </p>
+        </section>
+
+        <!-- Section Cybersécurité -->
+        <section id="cybersecurity" class="mb-5 animate-fade-in">
+            <div class="card bg-dark border-success">
+                <div class="card-header bg-success bg-opacity-25">
+                    <h2 class="text-success mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Cybersécurité
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- Les cours seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Game Hacking -->
+        <section id="game-hacking" class="mb-5 animate-fade-in">
+            <div class="card bg-dark border-danger">
+                <div class="card-header bg-danger bg-opacity-25">
+                    <h2 class="text-danger mb-0">
+                        <i class="fas fa-gamepad me-2"></i>Game Hacking
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- Les cours seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section OSINT -->
+        <section id="osint" class="mb-5 animate-fade-in">
+            <div class="card bg-dark border-info">
+                <div class="card-header bg-info bg-opacity-25">
+                    <h2 class="text-info mb-0">
+                        <i class="fas fa-search me-2"></i>OSINT
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- Les cours seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Programmation -->
+        <section id="programming" class="mb-5 animate-fade-in">
+            <div class="card bg-dark border-warning">
+                <div class="card-header bg-warning bg-opacity-25">
+                    <h2 class="text-warning mb-0">
+                        <i class="fas fa-code me-2"></i>Programmation
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- Les cours seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section Sécurité -->
+        <section id="security" class="mb-5 animate-fade-in">
+            <div class="card bg-dark border-primary">
+                <div class="card-header bg-primary bg-opacity-25">
+                    <h2 class="text-primary mb-0">
+                        <i class="fas fa-lock me-2"></i>Sécurité
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- Les cours seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary">Trinity</h5>
+                    <p>Formation en cybersécurité et hacking</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 Trinity. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/courses-loader.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

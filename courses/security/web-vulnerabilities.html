@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Vulnérabilités Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+<main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Vulnérabilités Web</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 5h</span>
+                            <span class="badge bg-success">Sécurité</span>
+                        </div>
+                        <p class="card-text">Ce cours explore les vulnérabilités web les plus courantes selon le Top 10 OWASP et vous apprend à les identifier, les exploiter et les corriger. Vous développerez les compétences nécessaires pour sécuriser vos applications web contre les menaces modernes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#injection">2. Injections</a>
+                            <a class="nav-link" href="#authentication">3. Authentification Brisée</a>
+                            <a class="nav-link" href="#xss">4. Cross-Site Scripting (XSS)</a>
+                            <a class="nav-link" href="#csrf">5. Cross-Site Request Forgery</a>
+                            <a class="nav-link" href="#security-misconfiguration">6. Mauvaise Configuration</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Les vulnérabilités web représentent l'une des principales menaces pour la sécurité des applications modernes. Selon le projet OWASP (Open Web Application Security Project), certaines vulnérabilités persistent année après année dans le Top 10 des risques de sécurité.</p>
+                            <p>Dans ce cours, nous explorerons les vulnérabilités les plus critiques, comment les identifier, et surtout comment les corriger pour protéger vos applications.</p>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note :</strong> Toutes les techniques présentées dans ce cours doivent être pratiquées uniquement dans un environnement contrôlé ou avec une autorisation explicite.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="injection" class="mb-5">
+                    <h2 class="text-primary">2. Injections</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Injection SQL</h4>
+                            <p>L'injection SQL reste l'une des vulnérabilités les plus dangereuses et les plus répandues. Elle se produit lorsque des données non fiables sont envoyées à un interpréteur SQL comme partie d'une commande ou d'une requête.</p>
+                            
+                            <div class="card bg-dark border-danger mb-3">
+                                <div class="card-header text-danger">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Code Vulnérable
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-php">$username = $_POST['username'];
+$password = $_POST['password'];
+$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+$result = mysqli_query($connection, $query);</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-dark border-success mb-3">
+                                <div class="card-header text-success">
+                                    <i class="fas fa-check-circle me-2"></i>Code Sécurisé
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-php">$username = $_POST['username'];
+$password = $_POST['password'];
+$stmt = $connection->prepare("SELECT * FROM users WHERE username=? AND password=?");
+$stmt->bind_param("ss", $username, $password);
+$stmt->execute();</code></pre>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Autres types d'injections</h4>
+                            <ul>
+                                <li><strong>Injection NoSQL</strong> - Similaire à l'injection SQL mais ciblant les bases de données NoSQL</li>
+                                <li><strong>Injection OS Command</strong> - Exécution de commandes système non autorisées</li>
+                                <li><strong>Injection LDAP</strong> - Manipulation des requêtes LDAP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="authentication" class="mb-5">
+                    <h2 class="text-primary">3. Authentification Brisée</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Les failles d'authentification permettent aux attaquants de compromettre des mots de passe, des clés ou des jetons de session, ou d'exploiter d'autres vulnérabilités pour assumer temporairement ou définitivement l'identité d'autres utilisateurs.</p>
+                            
+                            <h4 class="text-info">Problèmes courants</h4>
+                            <ul>
+                                <li>Permettre des attaques par force brute</li>
+                                <li>Permettre des mots de passe faibles</li>
+                                <li>Stockage non sécurisé des identifiants</li>
+                                <li>Exposition des identifiants dans les URLs</li>
+                                <li>Mauvaise gestion des sessions</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                <strong>Bonnes pratiques :</strong>
+                                <ul class="mb-0">
+                                    <li>Implémenter l'authentification multi-facteurs</li>
+                                    <li>Ne jamais déployer avec des identifiants par défaut</li>
+                                    <li>Implémenter des contrôles contre les attaques par force brute</li>
+                                    <li>Utiliser un hachage fort des mots de passe avec sel (bcrypt, Argon2)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="xss" class="mb-5">
+                    <h2 class="text-primary">4. Cross-Site Scripting (XSS)</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Le XSS permet aux attaquants d'exécuter des scripts dans le navigateur de la victime, ce qui peut conduire au vol de session, à la défiguration de sites web, ou à la redirection vers des sites malveillants.</p>
+                            
+                            <h4 class="text-info">Types de XSS</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Réfléchi (Reflected)</td>
+                                            <td>Le script malveillant provient de la requête HTTP actuelle</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Stocké (Stored)</td>
+                                            <td>Le script malveillant est stocké sur le serveur cible</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DOM-based</td>
+                                            <td>La vulnérabilité existe dans le code côté client</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Prévention</h4>
+                            <ul>
+                                <li>Échapper les données non fiables basées sur le contexte HTML</li>
+                                <li>Utiliser des frameworks modernes qui échappent automatiquement le XSS</li>
+                                <li>Appliquer l'encodage sensible au contexte</li>
+                                <li>Activer une Content Security Policy (CSP)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="csrf" class="mb-5">
+                    <h2 class="text-primary">5. Cross-Site Request Forgery</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Le CSRF force un utilisateur authentifié à exécuter des actions non désirées sur une application web dans laquelle il est actuellement authentifié. L'attaquant trompe la victime pour qu'elle exécute une action de son choix.</p>
+                            
+                            <div class="card bg-dark border-danger mb-3">
+                                <div class="card-header text-danger">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Exemple d'attaque CSRF
+                                </div>
+                                <div class="card-body">
+                                    <pre><code class="language-html">&lt;!-- Placé sur un site malveillant --&gt;
+&lt;img src="https://banque.example.com/transfer?to=attaquant&amount=1000" style="display:none" /&gt;</code></pre>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Protection contre le CSRF</h4>
+                            <ul>
+                                <li>Utiliser des jetons anti-CSRF pour toutes les requêtes d'état</li>
+                                <li>Implémenter le SameSite cookie attribute</li>
+                                <li>Vérifier l'en-tête Referer pour les requêtes sensibles</li>
+                                <li>Exiger une re-authentification pour les actions sensibles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="security-misconfiguration" class="mb-5">
+                    <h2 class="text-primary">6. Mauvaise Configuration</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Les mauvaises configurations de sécurité sont les problèmes de sécurité les plus courants. Elles résultent souvent de configurations par défaut non sécurisées, de configurations incomplètes ou ad hoc, ou d'erreurs dans la configuration.</p>
+                            
+                            <h4 class="text-info">Exemples courants</h4>
+                            <ul>
+                                <li>Services inutiles activés</li>
+                                <li>Comptes par défaut avec mots de passe par défaut</li>
+                                <li>Pages d'erreur révélant trop d'informations</li>
+                                <li>Absence de durcissement de sécurité</li>
+                                <li>Logiciels obsolètes ou vulnérables</li>
+                            </ul>
+                            
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-cogs me-2"></i>
+                                <strong>Bonnes pratiques :</strong>
+                                <ul class="mb-0">
+                                    <li>Processus de durcissement reproductible</li>
+                                    <li>Revue régulière des configurations</li>
+                                    <li>Architecture de sécurité segmentée</li>
+                                    <li>Envoi d'en-têtes de sécurité appropriés</li>
+                                    <li>Processus automatisé de vérification des configurations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script src="../../js/courses.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+    <script src="../../js/background.js"></script>
+<script src="../../js/navigation.js"></script></body>
+</html>
+
+

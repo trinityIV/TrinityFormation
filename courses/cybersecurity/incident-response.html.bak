@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Réponse aux Incidents</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Réponse aux Incidents</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 6h</span>
+                            <span class="badge bg-success">Cybersécurité</span>
+                        </div>
+                        <p class="card-text">Ce cours vous enseigne les méthodologies et techniques de réponse aux incidents de sécurité. Vous apprendrez à détecter, analyser et contenir les incidents, ainsi qu'à mettre en place des procédures de récupération et d'amélioration continue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#preparation">2. Préparation</a>
+                            <a class="nav-link" href="#detection">3. Détection et analyse</a>
+                            <a class="nav-link" href="#containment">4. Confinement et éradication</a>
+                            <a class="nav-link" href="#recovery">5. Récupération</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>La réponse aux incidents de sécurité est un processus structuré qui permet aux organisations de détecter, d'analyser et de répondre efficacement aux menaces informatiques. Ce cours vous présentera les méthodologies, les outils et les techniques nécessaires pour mettre en place une réponse aux incidents efficace.</p>
+                            
+                            <h4 class="mt-4">Qu'est-ce que la réponse aux incidents ?</h4>
+                            <p>La réponse aux incidents (Incident Response ou IR) est l'ensemble des procédures et actions mises en œuvre pour identifier, contenir et éliminer les menaces de sécurité informatique. L'objectif principal est de limiter les dommages causés par un incident et de rétablir les opérations normales aussi rapidement que possible.</p>
+                            
+                            <div class="alert alert-primary">
+                                <i class="fas fa-info-circle me-2"></i> <strong>Définition NIST :</strong> La réponse aux incidents est "l'atténuation des violations des politiques de sécurité et des pratiques recommandées."
+                            </div>
+                            
+                            <h4 class="mt-4">Pourquoi est-ce important ?</h4>
+                            <ul>
+                                <li>Réduction de l'impact des incidents de sécurité</li>
+                                <li>Limitation des coûts associés aux violations de données</li>
+                                <li>Respect des exigences réglementaires (RGPD, etc.)</li>
+                                <li>Maintien de la confiance des clients et partenaires</li>
+                                <li>Amélioration continue de la posture de sécurité</li>
+                            </ul>
+                            
+                            <h4 class="mt-4">Le cycle de vie de la réponse aux incidents</h4>
+                            <p>Le NIST (National Institute of Standards and Technology) définit un cycle de vie en quatre phases pour la réponse aux incidents :</p>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">1. Préparation</h5>
+                                            <p class="card-text">Établir des politiques, procédures, équipes et outils nécessaires pour répondre efficacement aux incidents.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">2. Détection et analyse</h5>
+                                            <p class="card-text">Identifier les incidents potentiels et déterminer leur nature, leur étendue et leur impact.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">3. Confinement et éradication</h5>
+                                            <p class="card-text">Isoler les systèmes affectés pour limiter les dommages et éliminer la menace.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info">4. Récupération</h5>
+                                            <p class="card-text">Restaurer les systèmes et services à un état normal et sécurisé, puis tirer des leçons de l'incident.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="preparation" class="mb-5">
+                    <h2 class="text-primary">2. Préparation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>La préparation est la phase la plus critique de la réponse aux incidents. Une bonne préparation permet de réagir rapidement et efficacement lorsqu'un incident se produit.</p>
+                            
+                            <h4 class="mt-4">Création d'une équipe de réponse aux incidents</h4>
+                            <p>Une équipe de réponse aux incidents de sécurité informatique (CSIRT - Computer Security Incident Response Team) est composée de professionnels ayant des compétences complémentaires :</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Rôle</th>
+                                            <th>Responsabilités</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Responsable d'équipe</td>
+                                            <td>Coordination générale, communication avec la direction</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyste de sécurité</td>
+                                            <td>Analyse des incidents, identification des menaces</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Administrateur système</td>
+                                            <td>Gestion des systèmes affectés, mise en œuvre des mesures techniques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expert forensique</td>
+                                            <td>Collecte et analyse des preuves numériques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Juriste</td>
+                                            <td>Conseils sur les aspects légaux et réglementaires</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Responsable communication</td>
+                                            <td>Communication interne et externe</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="mt-4">Élaboration d'un plan de réponse</h4>
+                            <p>Un plan de réponse aux incidents (IRP - Incident Response Plan) doit inclure :</p>
+                            <ul>
+                                <li>Définition des rôles et responsabilités</li>
+                                <li>Procédures de notification et d'escalade</li>
+                                <li>Classification des incidents par niveau de gravité</li>
+                                <li>Procédures détaillées pour chaque type d'incident</li>
+                                <li>Coordonnées des parties prenantes internes et externes</li>
+                                <li>Modèles de documentation et de rapports</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i> <strong>Important :</strong> Le plan doit être régulièrement testé et mis à jour pour rester efficace.
+                            </div>
+                            
+                            <h4 class="mt-4">Outils et ressources nécessaires</h4>
+                            <p>Pour être efficace, une équipe de réponse aux incidents doit disposer des outils et ressources suivants :</p>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Outils de détection</h5>
+                                            <ul class="list-unstyled">
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> SIEM (Security Information and Event Management)</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> IDS/IPS (Intrusion Detection/Prevention Systems)</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> EDR (Endpoint Detection and Response)</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Outils de surveillance réseau</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Outils d'analyse</h5>
+                                            <ul class="list-unstyled">
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Analyseurs de logs</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Outils d'analyse de malware</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Analyseurs de trafic réseau</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Outils de forensique numérique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Ressources</h5>
+                                            <ul class="list-unstyled">
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Environnement d'analyse isolé</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Systèmes de sauvegarde</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Documentation technique</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Canaux de communication sécurisés</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="detection" class="mb-5">
+                    <h2 class="text-primary">3. Détection et analyse</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Contenu en cours de développement. Cette section expliquera comment détecter et analyser les incidents de sécurité.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="containment" class="mb-5">
+                    <h2 class="text-primary">4. Confinement et éradication</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Contenu en cours de développement. Cette section présentera les techniques de confinement et d'éradication des menaces.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="recovery" class="mb-5">
+                    <h2 class="text-primary">5. Récupération</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <p>Contenu en cours de développement. Cette section couvrira les procédures de récupération après un incident.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+    <script src="../../js/background.js"></script>
+</body>
+</html>

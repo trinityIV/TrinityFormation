@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Recherche de Domaines</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Recherche de Domaines</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 4h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours vous apprend à mener des investigations approfondies sur les domaines web et les infrastructures en ligne. Vous découvrirez comment collecter, analyser et exploiter les informations liées aux domaines pour cartographier l'empreinte numérique d'une organisation ou d'un individu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#whois">2. Analyse WHOIS</a>
+                            <a class="nav-link" href="#dns">3. Analyse DNS</a>
+                            <a class="nav-link" href="#subdomains">4. Découverte de sous-domaines</a>
+                            <a class="nav-link" href="#infrastructure">5. Cartographie d'infrastructure</a>
+                            <a class="nav-link" href="#technologies">6. Identification des technologies</a>
+                            <a class="nav-link" href="#historical">7. Analyse historique</a>
+                            <a class="nav-link" href="#security">8. Évaluation de sécurité</a>
+                            <a class="nav-link" href="#case-study">9. Étude de cas</a>
+                            <a class="nav-link" href="#exercises">10. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">11. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#cheatsheets">Cheatsheets</a>
+                                    <a class="nav-link" href="#tools">Outils recommandés</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Pourquoi analyser les domaines?</h4>
+                            <p>L'analyse de domaines est une composante essentielle de l'OSINT qui permet de :</p>
+                            <ul>
+                                <li>Cartographier l'empreinte numérique d'une organisation</li>
+                                <li>Identifier les relations entre différentes entités</li>
+                                <li>Découvrir des informations sur l'infrastructure technique</li>
+                                <li>Évaluer la posture de sécurité d'une cible</li>
+                                <li>Trouver des points d'entrée potentiels pour des tests d'intrusion</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Méthodologie d'analyse de domaines</h4>
+                            <p>Une approche structurée pour l'analyse de domaines comprend généralement les étapes suivantes :</p>
+                            <ol>
+                                <li>Collecte d'informations WHOIS</li>
+                                <li>Analyse des enregistrements DNS</li>
+                                <li>Découverte de sous-domaines</li>
+                                <li>Cartographie de l'infrastructure</li>
+                                <li>Identification des technologies utilisées</li>
+                                <li>Analyse historique</li>
+                                <li>Évaluation de la sécurité</li>
+                                <li>Documentation et rapport</li>
+                            </ol>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Documentez systématiquement vos découvertes à chaque étape. Une bonne documentation est essentielle pour une analyse complète et pour éviter de perdre des informations importantes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="whois" class="mb-5">
+                    <h2 class="text-info">2. Analyse WHOIS</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Comprendre les données WHOIS</h4>
+                            <p>WHOIS est un protocole qui permet d'obtenir des informations sur l'enregistrement d'un nom de domaine. Les données WHOIS peuvent inclure :</p>
+                            <ul>
+                                <li>Nom et coordonnées du propriétaire (si non protégé)</li>
+                                <li>Dates d'enregistrement et d'expiration</li>
+                                <li>Registrar (entreprise auprès de laquelle le domaine a été enregistré)</li>
+                                <li>Serveurs de noms (DNS)</li>
+                                <li>Statut du domaine</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse WHOIS</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Avantages</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>whois (ligne de commande)</td>
+                                            <td>Outil en ligne de commande disponible sur Linux/macOS</td>
+                                            <td>Simple, rapide, peut être utilisé dans des scripts</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ICANN Lookup</td>
+                                            <td>Service officiel de l'ICANN</td>
+                                            <td>Fiable, informations à jour</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DomainTools</td>
+                                            <td>Service commercial avec fonctionnalités avancées</td>
+                                            <td>Historique, informations supplémentaires, visualisations</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ViewDNS.info</td>
+                                            <td>Service en ligne avec multiples outils</td>
+                                            <td>Interface simple, outils complémentaires</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques avancées</h4>
+                            <p>Au-delà des informations de base, vous pouvez exploiter les données WHOIS de manière plus approfondie :</p>
+                            <ul>
+                                <li><strong>Recherche inverse</strong> - Trouver d'autres domaines enregistrés par la même personne/organisation</li>
+                                <li><strong>Analyse historique</strong> - Examiner les changements dans les enregistrements WHOIS au fil du temps</li>
+                                <li><strong>Corrélation d'informations</strong> - Lier les données WHOIS à d'autres sources d'information</li>
+                                <li><strong>Identification de patterns</strong> - Reconnaître des modèles dans les enregistrements de domaines liés</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Depuis l'entrée en vigueur du RGPD en Europe, de nombreuses informations WHOIS sont masquées par défaut. Les services de protection de la vie privée rendent également ces données moins accessibles.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse WHOIS</h4>
+                            <pre><code class="language-bash">$ whois example.com
+
+Domain Name: EXAMPLE.COM
+Registry Domain ID: 2336799_DOMAIN_COM-VRSN
+Registrar WHOIS Server: whois.iana.org
+Registrar URL: http://www.iana.org
+Updated Date: 2021-08-14T07:01:44Z
+Creation Date: 1995-08-14T04:00:00Z
+Registry Expiry Date: 2022-08-13T04:00:00Z
+Registrar: IANA
+Registrar IANA ID: 376
+Registrar Abuse Contact Email: abuse@iana.org
+Registrar Abuse Contact Phone: +1.3103015800
+Domain Status: clientDeleteProhibited
+Domain Status: clientTransferProhibited
+Domain Status: clientUpdateProhibited
+Name Server: A.IANA-SERVERS.NET
+Name Server: B.IANA-SERVERS.NET
+DNSSEC: signedDelegation
+DNSSEC DS Data: 31589 8 1 3490A6806D47F17A34C29E2CE80E8A999FFBE4BE
+DNSSEC DS Data: 31589 8 2 CDE0D742D6998AA554A92D890F8184C698CFAC8A26FA59875A990C03E576343C
+URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="dns" class="mb-5">
+                    <h2 class="text-info">3. Analyse DNS</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Comprendre le DNS</h4>
+                            <p>Le DNS (Domain Name System) est l'annuaire d'Internet qui traduit les noms de domaine en adresses IP. L'analyse DNS révèle des informations précieuses sur l'infrastructure d'un domaine.</p>
+                            
+                            <h4 class="text-info mt-4">Types d'enregistrements DNS importants</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Utilité pour l'OSINT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A / AAAA</td>
+                                            <td>Adresse IPv4 / IPv6 d'un domaine</td>
+                                            <td>Localisation des serveurs, identification d'infrastructure partagée</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MX</td>
+                                            <td>Serveurs de messagerie</td>
+                                            <td>Identification des services de messagerie utilisés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NS</td>
+                                            <td>Serveurs de noms</td>
+                                            <td>Contrôle du domaine, infrastructure DNS</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TXT</td>
+                                            <td>Texte arbitraire</td>
+                                            <td>Vérification de propriété, SPF, DKIM, informations diverses</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNAME</td>
+                                            <td>Alias vers un autre domaine</td>
+                                            <td>Relations entre domaines, services tiers utilisés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SOA</td>
+                                            <td>Informations d'autorité</td>
+                                            <td>Configuration DNS, contacts techniques</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse DNS</h4>
+                            <ul>
+                                <li><strong>dig / nslookup</strong> - Outils en ligne de commande pour interroger les serveurs DNS</li>
+                                <li><strong>DNSDumpster</strong> - Service en ligne pour cartographier les enregistrements DNS</li>
+                                <li><strong>SecurityTrails</strong> - Plateforme d'intelligence DNS avec historique</li>
+                                <li><strong>Passive Total</strong> - Service de RiskIQ pour l'analyse DNS passive</li>
+                                <li><strong>MXToolbox</strong> - Suite d'outils pour l'analyse DNS et email</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse DNS avec dig</h4>
+                            <pre><code class="language-bash"># Enregistrements A (IPv4)
+$ dig example.com A +short
+93.184.216.34
+
+# Enregistrements MX (serveurs de messagerie)
+$ dig example.com MX +short
+0 .
+
+# Enregistrements TXT
+$ dig example.com TXT +short
+"v=spf1 -all"
+
+# Enregistrements NS (serveurs de noms)
+$ dig example.com NS +short
+a.iana-servers.net.
+b.iana-servers.net.
+
+# Toutes les informations DNS
+$ dig example.com ANY
+</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Les enregistrements TXT contiennent souvent des informations précieuses comme les configurations SPF, les clés de vérification pour divers services, et parfois même des informations laissées par les administrateurs.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="subdomains" class="mb-5">
+                    <h2 class="text-info">4. Découverte de sous-domaines</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Importance des sous-domaines</h4>
+                            <p>Les sous-domaines peuvent révéler :</p>
+                            <ul>
+                                <li>Services et applications internes</li>
+                                <li>Environnements de développement et de test</li>
+                                <li>Applications oubliées ou abandonnées</li>
+                                <li>Infrastructure distribuée</li>
+                                <li>Acquisitions et partenariats</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Techniques de découverte</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Techniques passives</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Certificats SSL/TLS (Transparency Logs)</li>
+                                                <li>Moteurs de recherche (Google, Bing)</li>
+                                                <li>Archives DNS</li>
+                                                <li>Services OSINT spécialisés</li>
+                                                <li>Sources publiques (GitHub, Pastebin)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Techniques actives</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Bruteforce de sous-domaines</li>
+                                                <li>Transferts de zone DNS</li>
+                                                <li>Énumération DNS</li>
+                                                <li>Permutations et altérations</li>
+                                                <li>Vhost discovery</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils de découverte de sous-domaines</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sublist3r</td>
+                                            <td>Passif/Actif</td>
+                                            <td>Outil Python qui utilise plusieurs sources et techniques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amass</td>
+                                            <td>Passif/Actif</td>
+                                            <td>Outil complet de cartographie de surface d'attaque réseau</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Subfinder</td>
+                                            <td>Passif</td>
+                                            <td>Outil Go rapide pour la découverte passive</td>
+                                        </tr>
+                                        <tr>
+                                            <td>crt.sh</td>
+                                            <td>Passif</td>
+                                            <td>Recherche dans les logs de transparence des certificats</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gobuster</td>
+                                            <td>Actif</td>
+                                            <td>Outil de bruteforce rapide écrit en Go</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple avec Sublist3r</h4>
+                            <pre><code class="language-bash">$ python sublist3r.py -d example.com -o example_subdomains.txt
+
+                 ____        _     _ _     _   _____
+                / ___| _   _| |__ | (_)___| |_|___ / _ __
+                \___ \| | | | '_ \| | / __| __| |_ \| '__|
+                 ___) | |_| | |_) | | \__ \ |_ ___) | |
+                |____/ \__,_|_.__/|_|_|___/\__|____/|_|
+
+                # Sublist3r v1.0
+                # By Ahmed Aboul-Ela - twitter.com/aboul3la
+
+[+] Searching now for subdomains...
+[+] Searching using search engines...
+[+] Searching using Baidu Search...
+[+] Searching using Yahoo Search...
+[+] Searching using Google Search...
+[+] Searching using Bing Search...
+[+] Searching using Ask Search...
+[+] Searching using Netcraft Search...
+[+] Searching using DNSdumpster Search...
+[+] Searching using Virustotal Search...
+[+] Searching using ThreatCrowd Search...
+[+] Searching using SSL Certificates...
+[+] Found 9 subdomains!
+[+] Subdomains found:
+www.example.com
+mail.example.com
+webmail.example.com
+ftp.example.com
+dev.example.com
+admin.example.com
+test.example.com
+api.example.com
+staging.example.com
+</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Les techniques actives comme le bruteforce peuvent générer beaucoup de trafic. Assurez-vous d'avoir l'autorisation nécessaire avant d'utiliser ces méthodes sur un domaine que vous ne possédez pas.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="infrastructure" class="mb-5">
+                    <h2 class="text-info">5. Cartographie d'infrastructure</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Analyse d'infrastructure</h4>
+                            <p>La cartographie d'infrastructure consiste à identifier et comprendre les composants techniques qui soutiennent un domaine :</p>
+                            <ul>
+                                <li>Serveurs et leur localisation</li>
+                                <li>Services cloud utilisés</li>
+                                <li>CDN (Content Delivery Networks)</li>
+                                <li>Load balancers et proxies</li>
+                                <li>Pare-feu et WAF (Web Application Firewalls)</li>
+                                <li>Relations entre différents systèmes</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Techniques de cartographie</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Outils</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Analyse IP</td>
+                                            <td>Identification des plages d'IP, ASN, géolocalisation</td>
+                                            <td>IPinfo, MaxMind, BGPView</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Traceroute</td>
+                                            <td>Analyse du chemin réseau vers la cible</td>
+                                            <td>traceroute, mtr, VisualRoute</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Scan de ports</td>
+                                            <td>Identification des services exposés</td>
+                                            <td>Nmap, Masscan, Shodan</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse d'en-têtes HTTP</td>
+                                            <td>Identification de serveurs, CDN, WAF</td>
+                                            <td>curl, Wappalyzer, SecurityHeaders.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse de certificats SSL</td>
+                                            <td>Identification de domaines liés, organisations</td>
+                                            <td>crt.sh, Censys, SSLMate</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse d'en-têtes HTTP</h4>
+                            <pre><code class="language-bash">$ curl -I https://example.com
+
+HTTP/2 200 
+accept-ranges: bytes
+age: 529284
+cache-control: max-age=604800
+content-type: text/html; charset=UTF-8
+date: Wed, 26 Feb 2025 12:34:56 GMT
+etag: "3147526947+ident"
+expires: Wed, 05 Mar 2025 12:34:56 GMT
+last-modified: Thu, 17 Oct 2024 07:18:26 GMT
+server: ECS (dcb/7F84)
+vary: Accept-Encoding
+x-cache: HIT
+content-length: 1256
+</code></pre>
+                            
+                            <h4 class="text-info mt-4">Visualisation d'infrastructure</h4>
+                            <p>La visualisation aide à comprendre les relations complexes entre les différents composants :</p>
+                            <ul>
+                                <li><strong>Maltego</strong> - Plateforme de visualisation et d'analyse de liens</li>
+                                <li><strong>SpiderFoot</strong> - Outil d'automatisation OSINT avec visualisation</li>
+                                <li><strong>Gephi</strong> - Plateforme open source pour la visualisation de réseaux</li>
+                                <li><strong>D3.js</strong> - Bibliothèque JavaScript pour créer des visualisations personnalisées</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Combinez les données de plusieurs sources pour obtenir une image plus complète de l'infrastructure. Les informations partielles de différentes sources peuvent se compléter pour révéler des relations non évidentes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="technologies" class="mb-5">
+                    <h2 class="text-info">6. Identification des technologies</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Pourquoi identifier les technologies?</h4>
+                            <p>L'identification des technologies utilisées par un site web ou une application peut révéler :</p>
+                            <ul>
+                                <li>Vulnérabilités potentielles (versions obsolètes)</li>
+                                <li>Pratiques de développement</li>
+                                <li>Capacités techniques de l'organisation</li>
+                                <li>Relations avec des fournisseurs tiers</li>
+                                <li>Points d'entrée pour des tests plus approfondis</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Catégories de technologies</h4>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Frontend</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Frameworks JavaScript (React, Angular, Vue)</li>
+                                                <li>Bibliothèques CSS (Bootstrap, Tailwind)</li>
+                                                <li>Plugins et widgets</li>
+                                                <li>Polyfills et shims</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Backend</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Langages (PHP, Python, Ruby, Java)</li>
+                                                <li>Frameworks (Laravel, Django, Rails)</li>
+                                                <li>Serveurs web (Apache, Nginx, IIS)</li>
+                                                <li>Bases de données (MySQL, PostgreSQL)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Infrastructure</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>CDN (Cloudflare, Akamai)</li>
+                                                <li>Services cloud (AWS, Azure, GCP)</li>
+                                                <li>WAF (Web Application Firewalls)</li>
+                                                <li>Systèmes d'exploitation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'identification</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Wappalyzer</td>
+                                            <td>Extension de navigateur qui identifie les technologies web</td>
+                                            <td><span class="badge bg-success">Gratuit (extension)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BuiltWith</td>
+                                            <td>Service en ligne pour analyser les technologies d'un site</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retire.js</td>
+                                            <td>Détection de bibliothèques JavaScript vulnérables</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Netcraft</td>
+                                            <td>Informations sur les serveurs web et l'infrastructure</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple avec Wappalyzer</h4>
+                            <p>Wappalyzer peut identifier des dizaines de catégories de technologies, notamment :</p>
+                            <ul>
+                                <li>CMS (WordPress, Drupal, Joomla)</li>
+                                <li>Frameworks JavaScript (React, Angular, Vue)</li>
+                                <li>Serveurs web (Apache, Nginx, IIS)</li>
+                                <li>Outils d'analyse (Google Analytics, Matomo)</li>
+                                <li>CDN (Cloudflare, Akamai, Fastly)</li>
+                                <li>Plateformes e-commerce (Shopify, Magento, WooCommerce)</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Combinez plusieurs outils d'identification pour obtenir une image plus complète. Chaque outil a ses forces et ses faiblesses dans la détection de certaines technologies.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="historical" class="mb-5">
+                    <h2 class="text-info">7. Analyse historique</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Importance de l'analyse historique</h4>
+                            <p>L'analyse historique d'un domaine peut révéler :</p>
+                            <ul>
+                                <li>Évolution du site et de son contenu</li>
+                                <li>Changements de propriétaire ou d'organisation</li>
+                                <li>Informations supprimées ou modifiées</li>
+                                <li>Anciennes vulnérabilités ou configurations</li>
+                                <li>Relations historiques avec d'autres entités</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Sources d'informations historiques</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Source</th>
+                                            <th>Type d'information</th>
+                                            <th>Outil/Service</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Archives web</td>
+                                            <td>Captures historiques de pages web</td>
+                                            <td>Internet Archive (Wayback Machine), archive.today</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Historique WHOIS</td>
+                                            <td>Changements dans les enregistrements de domaine</td>
+                                            <td>DomainTools, WhoisXML API</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Historique DNS</td>
+                                            <td>Changements dans les enregistrements DNS</td>
+                                            <td>SecurityTrails, Passive Total</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Certificats SSL/TLS</td>
+                                            <td>Historique des certificats émis</td>
+                                            <td>crt.sh, Censys</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques d'analyse historique</h4>
+                            <ul>
+                                <li><strong>Analyse de contenu</strong> - Examiner l'évolution du contenu du site</li>
+                                <li><strong>Analyse de structure</strong> - Observer les changements dans l'architecture du site</li>
+                                <li><strong>Analyse de métadonnées</strong> - Extraire les métadonnées des versions historiques</li>
+                                <li><strong>Analyse comparative</strong> - Comparer différentes versions pour identifier les changements</li>
+                                <li><strong>Recherche de contenu supprimé</strong> - Identifier les informations qui ont été retirées</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Exemple avec Wayback Machine</h4>
+                            <p>La Wayback Machine de l'Internet Archive permet de :</p>
+                            <ul>
+                                <li>Visualiser les versions historiques d'un site</li>
+                                <li>Naviguer dans l'historique via un calendrier</li>
+                                <li>Télécharger des captures d'écran ou du contenu</li>
+                                <li>Comparer différentes versions</li>
+                                <li>Accéder à des fichiers qui ne sont plus disponibles</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Les archives web ne sont pas exhaustives. Certaines pages peuvent ne jamais avoir été archivées, et d'autres peuvent avoir été exclues à la demande du propriétaire du site (via robots.txt ou demande directe).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="security" class="mb-5">
+                    <h2 class="text-info">8. Évaluation de sécurité</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Évaluation passive de la sécurité</h4>
+                            <p>L'évaluation passive de la sécurité consiste à analyser les informations disponibles publiquement pour identifier des vulnérabilités potentielles sans interagir directement avec les systèmes cibles.</p>
+                            
+                            <h4 class="text-info mt-4">Aspects à évaluer</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Configuration</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>En-têtes de sécurité HTTP</li>
+                                                <li>Configuration SSL/TLS</li>
+                                                <li>Politiques de sécurité (CSP, CORS)</li>
+                                                <li>Exposition d'informations sensibles</li>
+                                                <li>Configurations par défaut</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Vulnérabilités connues</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Versions obsolètes de logiciels</li>
+                                                <li>CMS et plugins vulnérables</li>
+                                                <li>Bibliothèques JavaScript obsolètes</li>
+                                                <li>Vulnérabilités connues dans les services</li>
+                                                <li>Failles de configuration communes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'évaluation de sécurité</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SecurityHeaders.com</td>
+                                            <td>Analyse des en-têtes de sécurité HTTP</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SSL Labs</td>
+                                            <td>Analyse de la configuration SSL/TLS</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shodan</td>
+                                            <td>Recherche de services exposés et vulnérables</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retire.js</td>
+                                            <td>Détection de bibliothèques JavaScript vulnérables</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mozilla Observatory</td>
+                                            <td>Analyse complète de la sécurité web</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse d'en-têtes de sécurité</h4>
+                            <pre><code class="language-bash">$ curl -I https://example.com
+
+HTTP/2 200 
+content-type: text/html; charset=UTF-8
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-xss-protection: 1; mode=block
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com; img-src 'self' data: https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src 'none'; object-src 'none'
+referrer-policy: strict-origin-when-cross-origin
+</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> L'évaluation passive de la sécurité a ses limites. Elle ne peut pas détecter toutes les vulnérabilités, en particulier celles qui nécessitent une interaction active avec les systèmes. Pour une évaluation complète, des tests d'intrusion autorisés sont nécessaires.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="case-study" class="mb-5">
+                    <h2 class="text-info">9. Étude de cas</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Étude de cas : Analyse d'une entreprise fictive</h4>
+                            <p>Dans cette étude de cas, nous allons analyser le domaine fictif "acme-corp.com" en utilisant les techniques et outils présentés dans ce cours.</p>
+                            
+                            <h5 class="text-info mt-4">1. Analyse WHOIS</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Résultats :</strong></p>
+                                    <ul>
+                                        <li>Domaine enregistré il y a 15 ans</li>
+                                        <li>Propriétaire : ACME Corporation</li>
+                                        <li>Contact technique : it@acme-corp.com</li>
+                                        <li>Registrar : GoDaddy</li>
+                                        <li>Serveurs de noms : ns1.acme-hosting.com, ns2.acme-hosting.com</li>
+                                    </ul>
+                                    <p><strong>Observations :</strong> Le domaine est ancien et semble être géré par une équipe IT interne. Les serveurs de noms suggèrent un hébergement personnalisé.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info mt-4">2. Analyse DNS</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Résultats :</strong></p>
+                                    <ul>
+                                        <li>Enregistrements A : 203.0.113.10</li>
+                                        <li>Enregistrements MX : mail.acme-corp.com (priorité 10)</li>
+                                        <li>Enregistrements TXT : v=spf1 include:_spf.acme-corp.com ~all</li>
+                                        <li>Enregistrements CNAME : www.acme-corp.com → acme-corp.com</li>
+                                    </ul>
+                                    <p><strong>Observations :</strong> L'entreprise gère son propre serveur de messagerie. La configuration SPF indique une protection contre l'usurpation d'emails.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info mt-4">3. Découverte de sous-domaines</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Résultats :</strong></p>
+                                    <ul>
+                                        <li>www.acme-corp.com - Site principal</li>
+                                        <li>mail.acme-corp.com - Serveur de messagerie</li>
+                                        <li>webmail.acme-corp.com - Interface webmail</li>
+                                        <li>intranet.acme-corp.com - Intranet d'entreprise</li>
+                                        <li>dev.acme-corp.com - Environnement de développement</li>
+                                        <li>api.acme-corp.com - API publique</li>
+                                        <li>careers.acme-corp.com - Portail de recrutement</li>
+                                        <li>legacy.acme-corp.com - Ancien système</li>
+                                    </ul>
+                                    <p><strong>Observations :</strong> Plusieurs sous-domaines intéressants, notamment un environnement de développement et un système legacy qui pourraient être moins sécurisés.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info mt-4">4. Identification des technologies</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Résultats :</strong></p>
+                                    <ul>
+                                        <li>Serveur web : Apache 2.4.41</li>
+                                        <li>CMS : WordPress 5.8</li>
+                                        <li>Plugins : WooCommerce, Contact Form 7, Yoast SEO</li>
+                                        <li>JavaScript : jQuery 3.5.1, Bootstrap 4.6</li>
+                                        <li>Analytics : Google Analytics, HotJar</li>
+                                        <li>CDN : Cloudflare</li>
+                                    </ul>
+                                    <p><strong>Observations :</strong> Le site principal utilise WordPress avec plusieurs plugins populaires. La version de jQuery est légèrement obsolète.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info mt-4">5. Analyse historique</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Résultats :</strong></p>
+                                    <ul>
+                                        <li>2010 : Site statique HTML</li>
+                                        <li>2015 : Migration vers WordPress</li>
+                                        <li>2018 : Ajout d'une boutique en ligne (WooCommerce)</li>
+                                        <li>2020 : Refonte majeure du design</li>
+                                        <li>2022 : Ajout d'une section "Investisseurs" avec des rapports financiers</li>
+                                    </ul>
+                                    <p><strong>Observations :</strong> L'entreprise a évolué d'un simple site vitrine à une plateforme e-commerce, puis a ajouté des informations pour les investisseurs, suggérant une croissance significative.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info mt-4">6. Évaluation de sécurité</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Résultats :</strong></p>
+                                    <ul>
+                                        <li>Configuration SSL : A (SSL Labs)</li>
+                                        <li>En-têtes de sécurité : B (SecurityHeaders.com)</li>
+                                        <li>Vulnérabilités potentielles : Plugin Contact Form 7 obsolète</li>
+                                        <li>Exposition d'informations : Divulgation de version WordPress dans le code source</li>
+                                        <li>Problèmes de configuration : Directory listing activé sur /wp-content/uploads/</li>
+                                    </ul>
+                                    <p><strong>Observations :</strong> La sécurité globale est bonne, mais quelques problèmes mineurs ont été identifiés, notamment un plugin obsolète et une exposition d'informations.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info mt-4">Conclusion de l'étude de cas</h5>
+                            <p>Cette analyse a permis de dresser un portrait complet de l'empreinte numérique d'ACME Corporation :</p>
+                            <ul>
+                                <li>Entreprise établie avec une présence en ligne mature</li>
+                                <li>Infrastructure technique relativement bien gérée</li>
+                                <li>Quelques points d'attention en matière de sécurité</li>
+                                <li>Évolution vers l'e-commerce et communication avec les investisseurs</li>
+                                <li>Utilisation de technologies modernes avec quelques composants légèrement obsolètes</li>
+                            </ul>
+                            <p>Ces informations pourraient être utiles pour diverses finalités : analyse concurrentielle, évaluation de sécurité, due diligence, etc.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercises" class="mb-5">
+                    <h2 class="text-info">10. Exercices pratiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Exercice 1: Analyse WHOIS et DNS</h4>
+                            <p>Choisissez un domaine public (par exemple, une entreprise ou une organisation) et effectuez une analyse WHOIS et DNS complète :</p>
+                            <ol>
+                                <li>Collectez les informations WHOIS disponibles</li>
+                                <li>Identifiez tous les types d'enregistrements DNS (A, AAAA, MX, TXT, NS, CNAME)</li>
+                                <li>Analysez les serveurs de messagerie et leur configuration</li>
+                                <li>Examinez les enregistrements TXT pour les configurations SPF, DKIM, DMARC</li>
+                                <li>Documentez vos découvertes dans un rapport structuré</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Exercice 2: Découverte de sous-domaines</h4>
+                            <p>Pour le même domaine ou un autre, effectuez une découverte de sous-domaines :</p>
+                            <ol>
+                                <li>Utilisez au moins trois outils différents (par exemple, Sublist3r, Amass, crt.sh)</li>
+                                <li>Combinez les résultats et éliminez les doublons</li>
+                                <li>Vérifiez quels sous-domaines sont actifs</li>
+                                <li>Catégorisez les sous-domaines selon leur fonction apparente</li>
+                                <li>Créez une visualisation des relations entre le domaine principal et ses sous-domaines</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Exercice 3: Analyse technologique et historique</h4>
+                            <p>Approfondissez votre analyse en examinant les technologies et l'historique :</p>
+                            <ol>
+                                <li>Identifiez les technologies utilisées sur le site principal et quelques sous-domaines</li>
+                                <li>Recherchez des versions historiques du site via la Wayback Machine</li>
+                                <li>Comparez au moins trois versions historiques pour identifier les changements majeurs</li>
+                                <li>Recherchez d'anciennes pages ou fonctionnalités qui ne sont plus accessibles</li>
+                                <li>Créez une chronologie de l'évolution du site</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> Pour ces exercices, utilisez uniquement des domaines publics et des techniques passives. N'effectuez pas de tests intrusifs sans autorisation explicite.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="resources" class="mb-5">
+                    <h2 class="text-info">11. Ressources</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Livres recommandés</h4>
+                            <ul>
+                                <li><strong>The Art of Subdomain Enumeration</strong> - Gwendal Le Coguic</li>
+                                <li><strong>Open Source Intelligence Techniques</strong> - Michael Bazzell</li>
+                                <li><strong>OSINT Framework</strong> - Collectif</li>
+                                <li><strong>DNS Security: Defending the Domain Name System</strong> - Allan Liska</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Sites web et blogs</h4>
+                            <ul>
+                                <li><a href="#" class="text-light">OSINT Framework</a> - Collection organisée d'outils OSINT</li>
+                                <li><a href="#" class="text-light">SecurityTrails Blog</a> - Articles sur l'analyse de domaines</li>
+                                <li><a href="#" class="text-light">Project Discovery</a> - Outils open source pour la découverte de domaines</li>
+                                <li><a href="#" class="text-light">HackerTarget</a> - Outils en ligne pour l'analyse de domaines</li>
+                                <li><a href="#" class="text-light">DNSDumpster</a> - Service de cartographie DNS</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Outils essentiels</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Catégorie</th>
+                                            <th>Outils recommandés</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Analyse WHOIS</td>
+                                            <td>whois (CLI), ICANN Lookup, DomainTools</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse DNS</td>
+                                            <td>dig, nslookup, DNSDumpster, SecurityTrails</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Découverte de sous-domaines</td>
+                                            <td>Sublist3r, Amass, Subfinder, crt.sh</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Identification de technologies</td>
+                                            <td>Wappalyzer, BuiltWith, Retire.js</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse historique</td>
+                                            <td>Wayback Machine, archive.today</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Évaluation de sécurité</td>
+                                            <td>SecurityHeaders.com, SSL Labs, Mozilla Observatory</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cheatsheets" class="mb-5">
+                    <h2 class="text-info">Cheatsheets</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Commandes dig essentielles</h4>
+                            <pre><code class="language-bash"># Enregistrements A
+dig example.com A +short
+
+# Enregistrements MX
+dig example.com MX +short
+
+# Enregistrements TXT
+dig example.com TXT +short
+
+# Enregistrements NS
+dig example.com NS +short
+
+# Tous les enregistrements
+dig example.com ANY
+
+# Transfert de zone (si autorisé)
+dig example.com AXFR @ns1.
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Recherche de Domaines</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Recherche de Domaines</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 4h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours vous apprend à mener des investigations approfondies sur les domaines web et les infrastructures en ligne. Vous découvrirez comment collecter, analyser et exploiter les informations liées aux domaines pour cartographier l'empreinte numérique d'une organisation ou d'un individu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#whois">2. Analyse WHOIS</a>
+                            <a class="nav-link" href="#dns">3. Analyse DNS</a>
+                            <a class="nav-link" href="#subdomains">4. Découverte de sous-domaines</a>
+                            <a class="nav-link" href="#infrastructure">5. Cartographie d'infrastructure</a>
+                            <a class="nav-link" href="#technologies">6. Identification des technologies</a>
+                            <a class="nav-link" href="#historical">7. Analyse historique</a>
+                            <a class="nav-link" href="#security">8. Évaluation de sécurité</a>
+                            <a class="nav-link" href="#case-study">9. Étude de cas</a>
+                            <a class="nav-link" href="#exercises">10. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">11. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#cheatsheets">Cheatsheets</a>
+                                    <a class="nav-link" href="#tools">Outils recommandés</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Pourquoi analyser les domaines?</h4>
+                            <p>L'analyse de domaines est une composante essentielle de l'OSINT qui permet de :</p>
+                            <ul>
+                                <li>Cartographier l'empreinte numérique d'une organisation</li>
+                                <li>Identifier les relations entre différentes entités</li>
+                                <li>Découvrir des informations sur l'infrastructure technique</li>
+                                <li>Évaluer la posture de sécurité d'une cible</li>
+                                <li>Trouver des points d'entrée potentiels pour des tests d'intrusion</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Méthodologie d'analyse de domaines</h4>
+                            <p>Une approche structurée pour l'analyse de domaines comprend généralement les étapes suivantes :</p>
+                            <ol>
+                                <li>Collecte d'informations WHOIS</li>
+                                <li>Analyse des enregistrements DNS</li>
+                                <li>Découverte de sous-domaines</li>
+                                <li>Cartographie de l'infrastructure</li>
+                                <li>Identification des technologies utilisées</li>
+                                <li>Analyse historique</li>
+                                <li>Évaluation de la sécurité</li>
+                                <li>Documentation et rapport</li>
+                            </ol>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Documentez systématiquement vos découvertes à chaque étape. Une bonne documentation est essentielle pour une analyse complète et pour éviter de perdre des informations importantes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="whois" class="mb-5">
+                    <h2 class="text-info">2. Analyse WHOIS</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Comprendre les données WHOIS</h4>
+                            <p>WHOIS est un protocole qui permet d'obtenir des informations sur l'enregistrement d'un nom de domaine. Les données WHOIS peuvent inclure :</p>
+                            <ul>
+                                <li>Nom et coordonnées du propriétaire (si non protégé)</li>
+                                <li>Dates d'enregistrement et d'expiration</li>
+                                <li>Registrar (entreprise auprès de laquelle le domaine a été enregistré)</li>
+                                <li>Serveurs de noms (DNS)</li>
+                                <li>Statut du domaine</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse WHOIS</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Avantages</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>whois (ligne de commande)</td>
+                                            <td>Outil en ligne de commande disponible sur Linux/macOS</td>
+                                            <td>Simple, rapide, peut être utilisé dans des scripts</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ICANN Lookup</td>
+                                            <td>Service officiel de l'ICANN</td>
+                                            <td>Fiable, informations à jour</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DomainTools</td>
+                                            <td>Service commercial avec fonctionnalités avancées</td>
+                                            <td>Historique, informations supplémentaires, visualisations</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ViewDNS.info</td>
+                                            <td>Service en ligne avec multiples outils</td>
+                                            <td>Interface simple, outils complémentaires</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques avancées</h4>
+                            <p>Au-delà des informations de base, vous pouvez exploiter les données WHOIS de manière plus approfondie :</p>
+                            <ul>
+                                <li><strong>Recherche inverse</strong> - Trouver d'autres domaines enregistrés par la même personne/organisation</li>
+                                <li><strong>Analyse historique</strong> - Examiner les changements dans les enregistrements WHOIS au fil du temps</li>
+                                <li><strong>Corrélation d'informations</strong> - Lier les données WHOIS à d'autres sources d'information</li>
+                                <li><strong>Identification de patterns</strong> - Reconnaître des modèles dans les enregistrements de domaines liés</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Depuis l'entrée en vigueur du RGPD en Europe, de nombreuses informations WHOIS sont masquées par défaut. Les services de protection de la vie privée rendent également ces données moins accessibles.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse WHOIS</h4>
+                            <pre><code class="language-bash">$ whois example.com
+
+Domain Name: EXAMPLE.COM
+Registry Domain ID: 2336799_DOMAIN_COM-VRSN
+Registrar WHOIS Server: whois.iana.org
+Registrar URL: http://www.iana.org
+Updated Date: 2021-08-14T07:01:44Z
+Creation Date: 1995-08-14T04:00:00Z
+Registry Expiry Date: 2022-08-13T04:00:00Z
+Registrar: IANA
+Registrar IANA ID: 376
+Registrar Abuse Contact Email: abuse@iana.org
+Registrar Abuse Contact Phone: +1.3103015800
+Domain Status: clientDeleteProhibited
+Domain Status: clientTransferProhibited
+Domain Status: clientUpdateProhibited
+Name Server: A.IANA-SERVERS.NET
+Name Server: B.IANA-SERVERS.NET
+DNSSEC: signedDelegation
+DNSSEC DS Data: 31589 8 1 3490A6806D47F17A34C29E2CE80E8A999FFBE4BE
+DNSSEC DS Data: 31589 8 2 CDE0D742D6998AA554A92D890F8184C698CFAC8A26FA59875A990C03E576343C
+URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="dns" class="mb-5">
+                    <h2 class="text-info">3. Analyse DNS</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Comprendre le DNS</h4>
+                            <p>Le DNS (Domain Name System) est l'annuaire d'Internet qui traduit les noms de domaine en adresses IP. L'analyse DNS révèle des informations précieuses sur l'infrastructure d'un domaine.</p>
+                            
+                            <h4 class="text-info mt-4">Types d'enregistrements DNS importants</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Utilité pour l'OSINT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A / AAAA</td>
+                                            <td>Adresse IPv4 / IPv6 d'un domaine</td>
+                                            <td>Localisation des serveurs, identification d'infrastructure partagée</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MX</td>
+                                            <td>Serveurs de messagerie</td>
+                                            <td>Identification des services de messagerie utilisés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NS</td>
+                                            <td>Serveurs de noms</td>
+                                            <td>Contrôle du domaine, infrastructure DNS</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TXT</td>
+                                            <td>Texte arbitraire</td>
+                                            <td>Vérification de propriété, SPF, DKIM, informations diverses</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNAME</td>
+                                            <td>Alias vers un autre domaine</td>
+                                            <td>Relations entre domaines, services tiers utilisés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SOA</td>
+                                            <td>Informations d'autorité</td>
+                                            <td>Configuration DNS, contacts techniques</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse DNS</h4>
+                            <ul>
+                                <li><strong>dig / nslookup</strong> - Outils en ligne de commande pour interroger les serveurs DNS</li>
+                                <li><strong>DNSDumpster</strong> - Service en ligne pour cartographier les enregistrements DNS</li>
+                                <li><strong>SecurityTrails</strong> - Plateforme d'intelligence DNS avec historique</li>
+                                <li><strong>Passive Total</strong> - Service de RiskIQ pour l'analyse DNS passive</li>
+                                <li><strong>MXToolbox</strong> - Suite d'outils pour l'analyse DNS et email</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse DNS avec dig</h4>
+                            <pre><code class="language-bash"># Enregistrements A (IPv4)
+$ dig example.com A +short
+93.184.216.34
+
+# Enregistrements MX (serveurs de messagerie)
+$ dig example.com MX +short
+0 .
+
+# Enregistrements TXT
+$ dig example.com TXT +short
+"v=spf1 -all"
+
+# Enregistrements NS (serveurs de noms)
+$ dig example.com NS +short
+a.iana-servers.net.
+b.iana-servers.net.
+
+# Toutes les informations DNS
+$ dig example.com ANY
+</code></pre>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Les enregistrements TXT contiennent souvent des informations précieuses comme les configurations SPF, les clés de vérification pour divers services, et parfois même des informations laissées par les administrateurs.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="subdomains" class="mb-5">
+                    <h2 class="text-info">4. Découverte de sous-domaines</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Importance des sous-domaines</h4>
+                            <p>Les sous-domaines peuvent révéler :</p>
+                            <ul>
+                                <li>Services et applications internes</li>
+                                <li>Environnements de développement et de test</li>
+                                <li>Applications oubliées ou abandonnées</li>
+                                <li>Infrastructure distribuée</li>
+                                <li>Acquisitions et partenariats</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Techniques de découverte</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Techniques passives</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Certificats SSL/TLS (Transparency Logs)</li>
+                                                <li>Moteurs de recherche (Google, Bing)</li>
+                                                <li>Archives DNS</li>
+                                                <li>Services OSINT spécialisés</li>
+                                                <li>Sources publiques (GitHub, Pastebin)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Techniques actives</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Bruteforce de sous-domaines</li>
+                                                <li>Transferts de zone DNS</li>
+                                                <li>Énumération DNS</li>
+                                                <li>Permutations et altérations</li>
+                                                <li>Vhost discovery</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils de découverte de sous-domaines</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sublist3r</td>
+                                            <td>Passif/Actif</td>
+                                            <td>Outil Python qui utilise plusieurs sources et techniques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amass</td>
+                                            <td>Passif/Actif</td>
+                                            <td>Outil complet de cartographie de surface d'attaque réseau</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Subfinder</td>
+                                            <td>Passif</td>
+                                            <td>Outil Go rapide pour la découverte passive</td>
+                                        </tr>
+                                        <tr>
+                                            <td>crt.sh</td>
+                                            <td>Passif</td>
+                                            <td>Recherche dans les logs de transparence des certificats</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gobuster</td>
+                                            <td>Actif</td>
+                                            <td>Outil de bruteforce rapide écrit en Go</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple avec Sublist3r</h4>
+                            <pre><code class="language-bash">$ python sublist3r.py -d example.com -o example_subdomains.txt
+
+                 ____        _     _ _     _   _____
+                / ___| _   _| |__ | (_)___| |_|___ / _ __
+                \___ \| | | | '_ \| | / __| __| |_ \| '__|
+                 ___) | |_| | |_) | | \__ \ |_ ___) | |
+                |____/ \__,_|_.__/|_|_|___/\__|____/|_|
+
+                # Sublist3r v1.0
+                # By Ahmed Aboul-Ela - twitter.com/aboul3la
+
+[+] Searching now for subdomains...
+[+] Searching using search engines...
+[+] Searching using Baidu Search...
+[+] Searching using Yahoo Search...
+[+] Searching using Google Search...
+[+] Searching using Bing Search...
+[+] Searching using Ask Search...
+[+] Searching using Netcraft Search...
+[+] Searching using DNSdumpster Search...
+[+] Searching using Virustotal Search...
+[+] Searching using ThreatCrowd Search...
+[+] Searching using SSL Certificates...
+[+] Found 9 subdomains!
+[+] Subdomains found:
+www.example.com
+mail.example.com
+webmail.example.com
+ftp.example.com
+dev.example.com
+admin.example.com
+test.example.com
+api.example.com
+staging.example.com
+</code></pre>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Les techniques actives comme le bruteforce peuvent générer beaucoup de trafic. Assurez-vous d'avoir l'autorisation nécessaire avant d'utiliser ces méthodes sur un domaine que vous ne possédez pas.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="infrastructure" class="mb-5">
+                    <h2 class="text-info">5. Cartographie d'infrastructure</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Analyse d'infrastructure</h4>
+                            <p>La cartographie d'infrastructure consiste à identifier et comprendre les composants techniques qui soutiennent un domaine :</p>
+                            <ul>
+                                <li>Serveurs et leur localisation</li>
+                                <li>Services cloud utilisés</li>
+                                <li>CDN (Content Delivery Networks)</li>
+                                <li>Load balancers et proxies</li>
+                                <li>Pare-feu et WAF (Web Application Firewalls)</li>
+                                <li>Relations entre différents systèmes</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Techniques de cartographie</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Outils</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Analyse IP</td>
+                                            <td>Identification des plages d'IP, ASN, géolocalisation</td>
+                                            <td>IPinfo, MaxMind, BGPView</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Traceroute</td>
+                                            <td>Analyse du chemin réseau vers la cible</td>
+                                            <td>traceroute, mtr, VisualRoute</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Scan de ports</td>
+                                            <td>Identification des services exposés</td>
+                                            <td>Nmap, Masscan, Shodan</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse d'en-têtes HTTP</td>
+                                            <td>Identification de serveurs, CDN, WAF</td>
+                                            <td>curl, Wappalyzer, SecurityHeaders.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse de certificats SSL</td>
+                                            <td>Identification de domaines liés, organisations</td>
+                                            <td>crt.sh, Censys, SSLMate</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exemple d'analyse d'en-têtes HTTP</h4>
+                            <pre><code class="language-bash">$ curl -I https://example.com
+
+HTTP/2 200 
+accept-ranges: bytes
+age: 529284
+cache-control: max-age=604800
+content-type: text/html; charset=UTF-8
+date: Wed, 26 Feb 2025 12:34:56 GMT
+etag: "3147526947+ident"
+expires: Wed, 05 Mar 2025 12:34:56 GMT
+last-modified: Thu, 17 Oct 2024 07:18:26 GMT
+server: ECS (dcb/7F84)
+vary: Accept-Encoding
+x-cache: HIT
+content-length: 1256
+</code></pre>
+                            
+                            <h4 class="text-info mt-4">Visualisation d'infrastructure</h4>
+                            <p>La visualisation aide à comprendre les relations complexes entre les différents composants :</p>
+                            <ul>
+                                <li><strong>Maltego</strong> - Plateforme de visualisation et d'analyse de liens</li>
+                                <li><strong>SpiderFoot</strong> - Outil d'automatisation OSINT avec visualisation</li>
+                                <li><strong>Gephi</strong> - Plateforme open source pour la visualisation de réseaux</li>
+                                <li><strong>D3.js</strong> - Bibliothèque JavaScript pour créer des visualisations personnalisées</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Combinez les données de plusieurs sources pour obtenir une image plus complète de l'infrastructure. Les informations partielles de différentes sources peuvent se compléter pour révéler des relations non évidentes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="technologies" class="mb-5">
+                    <h2 class="text-info">6. Identification des technologies</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Pourquoi identifier les technologies?</h4>
+                            <p>L'identification des technologies utilisées par un site web ou une application peut révéler :</p>
+                            <ul>
+                                <li>Vulnérabilités potentielles (versions obsolètes)</li>
+                                <li>Pratiques de développement</li>
+                                <li>Capacités techniques de l'organisation</li>
+                                <li>Relations avec des fournisseurs tiers</li>
+                                <li>Points d'entrée pour des tests plus approfondis</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Catégories de technologies</h4>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Frontend</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Frameworks JavaScript (React, Angular, Vue)</li>
+                                                <li>Bibliothèques CSS (Bootstrap, Tailwind)</li>
+                                                <li>Plugins et widgets</li>
+                                                <li>Polyfills et shims</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Backend</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Langages (PHP, Python, Ruby, Java)</li>
+                                                <li>Frameworks (Laravel, Django, Rails)</li>
+                                                <li>Serveurs web (Apache, Nginx, IIS)</li>
+                                                <li>Bases de données (MySQL, PostgreSQL)</li>
+                                            </ul>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Guide OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Game Hacking
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="cheat-engine-bases.html">Cheat Engine</a></li>
+                            <li><a class="dropdown-item" href="ida-pro.html">IDA Pro</a></li>
+                            <li><a class="dropdown-item" href="signatures.html">Signatures</a></li>
+                            <li><a class="dropdown-item" href="offsets.html">Offsets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            OSINT
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="osint/social-media.html">Réseaux Sociaux</a></li>
+                            <li><a class="dropdown-item" href="osint/domain-dns.html">Domaines & DNS</a></li>
+                            <li><a class="dropdown-item" href="osint/image-metadata.html">Images & Métadonnées</a></li>
+                            <li><a class="dropdown-item" href="osint/business-intel.html">Entreprises</a></li>
+                            <li><a class="dropdown-item" href="osint/email-recon.html">Emails</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Guide Complet OSINT</h1>
+
+        <!-- Quick Access Section -->
+        <section class="mb-5 content-section">
+            <h2>Catégories OSINT</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card dark-card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">Réseaux Sociaux</h3>
+                            <p class="card-text">Techniques et outils pour l'investigation sur les réseaux sociaux, incluant Twitter, LinkedIn, Instagram et Facebook.</p>
+                            <a href="osint/social-media.html" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card dark-card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">Domaines & DNS</h3>
+                            <p class="card-text">Méthodes d'investigation des domaines, analyse DNS, et techniques de reconnaissance réseau.</p>
+                            <a href="osint/domain-dns.html" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card dark-card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">Images & Métadonnées</h3>
+                            <p class="card-text">Analyse d'images, extraction de métadonnées EXIF et techniques de géolocalisation.</p>
+                            <a href="osint/image-metadata.html" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card dark-card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">Entreprises</h3>
+                            <p class="card-text">Investigation sur les entreprises, analyse financière, employés et chaîne d'approvisionnement.</p>
+                            <a href="osint/business-intel.html" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card dark-card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">Emails</h3>
+                            <p class="card-text">Découverte et vérification d'emails, intelligence par email et techniques de recherche avancées.</p>
+                            <a href="osint/email-recon.html" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction Section -->
+        <section class="mb-5 content-section">
+            <h2>Introduction à l'OSINT</h2>
+            <div class="card dark-card">
+                <div class="card-body">
+                    <p>L'OSINT (Open Source Intelligence) est le processus de collecte, d'analyse et d'utilisation d'informations provenant de sources publiquement accessibles. Cette discipline est devenue cruciale dans de nombreux domaines, de la cybersécurité aux enquêtes numériques.</p>
+                    <div class="alert alert-warning">
+                        <h5>⚠️ Avertissement Éthique</h5>
+                        <p>L'OSINT doit être pratiqué de manière éthique et légale. Ne pas utiliser ces techniques pour :</p>
+                        <ul>
+                            <li>Harceler ou traquer des individus</li>
+                            <li>Accéder à des informations privées sans autorisation</li>
+                            <li>Violer les lois sur la protection des données</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section class="mb-5 content-section">
+            <h2>Méthodologie OSINT</h2>
+            <div class="card dark-card">
+                <div class="card-body">
+                    <h4>1. Planification</h4>
+                    <ul>
+                        <li>Définir les objectifs de recherche</li>
+                        <li>Identifier les sources potentielles</li>
+                        <li>Établir une timeline</li>
+                        <li>Préparer les outils nécessaires</li>
+                    </ul>
+
+                    <h4>2. Collecte de Données</h4>
+                    <ul>
+                        <li>Moteurs de recherche avancés</li>
+                        <li>Réseaux sociaux</li>
+                        <li>Bases de données publiques</li>
+                        <li>Archives web</li>
+                    </ul>
+
+                    <h4>3. Analyse</h4>
+                    <ul>
+                        <li>Vérification des sources</li>
+                        <li>Recoupement des informations</li>
+                        <li>Établissement de connexions</li>
+                        <li>Documentation des découvertes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="mb-5 content-section">
+            <h2>Outils Essentiels</h2>
+            <div class="card dark-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Moteurs de Recherche</h4>
+                            <ul>
+                                <li>Google Dorks</li>
+                                <li>Bing</li>
+                                <li>DuckDuckGo</li>
+                                <li>Shodan</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Analyse de Domaines</h4>
+                            <ul>
+                                <li>WHOIS</li>
+                                <li>DNSdumpster</li>
+                                <li>Censys</li>
+                                <li>VirusTotal</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h4>Réseaux Sociaux</h4>
+                            <ul>
+                                <li>Twint (Twitter)</li>
+                                <li>Sherlock</li>
+                                <li>TheHarvester</li>
+                                <li>Social Analyzer</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Métadonnées</h4>
+                            <ul>
+                                <li>ExifTool</li>
+                                <li>Metagoofil</li>
+                                <li>FOCA</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Techniques -->
+        <section class="mb-5 content-section">
+            <h2>Techniques Avancées</h2>
+            <div class="card dark-card">
+                <div class="card-body">
+                    <h4>Google Dorks</h4>
+                    <div class="code-block">
+                        <pre><code>site:example.com filetype:pdf
+intext:"password" filetype:txt
+intitle:"index of" "parent directory"</code></pre>
+                    </div>
+
+                    <h4>Analyse d'Images</h4>
+                    <ul>
+                        <li>Recherche inverse d'images</li>
+                        <li>Analyse EXIF</li>
+                        <li>Géolocalisation par image</li>
+                    </ul>
+
+                    <h4>Reconnaissance Passive</h4>
+                    <ul>
+                        <li>Empreinte numérique</li>
+                        <li>Analyse de métadonnées</li>
+                        <li>Cartographie des réseaux</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section class="mb-5 content-section">
+            <h2>Ressources Additionnelles</h2>
+            <div class="card dark-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Documentation</h4>
+                            <ul>
+                                <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+                                <li><a href="https://github.com/jivoi/awesome-osint" target="_blank">Awesome OSINT</a></li>
+                                <li><a href="https://start.me/p/DPYPMz/the-ultimate-osint-collection" target="_blank">Ultimate OSINT Collection</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Communautés</h4>
+                            <ul>
+                                <li>Reddit r/OSINT</li>
+                                <li>Discord OSINT</li>
+                                <li>Forums spécialisés</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4">
+        <p>Trinity Project 2025 - Guide OSINT</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

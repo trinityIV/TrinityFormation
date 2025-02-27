@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - OSINT sur le Dark Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">OSINT sur le Dark Web</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Avancé</span>
+                            <span class="badge bg-info me-2">Durée: 5h</span>
+                            <span class="badge bg-success">OSINT</span>
+                            <span class="badge bg-danger ms-2">Sécurité</span>
+                        </div>
+                        <p class="card-text">Ce cours vous apprend à mener des investigations OSINT sur le Dark Web de manière sécurisée et éthique. Vous découvrirez les techniques et outils spécifiques pour naviguer, rechercher et analyser les informations disponibles sur les réseaux anonymes, tout en comprenant les implications légales et les mesures de sécurité nécessaires.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction au Dark Web</a>
+                            <a class="nav-link" href="#legal-ethical">2. Aspects légaux et éthiques</a>
+                            <a class="nav-link" href="#setup">3. Configuration sécurisée</a>
+                            <a class="nav-link" href="#navigation">4. Navigation et accès</a>
+                            <a class="nav-link" href="#search-techniques">5. Techniques de recherche</a>
+                            <a class="nav-link" href="#analysis">6. Analyse des informations</a>
+                            <a class="nav-link" href="#tools">7. Outils spécialisés</a>
+                            <a class="nav-link" href="#case-studies">8. Études de cas</a>
+                            <a class="nav-link" href="#security-measures">9. Mesures de sécurité</a>
+                            <a class="nav-link" href="#exercises">10. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">11. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#glossary">Glossaire</a>
+                                    <a class="nav-link" href="#faq">FAQ</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction au Dark Web</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Qu'est-ce que le Dark Web?</h4>
+                            <p>Le Dark Web est une partie d'Internet qui n'est pas indexée par les moteurs de recherche traditionnels et qui nécessite des logiciels spécifiques pour y accéder. Il fait partie du Deep Web, qui englobe toutes les parties d'Internet non indexées.</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-4 text-center">
+                                    <div class="card bg-dark border-info mb-3">
+                                        <div class="card-body">
+                                            <h5>Surface Web</h5>
+                                            <p class="small">4% d'Internet</p>
+                                            <p class="small">Sites indexés par les moteurs de recherche</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="card bg-dark border-info mb-3">
+                                        <div class="card-body">
+                                            <h5>Deep Web</h5>
+                                            <p class="small">90% d'Internet</p>
+                                            <p class="small">Contenu non indexé mais accessible (emails, comptes bancaires, etc.)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="card bg-dark border-danger mb-3">
+                                        <div class="card-body">
+                                            <h5>Dark Web</h5>
+                                            <p class="small">6% d'Internet</p>
+                                            <p class="small">Réseaux anonymes nécessitant des logiciels spécifiques</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Réseaux du Dark Web</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Réseau</th>
+                                            <th>Description</th>
+                                            <th>Caractéristiques</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tor (The Onion Router)</td>
+                                            <td>Le réseau anonyme le plus populaire</td>
+                                            <td>Utilise le routage en oignon, domaines .onion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>I2P (Invisible Internet Project)</td>
+                                            <td>Réseau alternatif à Tor</td>
+                                            <td>Conçu pour la communication interne au réseau, domaines .i2p</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Freenet</td>
+                                            <td>Réseau de partage de fichiers décentralisé</td>
+                                            <td>Stockage distribué, forte résistance à la censure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ZeroNet</td>
+                                            <td>Réseau décentralisé basé sur Bitcoin et BitTorrent</td>
+                                            <td>Sites hébergés par les utilisateurs, pas de serveurs centraux</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Pourquoi explorer le Dark Web pour l'OSINT?</h4>
+                            <p>Le Dark Web peut être une source précieuse d'informations pour diverses raisons :</p>
+                            <ul>
+                                <li>Détection précoce de fuites de données et d'informations compromises</li>
+                                <li>Surveillance des activités cybercriminelles et des menaces émergentes</li>
+                                <li>Identification de nouvelles vulnérabilités et exploits</li>
+                                <li>Suivi des tendances et discussions dans les communautés underground</li>
+                                <li>Recherche d'informations non disponibles sur le web de surface</li>
+                                <li>Investigation sur des acteurs malveillants et leurs infrastructures</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> L'exploration du Dark Web comporte des risques légaux, de sécurité et éthiques. Il est essentiel de comprendre ces risques et de prendre les précautions appropriées avant de s'y aventurer.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="legal-ethical" class="mb-5">
+                    <h2 class="text-info">2. Aspects légaux et éthiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Cadre légal</h4>
+                            <p>L'exploration du Dark Web n'est pas illégale en soi, mais certaines activités peuvent l'être :</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger h-100">
+                                        <div class="card-header text-danger">Activités illégales</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Accès non autorisé à des systèmes informatiques</li>
+                                                <li>Téléchargement ou distribution de contenu illégal</li>
+                                                <li>Participation à des activités criminelles</li>
+                                                <li>Achat de biens ou services illégaux</li>
+                                                <li>Harcèlement ou doxing</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-success h-100">
+                                        <div class="card-header text-success">Activités légales</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Navigation anonyme</li>
+                                                <li>Recherche passive d'informations</li>
+                                                <li>Collecte de renseignements sur des menaces</li>
+                                                <li>Analyse de tendances et discussions</li>
+                                                <li>Recherche académique ou journalistique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Considérations juridiques par région</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Région</th>
+                                            <th>Particularités légales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Union Européenne</td>
+                                            <td>RGPD applicable, lois strictes sur le contenu illégal, certains pays peuvent restreindre l'utilisation de Tor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>États-Unis</td>
+                                            <td>Lois fédérales comme le CFAA, utilisation légale de Tor mais surveillance possible</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Asie</td>
+                                            <td>Restrictions sévères dans certains pays (Chine, Corée du Nord), réglementations variables ailleurs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Moyen-Orient</td>
+                                            <td>Restrictions importantes dans plusieurs pays, utilisation de VPN parfois illégale</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Considérations éthiques</h4>
+                            <ul>
+                                <li><strong>Principe de non-malfaisance</strong> - Ne pas causer de préjudice à autrui</li>
+                                <li><strong>Respect de la vie privée</strong> - Ne pas exposer des informations personnelles</li>
+                                <li><strong>Consentement</strong> - Ne pas interagir avec des individus sans nécessité</li>
+                                <li><strong>Signalement responsable</strong> - Informer les autorités en cas de découverte de contenu illégal grave</li>
+                                <li><strong>Utilisation des informations</strong> - Employer les données recueillies de manière responsable</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Consultez toujours un conseiller juridique avant d'entreprendre des activités OSINT sur le Dark Web dans un cadre professionnel. Les lois varient considérablement selon les pays et évoluent rapidement.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="setup" class="mb-5">
+                    <h2 class="text-info">3. Configuration sécurisée</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Environnement d'investigation sécurisé</h4>
+                            <p>La mise en place d'un environnement sécurisé est essentielle avant d'explorer le Dark Web :</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Système d'exploitation</div>
+                                        <div class="card-body">
+                                            <h6>Options recommandées :</h6>
+                                            <ul>
+                                                <li><strong>Tails OS</strong> - Système amnésique qui ne laisse pas de traces</li>
+                                                <li><strong>Whonix</strong> - Système conçu pour fonctionner dans une VM avec Tor</li>
+                                                <li><strong>Qubes OS</strong> - Système basé sur la compartimentalisation</li>
+                                                <li><strong>Machine virtuelle dédiée</strong> - Isolation du système principal</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Mesures de sécurité supplémentaires</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>VPN</strong> - Couche supplémentaire d'anonymat (avec précautions)</li>
+                                                <li><strong>Pare-feu</strong> - Configuration restrictive</li>
+                                                <li><strong>Antivirus/Antimalware</strong> - Protection contre les menaces</li>
+                                                <li><strong>Désactivation de JavaScript</strong> - Réduction de la surface d'attaque</li>
+                                                <li><strong>Compte utilisateur dédié</strong> - Séparation des activités</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Configuration de Tor Browser</h4>
+                            <p>Tor Browser est l'outil principal pour accéder au Dark Web. Voici comment le configurer de manière sécurisée :</p>
+                            <ol>
+                                <li><strong>Téléchargement</strong> - Toujours depuis le site officiel (torproject.org)</li>
+                                <li><strong>Vérification</strong> - Contrôle de l'intégrité via les signatures PGP</li>
+                                <li><strong>Niveau de sécurité</strong> - Régler sur "Élevé" pour une sécurité maximale</li>
+                                <li><strong>Extensions</strong> - Éviter d'ajouter des extensions supplémentaires</li>
+                                <li><strong>Mise à jour</strong> - Toujours utiliser la dernière version</li>
+                                <li><strong>Configuration NoScript</strong> - Bloquer JavaScript sur les sites non fiables</li>
+                                <li><strong>Paramètres de confidentialité</strong> - Désactiver l'historique et les cookies</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> L'utilisation d'un VPN avec Tor est un sujet controversé. Bien que cela puisse ajouter une couche de protection contre certaines menaces, cela peut aussi créer de nouveaux risques. Renseignez-vous sur les avantages et inconvénients avant de combiner ces technologies.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Identité numérique</h4>
+                            <p>Maintenir une identité séparée pour les activités OSINT sur le Dark Web :</p>
+                            <ul>
+                                <li>Utiliser des comptes email dédiés (ProtonMail, etc.)</li>
+                                <li>Créer des pseudonymes sans lien avec votre identité réelle</li>
+                                <li>Éviter de réutiliser des noms d'utilisateur ou mots de passe</li>
+                                <li>Ne jamais partager d'informations personnelles</li>
+                                <li>Utiliser des portefeuilles de cryptomonnaies dédiés si nécessaire</li>
+                                <li>Maintenir une séparation stricte entre identités personnelles et de recherche</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="navigation" class="mb-5">
+                    <h2 class="text-info">4. Navigation et accès</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Structure des adresses .onion</h4>
+                            <p>Les sites du Dark Web sur le réseau Tor utilisent des adresses .onion qui sont différentes des URL traditionnelles :</p>
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>Format v2 (obsolète) :</strong> 16 caractères alphanumériques + .onion</p>
+                                    <p class="text-monospace">exemple : <code>3g2upl4pq6kufc4m.onion</code> (DuckDuckGo)</p>
+                                    <p class="mb-2 mt-3"><strong>Format v3 (actuel) :</strong> 56 caractères alphanumériques + .onion</p>
+                                    <p class="text-monospace">exemple : <code>4gmq7asx6wnxoomy4fxo65a3wmevmsjdgmdmcwzbkjpxkh5bfqpbkpad.onion</code></p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Trouver des sites .onion</h4>
+                            <p>Contrairement au web traditionnel, il n'existe pas de moteur de recherche complet pour le Dark Web. Voici comment trouver des sites .onion :</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Sources d'adresses .onion</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Répertoires comme The Hidden Wiki</li>
+                                                <li>Forums spécialisés</li>
+                                                <li>Moteurs de recherche du Dark Web (Torch, Ahmia)</li>
+                                                <li>Sites de vérification comme Dark.fail</li>
+                                                <li>Communautés Reddit (r/onions)</li>
+                                                <li>Canaux Telegram spécialisés</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Moteurs de recherche du Dark Web</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Torch</strong> - L'un des plus anciens moteurs de recherche</li>
+                                                <li><strong>Ahmia</strong> - Indexe les sites .onion non illicites</li>
+                                                <li><strong>DarkSearch</strong> - API disponible pour les chercheurs</li>
+                                                <li><strong>Haystack</strong> - Moteur plus récent</li>
+                                                <li><strong>NotEvil</strong> - Alternative à Torch</li>
+                                                <li><strong>DuckDuckGo .onion</strong> - Version Tor du moteur de recherche</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Bonnes pratiques de navigation</h4>
+                            <ul>
+                                <li><strong>Patience</strong> - La navigation sur Tor est plus lente que sur le web traditionnel</li>
+                                <li><strong>Vérification</strong> - Toujours vérifier les adresses .onion (phishing très répandu)</li>
+                                <li><strong>Méfiance</strong> - Ne jamais télécharger de fichiers sauf si absolument nécessaire</li>
+                                <li><strong>Persistance</strong> - Les sites peuvent être temporairement inaccessibles</li>
+                                <li><strong>Discrétion</strong> - Limiter les interactions au strict nécessaire</li>
+                                <li><strong>Documentation</strong> - Noter les adresses et informations importantes</li>
+                                <li><strong>Captures d'écran</strong> - Préférer les captures d'écran au téléchargement</li>
+                            </ul>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Danger :</strong> Le phishing est extrêmement répandu sur le Dark Web. Vérifiez toujours les adresses .onion via plusieurs sources fiables avant d'y accéder. Les adresses peuvent différer d'un seul caractère et mener à des sites malveillants.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Accès à d'autres réseaux du Dark Web</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Réseau</th>
+                                            <th>Logiciel requis</th>
+                                            <th>Particularités</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>I2P</td>
+                                            <td>Client I2P</td>
+                                            <td>Configuration plus complexe que Tor, focus sur les "eepsites"</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Freenet</td>
+                                            <td>Client Freenet</td>
+                                            <td>Stockage distribué, "freesites" accessibles via des clés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ZeroNet</td>
+                                            <td>Client ZeroNet</td>
+                                            <td>Sites P2P, adresses basées sur Bitcoin</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="search-techniques" class="mb-5">
+                    <h2 class="text-info">5. Techniques de recherche</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Stratégies de recherche sur le Dark Web</h4>
+                            <p>La recherche sur le Dark Web diffère considérablement de celle sur le web de surface :</p>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Approches générales</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Recherche ciblée</strong> - Définir clairement les objectifs</li>
+                                                <li><strong>Approche en entonnoir</strong> - Du général au spécifique</li>
+                                                <li><strong>Recherche par pivot</strong> - Utiliser une information pour en trouver d'autres</li>
+                                                <li><strong>Cartographie</strong> - Établir des liens entre les sites et informations</li>
+                                                <li><strong>Surveillance</strong> - Suivi régulier des sources pertinentes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Défis spécifiques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Volatilité</strong> - Les sites apparaissent et disparaissent rapidement</li>
+                                                <li><strong>Fragmentation</strong> - Information dispersée sur de nombreux sites</li>
+                                                <li><strong>Désinformation</strong> - Nombreuses fausses informations</li>
+                                                <li><strong>Barrières linguistiques</strong> - Contenu en multiples langues</li>
+                                                <li><strong>Codage et jargon</strong> - Utilisation de termes spécifiques</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques de recherche avancées</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Recherche par mots-clés</td>
+                                            <td>Utilisation de termes spécifiques et jargon</td>
+                                            <td>Moteurs de recherche du Dark Web, forums</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par identifiants</td>
+                                            <td>Recherche d'emails, noms d'utilisateur, etc.</td>
+                                            <td>Forums, marchés, dumps de données</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par cryptomonnaie</td>
+                                            <td>Suivi d'adresses Bitcoin ou autres</td>
+                                            <td>Explorateurs de blockchain, services d'analyse</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse de métadonnées</td>
+                                            <td>Extraction d'informations des fichiers</td>
+                                            <td>Images, documents, fichiers téléchargés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par corrélation</td>
+                                            <td>Établissement de liens entre différentes sources</td>
+                                            <td>Forums, marchés, sites de leak</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Recherche dans les forums et marchés</h4>
+                            <p>Les forums et marchés du Dark Web sont des sources d'information particulièrement riches :</p>
+                            <ul>
+                                <li><strong>Création de comptes</strong> - Souvent nécessaire pour accéder au contenu complet</li>
+                                <li><strong>Lurking</strong> - Observer sans participer pour comprendre les normes</li>
+                                <li><strong>Recherche interne</strong> - Utiliser les fonctions de recherche des forums</li>
+                                <li><strong>Suivi des utilisateurs</strong> - Identifier les contributeurs clés</li>
+                                <li><strong>Analyse des tendances</strong> - Observer les sujets populaires et récurrents</li>
+                                <li><strong>Recherche par catégorie</strong> - Explorer les sections pertinentes</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> La création de comptes sur les forums du Dark Web comporte des risques. Utilisez toujours des identifiants dédiés sans lien avec votre identité réelle, et n'interagissez que si nécessaire et autorisé dans le cadre de votre investigation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analysis" class="mb-5">
+                    <h2 class="text-info">6. Analyse des informations</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Évaluation de la crédibilité</h4>
+                            <p>L'information sur le Dark Web est souvent de qualité variable et nécessite une évaluation rigoureuse :</p>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Critères d'évaluation</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Source</strong> - Réputation et historique du site/forum/vendeur</li>
+                                                <li><strong>Corroboration</strong> - Confirmation par d'autres sources</li>
+                                                <li><strong>Cohérence interne</strong> - Absence de contradictions</li>
+                                                <li><strong>Expertise apparente</strong> - Niveau de détail technique</li>
+                                                <li><strong>Actualité</strong> - Date de publication et pertinence</li>
+                                                <li><strong>Motivation</strong> - Raison de la publication de l'information</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Indicateurs de désinformation</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Exagération</strong> - Affirmations extraordinaires</li>
+                                                <li><strong>Urgence</strong> - Pression pour agir rapidement</li>
+                                                <li><strong>Incohérences</strong> - Détails contradictoires</li>
+                                                <li><strong>Manque de preuves</strong> - Affirmations sans support</li>
+                                                <li><strong>Anonymat excessif</strong> - Absence totale d'identifiants</li>
+                                                <li><strong>Langage émotionnel</strong> - Appel aux émotions plutôt qu'aux faits</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques d'analyse</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Analyse linguistique</td>
+                                            <td>Étude du langage, jargon, expressions</td>
+                                            <td>Identification d'auteurs, groupes, origines</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse temporelle</td>
+                                            <td>Étude des patterns temporels</td>
+                                            <td>Détermination de fuseaux horaires, habitudes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse de réseau</td>
+                                            <td>Cartographie des relations entre entités</td>
+                                            <td>Identification de structures, hiérarchies</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse technique</td>
+                                            <td>Examen des aspects techniques</td>
+                                            <td>Évaluation de capacités, infrastructure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse comparative</td>
+                                            <td>Comparaison avec d'autres sources</td>
+                                            <td>Validation d'informations, identification de tendances</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Documentation et organisation</h4>
+                            <p>Une documentation rigoureuse est essentielle pour l'analyse OSINT sur le Dark Web :</p>
+                            <ul>
+                                <li><strong>Captures d'écran horodatées</strong> - Preuve visuelle des informations</li>
+                                <li><strong>Journal chronologique</strong> - Suivi des découvertes et de leur contexte</li>
+                                <li><strong>Base de données structurée</strong> - Organisation des informations par catégories</li>
+                                <li><strong>Graphes de relations</strong> - Visualisation des liens entre entités</li>
+                                <li><strong>Chaîne de traçabilité</strong> - Documentation de la provenance des informations</li>
+                                <li><strong>Système de notation</strong> - Évaluation de la fiabilité des sources et informations</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Utilisez des outils comme Maltego, Hunchly ou même des solutions plus simples comme OneNote ou Joplin pour documenter vos recherches. L'important est de maintenir une structure cohérente et de pouvoir retrouver facilement les informations.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tools" class="mb-5">
+                    <h2 class="text-info">7. Outils spécialisés</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Outils de navigation et recherche</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tor Browser</td>
+                                            <td>Navigateur sécurisé pour accéder au réseau Tor</td>
+                                            <td>Navigation de base sur les sites .onion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OnionScan</td>
+                                            <td>Scanner de services .onion</td>
+                                            <td>Analyse de vulnérabilités et configuration</td>
+                                        </tr>
+                                        <tr>
+                                            <td>TorBot</td>
+                                            <td>Crawler pour le réseau Tor</td>
+                                            <td>Découverte automatisée de sites .onion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OnionSearch</td>
+                                            <td>Moteur de recherche pour Tor</td>
+                                            <td>Recherche de contenu sur plusieurs moteurs</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse et de surveillance</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Hunchly</td>
+                                            <td>Outil de capture pour investigations</td>
+                                            <td>Documentation automatique des recherches</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maltego</td>
+                                            <td>Plateforme d'analyse de liens</td>
+                                            <td>Visualisation des relations entre entités</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DarkOwl Vision</td>
+                                            <td>Plateforme de recherche Dark Web</td>
+                                            <td>Recherche et surveillance automatisées</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recorded Future</td>
+                                            <td>Plateforme de cyber threat intelligence</td>
+                                            <td>Analyse de menaces et tendances</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils de sécurité et anonymat</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tails OS</td>
+                                            <td>Système d'exploitation amnésique</td>
+                                            <td>Environnement sécurisé pour la navigation</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Whonix</td>
+                                            <td>Système d'exploitation pour l'anonymat</td>
+                                            <td>Isolation du trafic via Tor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>KeePassXC</td>
+                                            <td>Gestionnaire de mots de passe</td>
+                                            <td>Gestion sécurisée des identifiants</td>
+                                        </tr>
+                                        <tr>
+                                            <td>VeraCrypt</td>
+                                            <td>Chiffrement de disques</td>
+                                            <td>Protection des données sensibles</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse de cryptomonnaies</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Blockchain.com Explorer</td>
+                                            <td>Explorateur de blockchain Bitcoin</td>
+                                            <td>Suivi de transactions Bitcoin</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chainalysis</td>
+                                            <td>Plateforme d'analyse de blockchain</td>
+                                            <td>Traçage de fonds, analyse de flux</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CipherTrace</td>
+                                            <td>Outil de traçage de cryptomonnaies</td>
+                                            <td>Analyse de transactions suspectes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elliptic</td>
+                                            <td>Plateforme de risk management crypto</td>
+                                            <td>Identification de risques et conformité</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Note :</strong> Certains outils mentionnés sont des solutions commerciales qui peuvent nécessiter des licences coûteuses. Des alternatives open source ou gratuites existent pour la plupart des fonctionnalités, mais peuvent être moins complètes ou plus difficiles à utiliser.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="case-studies" class="mb-5">
+                    <h2 class="text-info">8. Études de cas</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Étude de cas 1: Détection de fuite de données</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <h5 class="text-info">Scénario</h5>
+                                    <p>Une entreprise soupçonne que ses données clients ont été compromises et potentiellement mises en vente sur le Dark Web.</p>
+                                    
+                                    <h5 class="text-info mt-3">Approche</h5>
+                                    <ol>
+                                        <li><strong>Préparation</strong> - Configuration d'un environnement sécurisé avec Tails OS</li>
+                                        <li><strong>Identification des sources</strong> - Recherche de marchés et forums spécialisés dans la vente de données</li>
+                                        <li><strong>Recherche ciblée</strong> - Utilisation de mots-clés spécifiques (nom de l'entreprise, type de données)</li>
+                                        <li><strong>Surveillance</strong> - Suivi régulier des forums pertinents</li>
+                                        <li><strong>Vérification</strong> - Analyse d'échantillons pour confirmer l'authenticité</li>
+                                        <li><strong>Documentation</strong> - Capture d'écrans et enregistrement des preuves</li>
+                                    </ol>
+                                    
+                                    <h5 class="text-info mt-3">Résultats</h5>
+                                    <p>Découverte d'une base de données de 50 000 enregistrements clients mise en vente sur un forum spécialisé. L'analyse des échantillons a confirmé l'authenticité des données et a permis d'identifier la source probable de la fuite.</p>
+                                    
+                                    <h5 class="text-info mt-3">Leçons apprises</h5>
+                                    <ul>
+                                        <li>Importance de la surveillance proactive des marchés du Dark Web</li>
+                                        <li>Nécessité de connaître le jargon spécifique aux vendeurs de données</li>
+                                        <li>Valeur des échantillons pour confirmer l'authenticité</li>
+                                        <li>Importance de la documentation rigoureuse pour les actions légales ultérieures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Étude de cas 2: Analyse de menace émergente</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <h5 class="text-info">Scénario</h5>
+                                    <p>Une équipe de sécurité cherche à identifier de nouvelles menaces et vulnérabilités avant qu'elles ne soient largement exploitées.</p>
+                                    
+                                    <h5 class="text-info mt-3">Approche</h5>
+                                    <ol>
+                                        <li><strong>Cartographie</strong> - Identification des forums de hackers pertinents</li>
+                                        <li><strong>Surveillance</strong> - Suivi régulier des discussions sur les vulnérabilités</li>
+                                        <li><strong>Analyse linguistique</strong> - Attention particulière aux termes techniques émergents</li>
+                                        <li><strong>Corrélation</strong> - Mise en relation des informations de différentes sources</li>
+                                        <li><strong>Évaluation</strong> - Analyse de la crédibilité et de l'impact potentiel</li>
+                                        <li><strong>Alerte</strong> - Communication des menaces crédibles aux équipes concernées</li>
+                                    </ol>
+                                    
+                                    <h5 class="text-info mt-3">Résultats</h5>
+                                    <p>Détection précoce d'une nouvelle technique d'exploitation d'une vulnérabilité zero-day dans un logiciel largement utilisé. L'information a été transmise à l'équipe de sécurité qui a pu mettre en place des mesures d'atténuation avant la publication officielle.</p>
+                                    
+                                    <h5 class="text-info mt-3">Leçons apprises</h5>
+                                    <ul>
+                                        <li>Valeur de la détection précoce pour la préparation des défenses</li>
+                                        <li>Importance de comprendre le contexte technique des discussions</li>
+                                        <li>Nécessité de filtrer le bruit et la désinformation</li>
+                                        <li>Avantage d'une approche multi-sources pour la validation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Étude de cas 3: Traçage de cryptomonnaies</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <h5 class="text-info">Scénario</h5>
+                                    <p>Une organisation a été victime d'une attaque par ransomware et cherche à comprendre le réseau derrière cette attaque.</p>
+                                    
+                                    <h5 class="text-info mt-3">Approche</h5>
+                                    <ol>
+                                        <li><strong>Identification</strong> - Récupération de l'adresse Bitcoin utilisée pour le paiement</li>
+                                        <li><strong>Analyse de blockchain</strong> - Suivi des transactions liées à cette adresse</li>
+                                        <li><strong>Recherche sur le Dark Web</strong> - Identification de marchés ou services associés aux adresses</li>
+                                        <li><strong>Corrélation</strong> - Recherche de liens avec d'autres attaques connues</li>
+                                        <li><strong>Cartographie</strong> - Établissement du réseau d'adresses et services utilisés</li>
+                                        <li><strong>Documentation</strong> - Création d'un rapport détaillé sur le groupe d'attaquants</li>
+                                    </ol>
+                                    
+                                    <h5 class="text-info mt-3">Résultats</h5>
+                                    <p>Identification d'un réseau de 15 adresses Bitcoin liées au groupe de ransomware, ainsi que leurs méthodes de blanchiment via des services de mixing. Ces informations ont permis d'établir des liens avec d'autres attaques et de contribuer à une enquête plus large.</p>
+                                    
+                                    <h5 class="text-info mt-3">Leçons apprises</h5>
+                                    <ul>
+                                        <li>Importance de la compréhension des technologies de blockchain</li>
+                                        <li>Valeur de la corrélation entre transactions et activités sur le Dark Web</li>
+                                        <li>Complexité croissante des techniques d'obscurcissement</li>
+                                        <li>Nécessité d'outils spécialisés pour l'analyse de cryptomonnaies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="security-measures" class="mb-5">
+                    <h2 class="text-info">9. Mesures de sécurité</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Risques spécifiques au Dark Web</h4>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger h-100">
+                                        <div class="card-header text-danger">Risques techniques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Malwares spécifiquement conçus pour Tor</li>
+                                                <li>Exploits ciblant les vulnérabilités du navigateur</li>
+                                                <li>Attaques de désanonymisation</li>
+                                                <li>Honeypots et sites malveillants</li>
+                                                <li>Surveillance par des acteurs étatiques</li>
+                                                <li>Fuites d'informations via WebRTC, JavaScript, etc.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger h-100">
+                                        <div class="card-header text-danger">Risques opérationnels</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Exposition accidentelle à du contenu illégal</li>
+                                                <li>Compromission de l'identité numérique</li>
+                                                <li>Risques légaux liés à certaines activités</li>
+                                                <li>Stress psychologique lié au contenu</li>
+                                                <li>Ciblage par des acteurs malveillants</li>
+                                                <li>Contamination des données de recherche</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Bonnes pratiques de sécurité</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Catégorie</th>
+                                            <th>Mesures recommandées</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sécurité technique</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Utiliser un système d'exploitation dédié (Tails, Whonix)</li>
+                                                    <li>Désactiver JavaScript par défaut</li>
+                                                    <li>Maintenir tous les logiciels à jour</li>
+                                                    <li>Utiliser le niveau de sécurité "Élevé" dans Tor Browser</li>
+                                                    <li>Ne jamais télécharger ou exécuter des fichiers du Dark Web</li>
+                                                    <li>Utiliser une machine virtuelle isolée ou un ordinateur dédié</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sécurité opérationnelle</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Maintenir une séparation stricte des identités</li>
+                                                    <li>Utiliser des mots de passe forts et uniques</li>
+                                                    <li>Éviter de partager des informations personnelles</li>
+                                                    <li>Limiter le temps de connexion</li>
+                                                    <li>Varier les heures et durées de connexion</li>
+                                                    <li>Documenter les activités de manière sécurisée</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sécurité physique</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Utiliser un environnement de travail privé</li>
+                                                    <li>Être conscient de son environnement (caméras, personnes)</li>
+                                                    <li>Sécuriser physiquement les équipements</li>
+                                                    <li>Utiliser un filtre de confidentialité pour écran</li>
+                                                    <li>Désactiver les appareils IoT à proximité</li>
+                                                    <li>Considérer l'utilisation de réseaux Wi-Fi publics (avec précautions)</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Gestion des incidents</h4>
+                            <p>Malgré toutes les précautions, des incidents peuvent survenir. Voici comment les gérer :</p>
+                            <ol>
+                                <li><strong>Préparation</strong> - Avoir un plan d'action prédéfini pour différents types d'incidents</li>
+                                <li><strong>Détection</strong> - Être attentif aux signes d'une possible compromission</li>
+                                <li><strong>Confinement</strong> - Isoler immédiatement le système concerné</li>
+                                <li><strong>Éradication</strong> - Supprimer la menace (souvent en réinitialisant complètement le système)</li>
+                                <li><strong>Récupération</strong> - Restaurer un environnement propre et sécurisé</li>
+                                <li><strong>Leçons apprises</strong> - Analyser l'incident pour améliorer les pratiques futures</li>
+                            </ol>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> En cas d'exposition accidentelle à du contenu illégal grave, consultez immédiatement votre conseiller juridique ou les autorités compétentes selon les procédures établies dans votre organisation. Ne tentez pas de gérer seul ce type de situation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercises" class="mb-5">
+                    <h2 class="text-info">10. Exercices pratiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <div class="alert alert-warning mb-4">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Avertissement :</strong> Ces exercices sont conçus pour être réalisés dans un environnement contrôlé et légal. Assurez-vous de respecter toutes les lois applicables et d'obtenir les autorisations nécessaires avant de les effectuer.
+                            </div>
+                            
+                            <h4 class="text-info">Exercice 1: Configuration d'un environnement sécurisé</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Objectif :</strong> Mettre en place un environnement d'investigation sécu
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - OSINT sur le Dark Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">OSINT sur le Dark Web</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Avancé</span>
+                            <span class="badge bg-info me-2">Durée: 5h</span>
+                            <span class="badge bg-success">OSINT</span>
+                            <span class="badge bg-danger ms-2">Sécurité</span>
+                        </div>
+                        <p class="card-text">Ce cours vous apprend à mener des investigations OSINT sur le Dark Web de manière sécurisée et éthique. Vous découvrirez les techniques et outils spécifiques pour naviguer, rechercher et analyser les informations disponibles sur les réseaux anonymes, tout en comprenant les implications légales et les mesures de sécurité nécessaires.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction au Dark Web</a>
+                            <a class="nav-link" href="#legal-ethical">2. Aspects légaux et éthiques</a>
+                            <a class="nav-link" href="#setup">3. Configuration sécurisée</a>
+                            <a class="nav-link" href="#navigation">4. Navigation et accès</a>
+                            <a class="nav-link" href="#search-techniques">5. Techniques de recherche</a>
+                            <a class="nav-link" href="#analysis">6. Analyse des informations</a>
+                            <a class="nav-link" href="#tools">7. Outils spécialisés</a>
+                            <a class="nav-link" href="#case-studies">8. Études de cas</a>
+                            <a class="nav-link" href="#security-measures">9. Mesures de sécurité</a>
+                            <a class="nav-link" href="#exercises">10. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">11. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#glossary">Glossaire</a>
+                                    <a class="nav-link" href="#faq">FAQ</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction au Dark Web</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Qu'est-ce que le Dark Web?</h4>
+                            <p>Le Dark Web est une partie d'Internet qui n'est pas indexée par les moteurs de recherche traditionnels et qui nécessite des logiciels spécifiques pour y accéder. Il fait partie du Deep Web, qui englobe toutes les parties d'Internet non indexées.</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-4 text-center">
+                                    <div class="card bg-dark border-info mb-3">
+                                        <div class="card-body">
+                                            <h5>Surface Web</h5>
+                                            <p class="small">4% d'Internet</p>
+                                            <p class="small">Sites indexés par les moteurs de recherche</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="card bg-dark border-info mb-3">
+                                        <div class="card-body">
+                                            <h5>Deep Web</h5>
+                                            <p class="small">90% d'Internet</p>
+                                            <p class="small">Contenu non indexé mais accessible (emails, comptes bancaires, etc.)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="card bg-dark border-danger mb-3">
+                                        <div class="card-body">
+                                            <h5>Dark Web</h5>
+                                            <p class="small">6% d'Internet</p>
+                                            <p class="small">Réseaux anonymes nécessitant des logiciels spécifiques</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Réseaux du Dark Web</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Réseau</th>
+                                            <th>Description</th>
+                                            <th>Caractéristiques</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tor (The Onion Router)</td>
+                                            <td>Le réseau anonyme le plus populaire</td>
+                                            <td>Utilise le routage en oignon, domaines .onion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>I2P (Invisible Internet Project)</td>
+                                            <td>Réseau alternatif à Tor</td>
+                                            <td>Conçu pour la communication interne au réseau, domaines .i2p</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Freenet</td>
+                                            <td>Réseau de partage de fichiers décentralisé</td>
+                                            <td>Stockage distribué, forte résistance à la censure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ZeroNet</td>
+                                            <td>Réseau décentralisé basé sur Bitcoin et BitTorrent</td>
+                                            <td>Sites hébergés par les utilisateurs, pas de serveurs centraux</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Pourquoi explorer le Dark Web pour l'OSINT?</h4>
+                            <p>Le Dark Web peut être une source précieuse d'informations pour diverses raisons :</p>
+                            <ul>
+                                <li>Détection précoce de fuites de données et d'informations compromises</li>
+                                <li>Surveillance des activités cybercriminelles et des menaces émergentes</li>
+                                <li>Identification de nouvelles vulnérabilités et exploits</li>
+                                <li>Suivi des tendances et discussions dans les communautés underground</li>
+                                <li>Recherche d'informations non disponibles sur le web de surface</li>
+                                <li>Investigation sur des acteurs malveillants et leurs infrastructures</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> L'exploration du Dark Web comporte des risques légaux, de sécurité et éthiques. Il est essentiel de comprendre ces risques et de prendre les précautions appropriées avant de s'y aventurer.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="legal-ethical" class="mb-5">
+                    <h2 class="text-info">2. Aspects légaux et éthiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Cadre légal</h4>
+                            <p>L'exploration du Dark Web n'est pas illégale en soi, mais certaines activités peuvent l'être :</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-danger h-100">
+                                        <div class="card-header text-danger">Activités illégales</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Accès non autorisé à des systèmes informatiques</li>
+                                                <li>Téléchargement ou distribution de contenu illégal</li>
+                                                <li>Participation à des activités criminelles</li>
+                                                <li>Achat de biens ou services illégaux</li>
+                                                <li>Harcèlement ou doxing</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-success h-100">
+                                        <div class="card-header text-success">Activités légales</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Navigation anonyme</li>
+                                                <li>Recherche passive d'informations</li>
+                                                <li>Collecte de renseignements sur des menaces</li>
+                                                <li>Analyse de tendances et discussions</li>
+                                                <li>Recherche académique ou journalistique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Considérations juridiques par région</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Région</th>
+                                            <th>Particularités légales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Union Européenne</td>
+                                            <td>RGPD applicable, lois strictes sur le contenu illégal, certains pays peuvent restreindre l'utilisation de Tor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>États-Unis</td>
+                                            <td>Lois fédérales comme le CFAA, utilisation légale de Tor mais surveillance possible</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Asie</td>
+                                            <td>Restrictions sévères dans certains pays (Chine, Corée du Nord), réglementations variables ailleurs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Moyen-Orient</td>
+                                            <td>Restrictions importantes dans plusieurs pays, utilisation de VPN parfois illégale</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Considérations éthiques</h4>
+                            <ul>
+                                <li><strong>Principe de non-malfaisance</strong> - Ne pas causer de préjudice à autrui</li>
+                                <li><strong>Respect de la vie privée</strong> - Ne pas exposer des informations personnelles</li>
+                                <li><strong>Consentement</strong> - Ne pas interagir avec des individus sans nécessité</li>
+                                <li><strong>Signalement responsable</strong> - Informer les autorités en cas de découverte de contenu illégal grave</li>
+                                <li><strong>Utilisation des informations</strong> - Employer les données recueillies de manière responsable</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Consultez toujours un conseiller juridique avant d'entreprendre des activités OSINT sur le Dark Web dans un cadre professionnel. Les lois varient considérablement selon les pays et évoluent rapidement.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="setup" class="mb-5">
+                    <h2 class="text-info">3. Configuration sécurisée</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Environnement d'investigation sécurisé</h4>
+                            <p>La mise en place d'un environnement sécurisé est essentielle avant d'explorer le Dark Web :</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Système d'exploitation</div>
+                                        <div class="card-body">
+                                            <h6>Options recommandées :</h6>
+                                            <ul>
+                                                <li><strong>Tails OS</strong> - Système amnésique qui ne laisse pas de traces</li>
+                                                <li><strong>Whonix</strong> - Système conçu pour fonctionner dans une VM avec Tor</li>
+                                                <li><strong>Qubes OS</strong> - Système basé sur la compartimentalisation</li>
+                                                <li><strong>Machine virtuelle dédiée</strong> - Isolation du système principal</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Mesures de sécurité supplémentaires</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>VPN</strong> - Couche supplémentaire d'anonymat (avec précautions)</li>
+                                                <li><strong>Pare-feu</strong> - Configuration restrictive</li>
+                                                <li><strong>Antivirus/Antimalware</strong> - Protection contre les menaces</li>
+                                                <li><strong>Désactivation de JavaScript</strong> - Réduction de la surface d'attaque</li>
+                                                <li><strong>Compte utilisateur dédié</strong> - Séparation des activités</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Configuration de Tor Browser</h4>
+                            <p>Tor Browser est l'outil principal pour accéder au Dark Web. Voici comment le configurer de manière sécurisée :</p>
+                            <ol>
+                                <li><strong>Téléchargement</strong> - Toujours depuis le site officiel (torproject.org)</li>
+                                <li><strong>Vérification</strong> - Contrôle de l'intégrité via les signatures PGP</li>
+                                <li><strong>Niveau de sécurité</strong> - Régler sur "Élevé" pour une sécurité maximale</li>
+                                <li><strong>Extensions</strong> - Éviter d'ajouter des extensions supplémentaires</li>
+                                <li><strong>Mise à jour</strong> - Toujours utiliser la dernière version</li>
+                                <li><strong>Configuration NoScript</strong> - Bloquer JavaScript sur les sites non fiables</li>
+                                <li><strong>Paramètres de confidentialité</strong> - Désactiver l'historique et les cookies</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> L'utilisation d'un VPN avec Tor est un sujet controversé. Bien que cela puisse ajouter une couche de protection contre certaines menaces, cela peut aussi créer de nouveaux risques. Renseignez-vous sur les avantages et inconvénients avant de combiner ces technologies.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Identité numérique</h4>
+                            <p>Maintenir une identité séparée pour les activités OSINT sur le Dark Web :</p>
+                            <ul>
+                                <li>Utiliser des comptes email dédiés (ProtonMail, etc.)</li>
+                                <li>Créer des pseudonymes sans lien avec votre identité réelle</li>
+                                <li>Éviter de réutiliser des noms d'utilisateur ou mots de passe</li>
+                                <li>Ne jamais partager d'informations personnelles</li>
+                                <li>Utiliser des portefeuilles de cryptomonnaies dédiés si nécessaire</li>
+                                <li>Maintenir une séparation stricte entre identités personnelles et de recherche</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="navigation" class="mb-5">
+                    <h2 class="text-info">4. Navigation et accès</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Structure des adresses .onion</h4>
+                            <p>Les sites du Dark Web sur le réseau Tor utilisent des adresses .onion qui sont différentes des URL traditionnelles :</p>
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>Format v2 (obsolète) :</strong> 16 caractères alphanumériques + .onion</p>
+                                    <p class="text-monospace">exemple : <code>3g2upl4pq6kufc4m.onion</code> (DuckDuckGo)</p>
+                                    <p class="mb-2 mt-3"><strong>Format v3 (actuel) :</strong> 56 caractères alphanumériques + .onion</p>
+                                    <p class="text-monospace">exemple : <code>4gmq7asx6wnxoomy4fxo65a3wmevmsjdgmdmcwzbkjpxkh5bfqpbkpad.onion</code></p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Trouver des sites .onion</h4>
+                            <p>Contrairement au web traditionnel, il n'existe pas de moteur de recherche complet pour le Dark Web. Voici comment trouver des sites .onion :</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Sources d'adresses .onion</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Répertoires comme The Hidden Wiki</li>
+                                                <li>Forums spécialisés</li>
+                                                <li>Moteurs de recherche du Dark Web (Torch, Ahmia)</li>
+                                                <li>Sites de vérification comme Dark.fail</li>
+                                                <li>Communautés Reddit (r/onions)</li>
+                                                <li>Canaux Telegram spécialisés</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Moteurs de recherche du Dark Web</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Torch</strong> - L'un des plus anciens moteurs de recherche</li>
+                                                <li><strong>Ahmia</strong> - Indexe les sites .onion non illicites</li>
+                                                <li><strong>DarkSearch</strong> - API disponible pour les chercheurs</li>
+                                                <li><strong>Haystack</strong> - Moteur plus récent</li>
+                                                <li><strong>NotEvil</strong> - Alternative à Torch</li>
+                                                <li><strong>DuckDuckGo .onion</strong> - Version Tor du moteur de recherche</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Bonnes pratiques de navigation</h4>
+                            <ul>
+                                <li><strong>Patience</strong> - La navigation sur Tor est plus lente que sur le web traditionnel</li>
+                                <li><strong>Vérification</strong> - Toujours vérifier les adresses .onion (phishing très répandu)</li>
+                                <li><strong>Méfiance</strong> - Ne jamais télécharger de fichiers sauf si absolument nécessaire</li>
+                                <li><strong>Persistance</strong> - Les sites peuvent être temporairement inaccessibles</li>
+                                <li><strong>Discrétion</strong> - Limiter les interactions au strict nécessaire</li>
+                                <li><strong>Documentation</strong> - Noter les adresses et informations importantes</li>
+                                <li><strong>Captures d'écran</strong> - Préférer les captures d'écran au téléchargement</li>
+                            </ul>
+                            
+                            <div class="alert alert-danger mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Danger :</strong> Le phishing est extrêmement répandu sur le Dark Web. Vérifiez toujours les adresses .onion via plusieurs sources fiables avant d'y accéder. Les adresses peuvent différer d'un seul caractère et mener à des sites malveillants.
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Accès à d'autres réseaux du Dark Web</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Réseau</th>
+                                            <th>Logiciel requis</th>
+                                            <th>Particularités</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>I2P</td>
+                                            <td>Client I2P</td>
+                                            <td>Configuration plus complexe que Tor, focus sur les "eepsites"</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Freenet</td>
+                                            <td>Client Freenet</td>
+                                            <td>Stockage distribué, "freesites" accessibles via des clés</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ZeroNet</td>
+                                            <td>Client ZeroNet</td>
+                                            <td>Sites P2P, adresses basées sur Bitcoin</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="search-techniques" class="mb-5">
+                    <h2 class="text-info">5. Techniques de recherche</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Stratégies de recherche sur le Dark Web</h4>
+                            <p>La recherche sur le Dark Web diffère considérablement de celle sur le web de surface :</p>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Approches générales</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Recherche ciblée</strong> - Définir clairement les objectifs</li>
+                                                <li><strong>Approche en entonnoir</strong> - Du général au spécifique</li>
+                                                <li><strong>Recherche par pivot</strong> - Utiliser une information pour en trouver d'autres</li>
+                                                <li><strong>Cartographie</strong> - Établir des liens entre les sites et informations</li>
+                                                <li><strong>Surveillance</strong> - Suivi régulier des sources pertinentes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Défis spécifiques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Volatilité</strong> - Les sites apparaissent et disparaissent rapidement</li>
+                                                <li><strong>Fragmentation</strong> - Information dispersée sur de nombreux sites</li>
+                                                <li><strong>Désinformation</strong> - Nombreuses fausses informations</li>
+                                                <li><strong>Barrières linguistiques</strong> - Contenu en multiples langues</li>
+                                                <li><strong>Codage et jargon</strong> - Utilisation de termes spécifiques</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques de recherche avancées</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Recherche par mots-clés</td>
+                                            <td>Utilisation de termes spécifiques et jargon</td>
+                                            <td>Moteurs de recherche du Dark Web, forums</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par identifiants</td>
+                                            <td>Recherche d'emails, noms d'utilisateur, etc.</td>
+                                            <td>Forums, marchés, dumps de données</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par cryptomonnaie</td>
+                                            <td>Suivi d'adresses Bitcoin ou autres</td>
+                                            <td>Explorateurs de blockchain, services d'analyse</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse de métadonnées

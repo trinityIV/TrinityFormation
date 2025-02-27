@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Vue d'ensemble des outils OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Vue d'ensemble des outils OSINT</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant-Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 5h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours présente un panorama complet des outils essentiels pour l'OSINT (Open Source Intelligence). Vous découvrirez les outils les plus efficaces pour chaque phase d'une investigation OSINT, apprendrez à les utiliser efficacement et à les intégrer dans votre méthodologie de recherche.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#search-tools">2. Outils de recherche</a>
+                            <a class="nav-link" href="#social-media-tools">3. Outils pour réseaux sociaux</a>
+                            <a class="nav-link" href="#domain-tools">4. Outils d'analyse de domaines</a>
+                            <a class="nav-link" href="#image-tools">5. Outils d'analyse d'images</a>
+                            <a class="nav-link" href="#geolocation-tools">6. Outils de géolocalisation</a>
+                            <a class="nav-link" href="#data-analysis-tools">7. Outils d'analyse de données</a>
+                            <a class="nav-link" href="#automation-tools">8. Outils d'automatisation</a>
+                            <a class="nav-link" href="#documentation-tools">9. Outils de documentation</a>
+                            <a class="nav-link" href="#security-tools">10. Outils de sécurité</a>
+                            <a class="nav-link" href="#exercises">11. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">12. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#toolkits">Boîtes à outils</a>
+                                    <a class="nav-link" href="#community">Communauté</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Importance des outils dans l'OSINT</h4>
+                            <p>Les outils OSINT sont essentiels pour collecter, analyser et exploiter efficacement les informations disponibles publiquement. Ils permettent d'automatiser certaines tâches, d'accéder à des sources difficiles à explorer manuellement, et d'analyser de grandes quantités de données.</p>
+                            
+                            <h4 class="text-info mt-4">Catégories d'outils</h4>
+                            <p>Les outils OSINT peuvent être classés en plusieurs catégories selon leur fonction principale :</p>
+                            <ul>
+                                <li><strong>Outils de recherche</strong> - Pour trouver des informations dans diverses sources</li>
+                                <li><strong>Outils pour réseaux sociaux</strong> - Pour explorer et analyser les plateformes sociales</li>
+                                <li><strong>Outils d'analyse de domaines</strong> - Pour examiner les sites web et leur infrastructure</li>
+                                <li><strong>Outils d'analyse d'images</strong> - Pour extraire des informations des images</li>
+                                <li><strong>Outils de géolocalisation</strong> - Pour identifier et analyser des lieux</li>
+                                <li><strong>Outils d'analyse de données</strong> - Pour traiter et interpréter les informations collectées</li>
+                                <li><strong>Outils d'automatisation</strong> - Pour automatiser les processus de collecte</li>
+                                <li><strong>Outils de documentation</strong> - Pour organiser et présenter les résultats</li>
+                                <li><strong>Outils de sécurité</strong> - Pour protéger votre identité et vos activités</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Aucun outil n'est parfait à lui seul. Une approche efficace consiste à combiner plusieurs outils complémentaires pour chaque phase de votre investigation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="search-tools" class="mb-5">
+                    <h2 class="text-info">2. Outils de recherche</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Moteurs de recherche avancés</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Google Dorks</td>
+                                            <td>Requêtes de recherche avancées pour Google</td>
+                                            <td>Recherche ciblée de documents, informations spécifiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DuckDuckGo</td>
+                                            <td>Moteur de recherche respectueux de la vie privée</td>
+                                            <td>Recherches sans tracking, !bangs pour recherches spécifiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shodan</td>
+                                            <td>Moteur de recherche pour appareils connectés</td>
+                                            <td>Découverte d'appareils IoT, caméras, serveurs exposés</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Censys</td>
+                                            <td>Recherche d'appareils et certificats</td>
+                                            <td>Analyse d'infrastructure, recherche de vulnérabilités</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Archives et historique</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Wayback Machine</td>
+                                            <td>Archive de pages web historiques</td>
+                                            <td>Accès à des versions antérieures de sites web</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Archive.today</td>
+                                            <td>Service d'archivage de pages web</td>
+                                            <td>Capture et préservation de pages web actuelles</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Google Cache</td>
+                                            <td>Versions en cache des pages web</td>
+                                            <td>Accès à des pages récemment supprimées</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Métamoteurs et agrégateurs</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Searx</td>
+                                            <td>Métamoteur de recherche open source</td>
+                                            <td>Recherches anonymes à travers plusieurs moteurs</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carrot2</td>
+                                            <td>Moteur de recherche avec clustering</td>
+                                            <td>Organisation des résultats par thèmes</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>IntelX</td>
+                                            <td>Moteur de recherche pour OSINT</td>
+                                            <td>Recherche dans les leaks, dark web, etc.</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-4">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Certains outils de recherche avancés peuvent révéler des informations sensibles. Utilisez-les de manière éthique et responsable.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="social-media-tools" class="mb-5">
+                    <h2 class="text-info">3. Outils pour réseaux sociaux</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Outils multi-plateformes</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sherlock</td>
+                                            <td>Recherche de noms d'utilisateur sur de multiples plateformes</td>
+                                            <td>Identifier les comptes liés à un pseudonyme</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Social Analyzer</td>
+                                            <td>Analyse de profils sociaux</td>
+                                            <td>Vérification d'identité, recherche de comptes</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maltego</td>
+                                            <td>Plateforme d'analyse de liens</td>
+                                            <td>Cartographie des relations entre entités</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils spécifiques aux plateformes</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Twitter/X</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Twint</strong> - Scraping Twitter sans API</li>
+                                                <li><strong>Tweetdeck</strong> - Interface avancée</li>
+                                                <li><strong>Twitonomy</strong> - Analyse de profils</li>
+                                                <li><strong>Hoaxy</strong> - Analyse de diffusion</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Facebook</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Who Posted What</strong> - Recherche temporelle</li>
+                                                <li><strong>StalkFace</strong> - Analyse de profils</li>
+                                                <li><strong>Facebook Graph Search</strong> - Requêtes avancées</li>
+                                                <li><strong>Sowdust</strong> - Exploration de graphes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Instagram</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Osintgram</strong> - Framework OSINT</li>
+                                                <li><strong>Instalooter</strong> - Téléchargement de médias</li>
+                                                <li><strong>Instaloader</strong> - Archivage de profils</li>
+                                                <li><strong>StoriesIG</strong> - Visualisation anonyme</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">LinkedIn</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>LinkedInt</strong> - Scraping LinkedIn</li>
+                                                <li><strong>Recruit'em</strong> - Recherche avancée</li>
+                                                <li><strong>ScrapedIn</strong> - Extraction de données</li>
+                                                <li><strong>LinkedIn X-Ray</strong> - Recherche Google</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de contenu social</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Social Bearing</td>
+                                            <td>Analyse de tweets et comptes</td>
+                                            <td>Analyse de sentiment, statistiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Foller.me</td>
+                                            <td>Analyse de profils Twitter</td>
+                                            <td>Insights sur les activités et relations</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Botometer</td>
+                                            <td>Détection de bots sur Twitter</td>
+                                            <td>Identifier les comptes automatisés</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-info mt-4">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Les réseaux sociaux modifient régulièrement leurs API et protections. Vérifiez toujours que vos outils sont à jour avant une investigation importante.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="domain-tools" class="mb-5">
+                    <h2 class="text-info">4. Outils d'analyse de domaines</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Analyse WHOIS et DNS</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WHOIS</td>
+                                            <td>Informations d'enregistrement de domaine</td>
+                                            <td>Identifier le propriétaire, dates, contacts</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DNSDumpster</td>
+                                            <td>Recherche d'enregistrements DNS</td>
+                                            <td>Cartographie d'infrastructure, sous-domaines</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SecurityTrails</td>
+                                            <td>Historique DNS et données de domaine</td>
+                                            <td>Analyse historique, recherche de sous-domaines</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spyse</td>
+                                            <td>Moteur de recherche pour données Internet</td>
+                                            <td>Reconnaissance de domaines, analyse de certificats</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Découverte de sous-domaines</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sublist3r</td>
+                                            <td>Énumération de sous-domaines</td>
+                                            <td>Découverte rapide de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amass</td>
+                                            <td>Cartographie de surface d'attaque réseau</td>
+                                            <td>Découverte approfondie de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Subfinder</td>
+                                            <td>Outil de découverte de sous-domaines</td>
+                                            <td>Énumération passive de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de technologies</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Wappalyzer</td>
+                                            <td>Identification des technologies web</td>
+                                            <td>Découvrir les frameworks, CMS, analytics</td>
+                                            <td><span class="badge bg-success">Gratuit (extension)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BuiltWith</td>
+                                            <td>Profils technologiques de sites web</td>
+                                            <td>Analyse approfondie des technologies</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Netcraft</td>
+                                            <td>Informations sur les sites web</td>
+                                            <td>Historique, hébergement, technologies</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="image-tools" class="mb-5">
+                    <h2 class="text-info">5. Outils d'analyse d'images</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Recherche inversée d'images</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Google Images</td>
+                                            <td>Recherche inversée d'images</td>
+                                            <td>Trouver des images similaires, sources</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TinEye</td>
+                                            <td>Moteur de recherche inversée d'images</td>
+                                            <td>Trouver des correspondances exactes</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yandex Images</td>
+                                            <td>Recherche inversée d'images</td>
+                                            <td>Souvent plus efficace que Google pour certaines images</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de métadonnées</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ExifTool</td>
+                                            <td>Extraction et manipulation de métadonnées</td>
+                                            <td>Analyse approfondie des métadonnées</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jeffrey's Image Metadata Viewer</td>
+                                            <td>Visualisation en ligne de métadonnées</td>
+                                            <td>Analyse rapide sans installation</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Exif Viewer</td>
+                                            <td>Extension de navigateur</td>
+                                            <td>Visualisation rapide des métadonnées</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse forensique</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>FotoForensics</td>
+                                            <td>Analyse d'erreur de niveau (ELA)</td>
+                                            <td>Détection de manipulations d'images</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ghiro</td>
+                                            <td>Plateforme d'analyse forensique d'images</td>
+                                            <td>Analyse approfondie et automatisée</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>InVID</td>
+                                            <td>Vérification de vidéos et images</td>
+                                            <td>Vérification de contenu, analyse de keyframes</td>
+                                            <td><span class="badge bg-success">Gratuit (extension)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="geolocation-tools" class="mb-5">
+                    <h2 class="text-info">6. Outils de géolocalisation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Cartographie et visualisation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Google Earth</td>
+                                            <td>Visualisation 3D de la Terre</td>
+                                            <td>Exploration de lieux, mesures, historique</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Google Maps</td>
+                                            <td>Service de cartographie</td>
+                                            <td>Navigation, Street View, recherche de lieux</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>OpenStreetMap</td>
+                                            <td>Cartographie collaborative</td>
+                                            <td>Données cartographiques libres et détaillées</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Géolocalisation d'images</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>GeoGuessr</td>
+                                            <td>Jeu de géolocalisation</td>
+                                            <td>Entraînement à la géolocalisation</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PeakVisor</td>
+                                            <td>Identification de montagnes</td>
+                                            <td>Localisation basée sur les reliefs</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SunCalc</td>
+                                            <td>Calcul de position du soleil</td>
+                                            <td>Détermination de l'heure/date par les ombres</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Données géographiques</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Wikimapia</td>
+                                            <td>Carte annotée collaborative</td>
+                                            <td>Identification de lieux et bâtiments</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>FlightRadar24</td>
+                                            <td>Suivi de vols en temps réel</td>
+                                            <td>Identification d'avions, routes aériennes</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>MarineTraffic</td>
+                                            <td>Suivi de navires en temps réel</td>
+                                            <td>Identification de bateaux, routes maritimes</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="data-analysis-tools" class="mb-5">
+                    <h2 class="text-info">7. Outils d'analyse de données</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Visualisation de données</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Maltego</td>
+                                            <td>Plateforme d'analyse de liens</td>
+                                            <td>Visualisation des relations entre entités</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gephi</td>
+                                            <td>Visualisation et exploration de réseaux</td>
+                                            <td>Analyse de réseaux sociaux, relations</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Timeline JS</td>
+                                            <td>Création de chronologies interactives</td>
+                                            <td>Visualisation temporelle d'événements</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de texte</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SpaCy</td>
+                                            <td>Bibliothèque de traitement du langage naturel</td>
+                                            <td>Extraction d'entités, analyse linguistique</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NLTK</td>
+                                            <td>Boîte à outils pour le langage naturel</td>
+                                            <td>Analyse de texte, classification</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Voyant Tools</td>
+                                            <td>Analyse de texte en ligne</td>
+                                            <td>Visualisation de corpus, fréquence de mots</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de données structurées</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>OpenRefine</td>
+                                            <td>Nettoyage et transformation de données</td>
+                                            <td>Préparation de données, normalisation</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tableau Public</td>
+                                            <td>Visualisation de données</td>
+                                            <td>Création de tableaux de bord interactifs</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Python (pandas)</td>
+                                            <td>Bibliothèque d'analyse de données</td>
+                                            <td>Manipulation et analyse de données</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="automation-tools" class="mb-5">
+                    <h2 class="text-info">8. Outils d'automatisation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Frameworks OSINT</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SpiderFoot</td>
+                                            <td>Plateforme d'automatisation OSINT</td>
+                                            <td>Reconnaissance automatisée</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recon-ng</td>
+                                            <td>Framework de reconnaissance</td>
+                                            <td>Collecte modulaire d'informations</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>theHarvester</td>
+                                            <td>Collecte d'informations</td>
+                                            <td>Découverte d'emails, sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Scraping et automatisation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Scrapy</td>
+                                            <td>Framework de scraping</td>
+                                            <td>Extraction structurée de données web</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Selenium</td>
+                                            <td>Automatisation de navigateur</td>
+                                            <td>Interaction avec des sites dynamiques</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>IFTTT</td>
+                                            <td>Automatisation d'actions en ligne</td>
+                                            <td>Surveillance automatisée, alertes</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-4">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> L'automatisation du scraping peut violer les conditions d'utilisation de certains sites. Assurez-vous de respecter les règles et d'utiliser ces outils de manière responsable.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="documentation-tools" class="mb-5">
+                    <h2 class="text-info">9. Outils de documentation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Prise de notes</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Joplin</td>
+                                            <td>Application de notes sécurisée</td>
+                                            <td>Organisation hiérarchique, chiffrement</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CherryTree</td>
+                                            <td>Prise de notes hiérarchique</td>
+                                            <td>Organisation structurée des informations</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Obsidian</td>
+                                            <td>Notes interconnectées</td>
+                                            <td>Création de graphes de connaissances</td>
+                                            <td><span class="badge bg-success">Gratuit (personnel)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Capture et archivage</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Hunchly</td>
+                                            <td>Outil de capture pour investigations</td>
+                                            <td>Documentation automatique de recherches</td>
+                                            <td><span class="badge bg-warning">Payant</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>FireShot</td>
+                                            <td>Capture d'écran de pages entières</td>
+                                            <td>Documentation de sites web</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WebRecorder</td>
+                                            <td>Archivage web interactif</td>
+                                            <td>Préservation de sites dynamiques</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Rapports et présentation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Maltego CaseFile</td>
+                                            <td>Visualisation pour rapports</td>
+                                            <td>Présentation visuelle des relations</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>GitBook</td>
+                                            <td>Création de documentation</td>
+                                            <td>Rapports structurés, partage</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>MindMaps</td>
+                                            <td>Création de cartes mentales</td>
+                                            <td>Organisation visuelle des informations</td>
+                                            <td><span class="badge bg-success">Gratuit (divers outils)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="security-tools" class="mb-5">
+                    <h2 class="text-info">10. Outils de sécurité</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Anonymisation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tor Browser</td>
+                                            <td>Navigateur anonyme</td>
+                                            <td>Navigation anonyme, accès au dark web</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>VPN</td>
+                                            <td>Réseau privé virtuel</td>
+                                            <td>Masquage d'IP, chiffrement du trafic</td>
+                                            <td><span class="badge bg-warning">Payant (divers)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tails OS</td>
+                                            <td>Système d'exploitation sécurisé</td>
+                                            <td>Environnement de travail amnésique</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Protection des données</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>VeraCrypt</td>
+                                            <td>Chiffrement de disques</td>
+                                            <td>Protection des données sensibles</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>KeePassXC</td>
+                                            <td>Gestionnaire de mots de passe</td>
+                                            <td>Stockage sécurisé des identifiants</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Signal</td>
+                                            <td>Messagerie chiffrée</td>
+                                            <td>Communications sécurisées</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Sécurité opérationnelle</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Qubes OS</td>
+                                            <td>Système d'exploitation compartimenté</td>
+                                            <td>Isolation des activités</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Whonix</td>
+                                            <td>Système d'exploitation pour l'anonymat</td>
+                                            <td>Isolation du trafic via Tor</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Virtual Machines</td>
+                                            <td>Environnements virtualisés</td>
+                                            <td>Isolation des activités OSINT</td>
+                                            <td><span class="badge bg-success">Gratuit (divers)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-4">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> La sécurité opérationnelle est cruciale en OSINT. Utilisez toujours des outils de protection appropriés pour éviter d'exposer votre identité ou vos intentions.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercises" class="mb-5">
+                    <h2 class="text-info">11. Exercices pratiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Exercice 1: Création d'une boîte à outils personnalisée</h4>
+                            <p>Créez votre propre boîte à outils OSINT adaptée à vos besoins :</p>
+                            <ol>
+                                <li>Identifiez les catégories d'outils pertinentes pour votre domaine</li>
+                                <li>Sélectionnez au moins un outil dans chaque catégorie</li>
+                                <li>Installez et configurez ces outils</li>
+                                <li>Créez un document ou une carte mentale organisant votre boîte à outils</li>
+                                <li>Testez chaque outil avec un cas d'utilisation simple</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Exercice 2: Analyse comparative d'outils</h4>
+                            <p>Comparez différents outils pour une même tâche :</p>
+                            <ol>
+                                <li>Choisissez une catégorie (ex: recherche inversée d'images)</li>
+                                <li>Sélectionnez 3 outils différents pour cette catégorie</li>
+                                <li>Définissez des critères d'évaluation (efficacité, facilité d'utilisation, etc.)</li>
+                                <li>Testez chaque outil avec les mêmes données</li>
+                                <li>Créez un tableau comparatif des résultats</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Exercice 3: Automatisation d'une tâche OSINT</h4>
+                            <p>Automatisez un processus OSINT répétitif :</p>
+                            <ol>
+                                <li>Identifiez une tâche OSINT répétitive (ex: recherche de noms d'utilisateur)</li>
+                                <li>Sélectionnez un outil d'automatisation approprié</li>
+                                <li>Créez un script ou un workflow pour automatiser cette tâche</li>
+                                <li>Testez votre automatisation avec différentes entrées</li>
+                                <li>Documentez votre processus et les résultats</li>
+                            </ol>
+                            
+                            <div class="alert alert-info mt-4">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Pour ces exercices, utilisez uniquement des données publiques ou fictives, et respectez toujours les aspects légaux et éthiques de l'OSINT.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="resources" class="mb-5">
+                    <h2 class="text-info">12. Ressources</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Sites web et blogs</h4>
+                            <ul>
+                                <li><a href="#" class="text-light">OSINT Framework</a> - Collection organisée d'outils OSINT</li>
+                                <li><a href="#" class="text-light">IntelTechniques</a> - Blog et podcasts de Michael Bazzell</li>
+                                <li><a href="#" class="text-light">Bellingcat</a> - Journalisme d'investigation utilisant l'OSINT</li>
+                                <li><a href="#" class="text-light">OSINT Curious</a> - Projet collaboratif de ressources OSINT</li>
+                                <li><a href="#" class="text-light">OSINT.link</a> - Répertoire d'outils OSINT</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Livres recommandés</h4>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Vue d'ensemble des outils OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Vue d'ensemble des outils OSINT</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant-Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 5h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours présente un panorama complet des outils essentiels pour l'OSINT (Open Source Intelligence). Vous découvrirez les outils les plus efficaces pour chaque phase d'une investigation OSINT, apprendrez à les utiliser efficacement et à les intégrer dans votre méthodologie de recherche.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#search-tools">2. Outils de recherche</a>
+                            <a class="nav-link" href="#social-media-tools">3. Outils pour réseaux sociaux</a>
+                            <a class="nav-link" href="#domain-tools">4. Outils d'analyse de domaines</a>
+                            <a class="nav-link" href="#image-tools">5. Outils d'analyse d'images</a>
+                            <a class="nav-link" href="#geolocation-tools">6. Outils de géolocalisation</a>
+                            <a class="nav-link" href="#data-analysis-tools">7. Outils d'analyse de données</a>
+                            <a class="nav-link" href="#automation-tools">8. Outils d'automatisation</a>
+                            <a class="nav-link" href="#documentation-tools">9. Outils de documentation</a>
+                            <a class="nav-link" href="#security-tools">10. Outils de sécurité</a>
+                            <a class="nav-link" href="#exercises">11. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">12. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#toolkits">Boîtes à outils</a>
+                                    <a class="nav-link" href="#community">Communauté</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Importance des outils dans l'OSINT</h4>
+                            <p>Les outils OSINT sont essentiels pour collecter, analyser et exploiter efficacement les informations disponibles publiquement. Ils permettent d'automatiser certaines tâches, d'accéder à des sources difficiles à explorer manuellement, et d'analyser de grandes quantités de données.</p>
+                            
+                            <h4 class="text-info mt-4">Catégories d'outils</h4>
+                            <p>Les outils OSINT peuvent être classés en plusieurs catégories selon leur fonction principale :</p>
+                            <ul>
+                                <li><strong>Outils de recherche</strong> - Pour trouver des informations dans diverses sources</li>
+                                <li><strong>Outils pour réseaux sociaux</strong> - Pour explorer et analyser les plateformes sociales</li>
+                                <li><strong>Outils d'analyse de domaines</strong> - Pour examiner les sites web et leur infrastructure</li>
+                                <li><strong>Outils d'analyse d'images</strong> - Pour extraire des informations des images</li>
+                                <li><strong>Outils de géolocalisation</strong> - Pour identifier et analyser des lieux</li>
+                                <li><strong>Outils d'analyse de données</strong> - Pour traiter et interpréter les informations collectées</li>
+                                <li><strong>Outils d'automatisation</strong> - Pour automatiser les processus de collecte</li>
+                                <li><strong>Outils de documentation</strong> - Pour organiser et présenter les résultats</li>
+                                <li><strong>Outils de sécurité</strong> - Pour protéger votre identité et vos activités</li>
+                            </ul>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Aucun outil n'est parfait à lui seul. Une approche efficace consiste à combiner plusieurs outils complémentaires pour chaque phase de votre investigation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="search-tools" class="mb-5">
+                    <h2 class="text-info">2. Outils de recherche</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Moteurs de recherche avancés</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Google Dorks</td>
+                                            <td>Requêtes de recherche avancées pour Google</td>
+                                            <td>Recherche ciblée de documents, informations spécifiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DuckDuckGo</td>
+                                            <td>Moteur de recherche respectueux de la vie privée</td>
+                                            <td>Recherches sans tracking, !bangs pour recherches spécifiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shodan</td>
+                                            <td>Moteur de recherche pour appareils connectés</td>
+                                            <td>Découverte d'appareils IoT, caméras, serveurs exposés</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Censys</td>
+                                            <td>Recherche d'appareils et certificats</td>
+                                            <td>Analyse d'infrastructure, recherche de vulnérabilités</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Archives et historique</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Wayback Machine</td>
+                                            <td>Archive de pages web historiques</td>
+                                            <td>Accès à des versions antérieures de sites web</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Archive.today</td>
+                                            <td>Service d'archivage de pages web</td>
+                                            <td>Capture et préservation de pages web actuelles</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Google Cache</td>
+                                            <td>Versions en cache des pages web</td>
+                                            <td>Accès à des pages récemment supprimées</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Métamoteurs et agrégateurs</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Searx</td>
+                                            <td>Métamoteur de recherche open source</td>
+                                            <td>Recherches anonymes à travers plusieurs moteurs</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carrot2</td>
+                                            <td>Moteur de recherche avec clustering</td>
+                                            <td>Organisation des résultats par thèmes</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>IntelX</td>
+                                            <td>Moteur de recherche pour OSINT</td>
+                                            <td>Recherche dans les leaks, dark web, etc.</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-4">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> Certains outils de recherche avancés peuvent révéler des informations sensibles. Utilisez-les de manière éthique et responsable.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="social-media-tools" class="mb-5">
+                    <h2 class="text-info">3. Outils pour réseaux sociaux</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Outils multi-plateformes</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sherlock</td>
+                                            <td>Recherche de noms d'utilisateur sur de multiples plateformes</td>
+                                            <td>Identifier les comptes liés à un pseudonyme</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Social Analyzer</td>
+                                            <td>Analyse de profils sociaux</td>
+                                            <td>Vérification d'identité, recherche de comptes</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maltego</td>
+                                            <td>Plateforme d'analyse de liens</td>
+                                            <td>Cartographie des relations entre entités</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Outils spécifiques aux plateformes</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Twitter/X</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Twint</strong> - Scraping Twitter sans API</li>
+                                                <li><strong>Tweetdeck</strong> - Interface avancée</li>
+                                                <li><strong>Twitonomy</strong> - Analyse de profils</li>
+                                                <li><strong>Hoaxy</strong> - Analyse de diffusion</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Facebook</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Who Posted What</strong> - Recherche temporelle</li>
+                                                <li><strong>StalkFace</strong> - Analyse de profils</li>
+                                                <li><strong>Facebook Graph Search</strong> - Requêtes avancées</li>
+                                                <li><strong>Sowdust</strong> - Exploration de graphes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Instagram</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Osintgram</strong> - Framework OSINT</li>
+                                                <li><strong>Instalooter</strong> - Téléchargement de médias</li>
+                                                <li><strong>Instaloader</strong> - Archivage de profils</li>
+                                                <li><strong>StoriesIG</strong> - Visualisation anonyme</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">LinkedIn</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>LinkedInt</strong> - Scraping LinkedIn</li>
+                                                <li><strong>Recruit'em</strong> - Recherche avancée</li>
+                                                <li><strong>ScrapedIn</strong> - Extraction de données</li>
+                                                <li><strong>LinkedIn X-Ray</strong> - Recherche Google</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de contenu social</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Social Bearing</td>
+                                            <td>Analyse de tweets et comptes</td>
+                                            <td>Analyse de sentiment, statistiques</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Foller.me</td>
+                                            <td>Analyse de profils Twitter</td>
+                                            <td>Insights sur les activités et relations</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Botometer</td>
+                                            <td>Détection de bots sur Twitter</td>
+                                            <td>Identifier les comptes automatisés</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-info mt-4">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Les réseaux sociaux modifient régulièrement leurs API et protections. Vérifiez toujours que vos outils sont à jour avant une investigation importante.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="domain-tools" class="mb-5">
+                    <h2 class="text-info">4. Outils d'analyse de domaines</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Analyse WHOIS et DNS</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WHOIS</td>
+                                            <td>Informations d'enregistrement de domaine</td>
+                                            <td>Identifier le propriétaire, dates, contacts</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DNSDumpster</td>
+                                            <td>Recherche d'enregistrements DNS</td>
+                                            <td>Cartographie d'infrastructure, sous-domaines</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SecurityTrails</td>
+                                            <td>Historique DNS et données de domaine</td>
+                                            <td>Analyse historique, recherche de sous-domaines</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spyse</td>
+                                            <td>Moteur de recherche pour données Internet</td>
+                                            <td>Reconnaissance de domaines, analyse de certificats</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Découverte de sous-domaines</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sublist3r</td>
+                                            <td>Énumération de sous-domaines</td>
+                                            <td>Découverte rapide de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amass</td>
+                                            <td>Cartographie de surface d'attaque réseau</td>
+                                            <td>Découverte approfondie de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Subfinder</td>
+                                            <td>Outil de découverte de sous-domaines</td>
+                                            <td>Énumération passive de sous-domaines</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de technologies</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Wappalyzer</td>
+                                            <td>Identification des technologies web</td>
+                                            <td>Découvrir les frameworks, CMS, analytics</td>
+                                            <td><span class="badge bg-success">Gratuit (extension)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BuiltWith</td>
+                                            <td>Profils technologiques de sites web</td>
+                                            <td>Analyse approfondie des technologies</td>
+                                            <td><span class="badge bg-success">Gratuit (limité)</span> <span class="badge bg-warning">Premium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Netcraft</td>
+                                            <td>Informations sur les sites web</td>
+                                            <td>Historique, hébergement, technologies</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="image-tools" class="mb-5">
+                    <h2 class="text-info">5. Outils d'analyse d'images</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Recherche inversée d'images</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Google Images</td>
+                                            <td>Recherche inversée d'images</td>
+                                            <td>Trouver des images similaires, sources</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TinEye</td>
+                                            <td>Moteur de recherche inversée d'images</td>
+                                            <td>Trouver des correspondances exactes</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yandex Images</td>
+                                            <td>Recherche inversée d'images</td>
+                                            <td>Souvent plus efficace que Google pour certaines images</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse de métadonnées</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ExifTool</td>
+                                            <td>Extraction et manipulation de métadonnées</td>
+                                            <td>Analyse approfondie des métadonnées</td>
+                                            <td><span class="badge bg-success">Open Source</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jeffrey's Image Metadata Viewer</td>
+                                            <td>Visualisation en ligne de métadonnées</td>
+                                            <td>Analyse rapide sans installation</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Exif Viewer</td>
+                                            <td>Extension de navigateur</td>
+                                            <td>Visualisation rapide des métadonnées</td>
+                                            <td><span class="badge bg-success">Gratuit</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Analyse forensique</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Description</th>
+                                            <th>Cas d'utilisation</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>FotoForensics</td>

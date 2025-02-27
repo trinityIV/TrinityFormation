@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Game Hacking Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .tool-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+        }
+        .code-block {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .download-btn {
+            background-color: #1a1a1a;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+        }
+        .download-btn:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="free-tools.html">Outils Gratuits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="game-hacking.html">Game Hacking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mobile-hacking.html">Mobile Hacking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="practical.html">Sections Pratiques</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="protection.html">Protection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dev-tools.html">Outils Dev</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Game Hacking Tools & Resources</h1>
+
+        <!-- Quick Links -->
+        <section class="mb-5">
+            <h2>Sections Principales</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Moteurs de Jeux</h3>
+                            <p>Découvrez les principaux moteurs de jeux et leurs spécificités</p>
+                            <a href="game-engines.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Techniques Avancées</h3>
+                            <p>Apprenez les techniques avancées de game hacking</p>
+                            <a href="advanced-techniques.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Outils Spécialisés</h3>
+                            <p>Découvrez notre collection d'outils spécialisés</p>
+                            <a href="specialized-tools.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Outils Gratuits</h3>
+                            <p>Accédez à notre collection d'outils gratuits</p>
+                            <a href="free-tools.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="mb-5">
+            <h2>Sections Principales</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Mobile Hacking</h3>
+                            <p>Techniques de hacking pour Android, iOS et émulateurs</p>
+                            <a href="mobile-hacking.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Sections Pratiques</h3>
+                            <p>Guides pratiques et exemples de projets</p>
+                            <a href="practical.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Protection</h3>
+                            <p>Techniques de protection et anti-cheat</p>
+                            <a href="protection.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card tool-card">
+                        <div class="card-body">
+                            <h3>Outils Dev</h3>
+                            <p>Configuration et outils de développement</p>
+                            <a href="dev-tools.html" class="btn btn-sm download-btn">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outils Essentiels -->
+        <section class="mb-5">
+            <h2>Outils Essentiels</h2>
+            
+            <!-- IDA -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>IDA (Interactive DisAssembler)</h3>
+                    <p>Le désassembleur et débogueur le plus puissant pour l'analyse de jeux.</p>
+                    
+                    <h4>Versions :</h4>
+                    <ul>
+                        <li>IDA Free 8.3
+                            <ul>
+                                <li>Support limité aux architectures x86</li>
+                                <li>Pas de décompilateur</li>
+                                <li><a href="https://hex-rays.com/ida-free/" class="btn btn-sm download-btn mt-2">Télécharger IDA Free</a></li>
+                            </ul>
+                        </li>
+                        <li>IDA Pro
+                            <ul>
+                                <li>Support multi-architectures</li>
+                                <li>Décompilateur Hex-Rays</li>
+                                <li>Debugging avancé</li>
+                                <li><a href="https://hex-rays.com/ida-pro/" class="btn btn-sm download-btn mt-2">Acheter IDA Pro</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h4>Scripts IDA Python Utiles :</h4>
+                    <div class="code-block">
+# Recherche de fonctions virtuelles
+import idaapi
+import idautils
+
+def find_vtables():
+    for seg in idautils.Segments():
+        if ".rdata" in idc.get_segm_name(seg):
+            for ea in idautils.Functions(seg, idc.get_segm_end(seg)):
+                if idaapi.get_func(ea).flags & FUNC_VIRTUAL:
+                    print(f"Virtual function at {hex(ea)}")
+
+# Analyse des chaînes
+def find_game_strings():
+    strings = idautils.Strings()
+    for s in strings:
+        if "health" in str(s) or "ammo" in str(s):
+            print(f"Found game string at {hex(s.ea)}: {str(s)}")
+    </div>
+                </div>
+            </div>
+
+            <!-- Cheat Engine -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>Cheat Engine</h3>
+                    <p>Outil puissant pour la modification de mémoire en temps réel.</p>
+                    
+                    <h4>Fonctionnalités principales :</h4>
+                    <ul>
+                        <li>Scanner de mémoire</li>
+                        <li>Débogueur</li>
+                        <li>Injecteur de DLL</li>
+                        <li>Table d'adresses</li>
+                        <li><a href="https://www.cheatengine.org/" class="btn btn-sm download-btn mt-2">Télécharger Cheat Engine</a></li>
+                    </ul>
+
+                    <h4>Script CE exemple :</h4>
+                    <div class="code-block">
+[ENABLE]
+alloc(newmem,1024)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+  push eax
+  mov eax,[health_addr]
+  cmp eax,100
+  jge exit
+  mov eax,100
+  mov [health_addr],eax
+  pop eax
+
+originalcode:
+  mov eax,[ebp+08]
+  push ebx
+
+exit:
+  jmp returnhere
+
+"game.exe"+123456:
+  jmp newmem
+  nop
+returnhere:
+    </div>
+                </div>
+            </div>
+
+            <!-- x64dbg -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>x64dbg</h3>
+                    <p>Débogueur open source pour Windows.</p>
+                    
+                    <h4>Fonctionnalités :</h4>
+                    <ul>
+                        <li>Débogage avancé</li>
+                        <li>Scripting en Python</li>
+                        <li>Plugins système</li>
+                        <li><a href="https://x64dbg.com/" class="btn btn-sm download-btn mt-2">Télécharger x64dbg</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exemples par Moteur -->
+        <section class="mb-5">
+            <h2>Exemples par Moteur de Jeu</h2>
+
+            <!-- Source Engine (Valve) -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>Source Engine (CS:GO, TF2)</h3>
+                    <div class="code-block">
+// Offset dumper pour Source Engine
+#include <Windows.h>
+#include <cstdint>
+
+class COffsets {
+public:
+    // Signatures communes Source Engine
+    const char* dwEntityList = "A1 ? ? ? ? C3 CC CC CC CC CC CC CC CC CC CC A1 ? ? ? ?";
+    const char* dwLocalPlayer = "8D 34 85 ? ? ? ? 89 15 ? ? ? ? 8B 41 08 8B 48 04 83 F9 FF";
+    const char* dwViewMatrix = "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9";
+    
+    uintptr_t FindPattern(const char* pattern) {
+        // Code de scan de pattern
+    }
+};
+
+// Hooks pour Source Engine
+typedef void(__thiscall* CreateMove_t)(void*, float, void*);
+CreateMove_t oCreateMove;
+
+void __fastcall hkCreateMove(void* thisptr, void*, float flInputSampleTime, void* cmd) {
+    usercmd_t *cmd = &cmds[cls.cmdNumber & CMD_MASK];
+    
+    // Votre code ici
+}
+    </div>
+                </div>
+            </div>
+
+            <!-- Unity Engine -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>Unity Engine</h3>
+                    <div class="code-block">
+// Exemple de hook Unity IL2CPP
+#include <Windows.h>
+#include "il2cpp-api.h"
+
+// Structure pour les composants Unity communs
+struct Transform {
+    Vector3 position;
+    Quaternion rotation;
+    Vector3 scale;
+};
+
+struct GameObject {
+    Transform* transform;
+    char* name;
+    bool enabled;
+};
+
+// Hook pour Unity Update
+void* original_update;
+void hacked_update(void* thisPtr) {
+    auto gameObject = il2cpp_object_get_class(thisPtr);
+    auto transform = il2cpp_class_get_method_from_name(gameObject, "get_transform", 0);
+    
+    // Modification de position
+    Vector3 pos = transform->position;
+    pos.y += 100.0f; // Vol
+    transform->position = pos;
+    
+    ((void(*)(void*))original_update)(thisPtr);
+}
+    </div>
+                </div>
+            </div>
+
+            <!-- Unreal Engine -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>Unreal Engine</h3>
+                    <div class="code-block">
+// SDK Generator pour Unreal Engine
+#include "UE4/SDK.hpp"
+
+class FName {
+public:
+    int32_t ComparisonIndex;
+    int32_t Number;
+};
+
+class UObject {
+public:
+    void** VFTable;
+    int32_t Flags;
+    int32_t InternalIndex;
+    UObject* Class;
+    FName Name;
+    UObject* Outer;
+};
+
+// Example d'accès aux propriétés
+template<class T>
+T* FindObject(const std::string& name) {
+    for (auto i = 0u; i < GObjects->NumElements; ++i) {
+        auto object = GObjects->GetByIndex(i);
+        if (object && object->GetFullName() == name)
+            return static_cast<T*>(object);
+    }
+    return nullptr;
+}
+
+// Hook pour les fonctions Unreal
+void* GetWorld_orig = nullptr;
+UWorld* GetWorld_hook() {
+    auto world = reinterpret_cast<UWorld*(*)()>(GetWorld_orig)();
+    // Votre code ici
+    return world;
+}
+    </div>
+                </div>
+            </div>
+
+            <!-- Quake Engine -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>Quake Engine</h3>
+                    <div class="code-block">
+// Structures Quake3
+typedef struct {
+    vec3_t origin;
+    vec3_t angles;
+    int groundEntityNum;
+    int clientNum;
+    int eFlags;
+} entityState_t;
+
+typedef struct {
+    entityState_t s;
+    qboolean linked;
+    int linkcount;
+    int svFlags;
+    vec3_t mins, maxs;
+    vec3_t absmin, absmax;
+} sharedEntity_t;
+
+// Hook pour le moteur Quake
+void (*orig_CL_CreateNewCommands)(void);
+void Hook_CL_CreateNewCommands(void) {
+    usercmd_t *cmd = &cmds[cls.cmdNumber & CMD_MASK];
+    
+    // Modification des commandes
+    cmd->angles[YAW] = SHORT2ANGLE(cmd->angles[YAW]);
+    cmd->angles[PITCH] = SHORT2ANGLE(cmd->angles[PITCH]);
+    
+    orig_CL_CreateNewCommands();
+}
+    </div>
+                </div>
+            </div>
+
+            <!-- Call of Duty -->
+            <div class="card tool-card">
+                <div class="card-body">
+                    <h3>Call of Duty (IW Engine)</h3>
+                    <div class="code-block">
+// Structures CoD
+struct refdef_t {
+    int x, y;
+    int width, height;
+    float fov_x, fov_y;
+    vec3_t vieworg;
+    vec3_t viewaxis[3];
+};
+
+// Exemple de hook pour CoD
+void* g_entities;
+refdef_t* refdef;
+
+bool WorldToScreen(vec3_t world, vec2_t screen) {
+    vec3_t transform;
+    float xc, yc;
+    
+    transform[0] = world[0] * refdef->viewaxis[1][0] + 
+                   world[1] * refdef->viewaxis[1][1] + 
+                   world[2] * refdef->viewaxis[1][2];
+    
+    transform[1] = world[0] * refdef->viewaxis[2][0] + 
+                   world[1] * refdef->viewaxis[2][1] + 
+                   world[2] * refdef->viewaxis[2][2];
+    
+    transform[2] = world[0] * refdef->viewaxis[0][0] + 
+                   world[1] * refdef->viewaxis[0][1] + 
+                   world[2] * refdef->viewaxis[0][2];
+    
+    if (transform[2] < 0.1f)
+        return false;
+    
+    xc = refdef->width / 2.0f;
+    yc = refdef->height / 2.0f;
+    
+    screen[0] = xc * (1.0f - (transform[0] / transform[2]));
+    screen[1] = yc * (1.0f - (transform[1] / transform[2]));
+    
+    return true;
+}
+    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Avertissement -->
+        <div class="alert alert-warning">
+            <h4>⚠️ Avertissement Important</h4>
+            <p>Ces outils et exemples sont fournis uniquement à des fins éducatives. L'utilisation de ces techniques sur des jeux en ligne peut être interdite par les conditions d'utilisation et entraîner un bannissement.</p>
+        </div>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>Trinity Project 2025 - Game Hacking Tools</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

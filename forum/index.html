@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Forum</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/forum.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Forum</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1>Forum de Discussion</h1>
+            <div>
+                <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-sign-in-alt"></i> Connexion
+                </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTopicModal">
+                    <i class="fas fa-plus-circle"></i> Nouveau Sujet
+                </button>
+            </div>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="card bg-dark border-info mb-5">
+            <div class="card-body">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Rechercher dans le forum..." aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Annonces importantes -->
+        <div class="card bg-dark border-danger mb-5">
+            <div class="card-header bg-danger bg-opacity-25 text-danger">
+                <h2 class="h5 mb-0"><i class="fas fa-bullhorn"></i> Annonces Importantes</h2>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Mise à jour de la plateforme Trinity</h5>
+                            <small>1 jour</small>
+                        </div>
+                        <p class="mb-1">Nouvelles fonctionnalités et améliorations de performance</p>
+                        <small>Par: Admin | Réponses: 8</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Webinaire: Techniques avancées de reverse engineering</h5>
+                            <small>3 jours</small>
+                        </div>
+                        <p class="mb-1">Rejoignez-nous le 15 mars pour un webinaire exclusif</p>
+                        <small>Par: Admin | Réponses: 12</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sujets en tendance -->
+        <section class="mb-5">
+            <h2 class="mb-4">Sujets en Tendance</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-dark border-warning">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-warning text-dark">Populaire</span>
+                                <small>45 réponses</small>
+                            </div>
+                            <h5 class="card-title">Techniques d'exploitation zero-day</h5>
+                            <p class="card-text">Discussion sur les dernières vulnérabilités découvertes</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small>Par: SecurityExpert</small>
+                                <small>Hier</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-dark border-warning">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-warning text-dark">Populaire</span>
+                                <small>38 réponses</small>
+                            </div>
+                            <h5 class="card-title">Meilleurs outils OSINT 2025</h5>
+                            <p class="card-text">Comparatif des outils les plus efficaces</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small>Par: OSINTMaster</small>
+                                <small>2 jours</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-dark border-warning">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-warning text-dark">Populaire</span>
+                                <small>32 réponses</small>
+                            </div>
+                            <h5 class="card-title">Contournement anti-cheat EAC</h5>
+                            <p class="card-text">Méthodes avancées pour les jeux récents</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small>Par: GameHacker</small>
+                                <small>3 jours</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <div class="row mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h2 class="h5 text-primary">Game Hacking</h2>
+                        <p class="mb-2">Discussions sur le Game Hacking</p>
+                        <div class="d-flex justify-content-between">
+                            <span>Topics: 150</span>
+                            <span>Posts: 1.2k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-success">
+                    <div class="card-body">
+                        <h2 class="h5 text-success">OSINT</h2>
+                        <p class="mb-2">Discussions sur l'OSINT</p>
+                        <div class="d-flex justify-content-between">
+                            <span>Topics: 120</span>
+                            <span>Posts: 980</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-warning">
+                    <div class="card-body">
+                        <h2 class="h5 text-warning">Sécurité</h2>
+                        <p class="mb-2">Discussions sur la sécurité</p>
+                        <div class="d-flex justify-content-between">
+                            <span>Topics: 200</span>
+                            <span>Posts: 1.5k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Topics -->
+        <section class="mb-5">
+            <h2 class="mb-4">Sujets Récents</h2>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action bg-dark">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Guide Cheat Engine Avancé</h5>
+                        <small>3 heures</small>
+                    </div>
+                    <p class="mb-1">Discussion sur les techniques avancées de Cheat Engine</p>
+                    <small>Par: User123 | Réponses: 15</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Méthodologie OSINT 2025</h5>
+                        <small>5 heures</small>
+                    </div>
+                    <p class="mb-1">Nouvelles techniques d'OSINT pour 2025</p>
+                    <small>Par: OSINTMaster | Réponses: 23</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Anti-Debug Avancé</h5>
+                        <small>8 heures</small>
+                    </div>
+                    <p class="mb-1">Techniques anti-debug modernes</p>
+                    <small>Par: SecurityPro | Réponses: 19</small>
+                </a>
+            </div>
+        </section>
+
+        <!-- Active Users -->
+        <section class="mb-5">
+            <h2 class="mb-4">Utilisateurs Actifs</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">User123</h5>
+                            <p class="card-text">Posts: 150</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">OSINTMaster</h5>
+                            <p class="card-text">Posts: 230</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">SecurityPro</h5>
+                            <p class="card-text">Posts: 180</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">HackMaster</h5>
+                            <p class="card-text">Posts: 320</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistiques du forum -->
+        <section class="mb-5">
+            <h2 class="mb-4">Statistiques du Forum</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark border-info text-center">
+                        <div class="card-body">
+                            <i class="fas fa-users fa-3x mb-3 text-info"></i>
+                            <h3 class="card-title">1,250</h3>
+                            <p class="card-text">Membres</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark border-info text-center">
+                        <div class="card-body">
+                            <i class="fas fa-comments fa-3x mb-3 text-info"></i>
+                            <h3 class="card-title">4,830</h3>
+                            <p class="card-text">Messages</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark border-info text-center">
+                        <div class="card-body">
+                            <i class="fas fa-file-alt fa-3x mb-3 text-info"></i>
+                            <h3 class="card-title">520</h3>
+                            <p class="card-text">Sujets</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-dark border-info text-center">
+                        <div class="card-body">
+                            <i class="fas fa-user-plus fa-3x mb-3 text-info"></i>
+                            <h3 class="card-title">15</h3>
+                            <p class="card-text">Nouveaux aujourd'hui</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- New Topic Modal -->
+    <div class="modal fade" id="newTopicModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nouveau Sujet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="topicTitle" class="form-label">Titre</label>
+                            <input type="text" class="form-control" id="topicTitle">
+                        </div>
+                        <div class="mb-3">
+                            <label for="topicCategory" class="form-label">Catégorie</label>
+                            <select class="form-select" id="topicCategory">
+                                <option value="game-hacking">Game Hacking</option>
+                                <option value="osint">OSINT</option>
+                                <option value="security">Sécurité</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="topicContent" class="form-label">Contenu</label>
+                            <textarea class="form-control" id="topicContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Créer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">Connexion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nom d'utilisateur</label>
+                            <input type="text" class="form-control" id="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+                        </div>
+                        <div class="text-end">
+                            <a href="#" class="text-info">Mot de passe oublié?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Se connecter</button>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0">Pas encore membre?</p>
+                    <button class="btn btn-outline-success mt-2" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+                        Créer un compte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">Créer un compte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="registerUsername" class="form-label">Nom d'utilisateur</label>
+                            <input type="text" class="form-control" id="registerUsername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="registerPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" id="confirmPassword">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsCheck">
+                            <label class="form-check-label" for="termsCheck">J'accepte les <a href="#" class="text-info">conditions d'utilisation</a></label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-success">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-5">
+        <p>Trinity Project - 2025 - Formation en Game Hacking, OSINT et Sécurité</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/background.js"></script>
+    <script src="../js/forum.js"></script>
+</body>
+</html>

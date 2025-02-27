@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - FAQ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Foire Aux Questions</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <!-- General Questions -->
+                    <div class="accordion-item bg-dark text-light">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#general">
+                                Questions Générales
+                            </button>
+                        </h2>
+                        <div id="general" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <h4>Par où commencer ?</h4>
+                                    <p>Nous recommandons de débuter par la section "Introduction" qui vous guidera à travers les bases et les prérequis nécessaires.</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h4>Faut-il des connaissances préalables ?</h4>
+                                    <p>Des bases en programmation (C++, Python) et une compréhension générale des systèmes d'exploitation sont recommandées.</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h4>Les cours sont-ils gratuits ?</h4>
+                                    <p>Oui, tout le contenu est accessible gratuitement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Questions -->
+                    <div class="accordion-item bg-dark text-light">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#technical">
+                                Questions Techniques
+                            </button>
+                        </h2>
+                        <div id="technical" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <h4>Quel environnement de développement utiliser ?</h4>
+                                    <p>Nous recommandons Visual Studio pour Windows et VSCode pour les autres plateformes.</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h4>Comment configurer une machine virtuelle ?</h4>
+                                    <p>Un guide détaillé est disponible dans la section Ressources, avec des VMs préconfigurées.</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h4>Quels outils sont nécessaires ?</h4>
+                                    <p>La liste complète des outils est disponible dans la section Ressources, avec des liens de téléchargement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legal & Ethical -->
+                    <div class="accordion-item bg-dark text-light">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#legal">
+                                Questions Légales et Éthiques
+                            </button>
+                        </h2>
+                        <div id="legal" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <h4>Est-ce légal ?</h4>
+                                    <p>Oui, tant que vous respectez les conditions d'utilisation et pratiquez uniquement sur des systèmes autorisés.</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h4>Quelles sont les limites éthiques ?</h4>
+                                    <p>Nous promouvons une approche éthique et responsable. Les détails sont dans notre guide éthique.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="accordion-item bg-dark text-light">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#support">
+                                Support et Communauté
+                            </button>
+                        </h2>
+                        <div id="support" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <h4>Comment obtenir de l'aide ?</h4>
+                                    <p>Utilisez notre forum de discussion ou rejoignez notre Discord pour obtenir de l'aide de la communauté.</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h4>Comment contribuer ?</h4>
+                                    <p>Vous pouvez contribuer via GitHub ou en partageant vos connaissances sur le forum.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-4 mt-5">
+        <p>Trinity Project - 2025 - Formation en Game Hacking, OSINT et Sécurité</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/background.js"></script>
+</body>
+</html>

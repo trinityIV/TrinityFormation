@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Validation Réseau -->
+    <style>
+        text { font-family: Arial, sans-serif; fill: white; }
+        .title { font-size: 24px; font-weight: bold; }
+        .subtitle { font-size: 18px; }
+        .label { font-size: 14px; }
+        .box { fill: #2d2d2d; stroke: #0d6efd; stroke-width: 2; }
+        .client { fill: #1a1a1a; stroke: #dc3545; stroke-width: 2; }
+        .server { fill: #1a1a1a; stroke: #28a745; stroke-width: 2; }
+        .arrow { stroke: white; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+
+    <!-- Définition de la flèche -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="white"/>
+        </marker>
+    </defs>
+
+    <!-- Titre -->
+    <text x="400" y="50" class="title" text-anchor="middle">Validation Réseau</text>
+
+    <!-- Client -->
+    <rect x="100" y="100" width="250" height="400" class="box" rx="10"/>
+    <text x="225" y="140" class="subtitle" text-anchor="middle">Client</text>
+
+    <!-- Serveur -->
+    <rect x="450" y="100" width="250" height="400" class="box" rx="10"/>
+    <text x="575" y="140" class="subtitle" text-anchor="middle">Serveur</text>
+
+    <!-- Composants Client -->
+    <rect x="120" y="180" width="210" height="60" class="client" rx="5"/>
+    <text x="225" y="210" class="label" text-anchor="middle">Chiffrement des Données</text>
+    <text x="225" y="230" class="label" text-anchor="middle" font-size="12">AES-256 + RSA</text>
+
+    <rect x="120" y="260" width="210" height="60" class="client" rx="5"/>
+    <text x="225" y="290" class="label" text-anchor="middle">Validation Locale</text>
+    <text x="225" y="310" class="label" text-anchor="middle" font-size="12">Vérification de cohérence</text>
+
+    <rect x="120" y="340" width="210" height="60" class="client" rx="5"/>
+    <text x="225" y="370" class="label" text-anchor="middle">Anti-Tampering</text>
+    <text x="225" y="390" class="label" text-anchor="middle" font-size="12">Protection des paquets</text>
+
+    <!-- Composants Serveur -->
+    <rect x="470" y="180" width="210" height="60" class="server" rx="5"/>
+    <text x="575" y="210" class="label" text-anchor="middle">Validation des Données</text>
+    <text x="575" y="230" class="label" text-anchor="middle" font-size="12">Vérification d'intégrité</text>
+
+    <rect x="470" y="260" width="210" height="60" class="server" rx="5"/>
+    <text x="575" y="290" class="label" text-anchor="middle">Détection d'Anomalies</text>
+    <text x="575" y="310" class="label" text-anchor="middle" font-size="12">Analyse comportementale</text>
+
+    <rect x="470" y="340" width="210" height="60" class="server" rx="5"/>
+    <text x="575" y="370" class="label" text-anchor="middle">Rate Limiting</text>
+    <text x="575" y="390" class="label" text-anchor="middle" font-size="12">Protection DDoS</text>
+
+    <!-- Flèches de connexion -->
+    <path d="M 330 210 L 470 210" class="arrow"/>
+    <path d="M 330 290 L 470 290" class="arrow"/>
+    <path d="M 330 370 L 470 370" class="arrow"/>
+
+    <!-- Flèches de retour -->
+    <path d="M 470 240 L 330 240" class="arrow" style="stroke-dasharray: 5,5"/>
+    <path d="M 470 320 L 330 320" class="arrow" style="stroke-dasharray: 5,5"/>
+    <path d="M 470 400 L 330 400" class="arrow" style="stroke-dasharray: 5,5"/>
+</svg>

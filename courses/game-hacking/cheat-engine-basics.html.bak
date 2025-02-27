@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Cheat Engine Basics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Cheat Engine - Les Bases</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant</span>
+                            <span class="badge bg-info me-2">Durée: 2h</span>
+                            <span class="badge bg-success">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Découvrez les fondamentaux de Cheat Engine, l'outil essentiel pour l'analyse de jeux en mémoire. Apprenez à effectuer des scans de mémoire, à comprendre les différents types de valeurs et à modifier les données en temps réel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#installation">2. Installation</a>
+                            <a class="nav-link" href="#interface">3. Interface</a>
+                            <a class="nav-link" href="#scan-types">4. Types de Scan</a>
+                            <a class="nav-link" href="#practice">5. Exercices Pratiques</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Qu'est-ce que Cheat Engine ?</h3>
+                            <p>Cheat Engine est un outil d'analyse de mémoire open source qui permet d'examiner et de modifier les données en mémoire des applications en cours d'exécution. Bien que son nom suggère une utilisation pour la triche dans les jeux, c'est avant tout un outil éducatif puissant pour comprendre :</p>
+                            <ul>
+                                <li>La gestion de la mémoire</li>
+                                <li>Les structures de données</li>
+                                <li>Le débogage en temps réel</li>
+                                <li>L'analyse de code</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="installation" class="mb-5">
+                    <h2 class="text-primary">2. Installation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Téléchargement et Configuration</h3>
+                            <ol>
+                                <li>Visitez le site officiel : <a href="https://www.cheatengine.org" class="text-info" target="_blank">www.cheatengine.org</a></li>
+                                <li>Téléchargez la dernière version stable</li>
+                                <li>Exécutez l'installateur en mode administrateur</li>
+                                <li>Suivez les étapes d'installation en évitant les logiciels tiers proposés</li>
+                            </ol>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i> Attention : Certains antivirus peuvent détecter Cheat Engine comme une menace. C'est un faux positif dû à la nature de l'outil.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="interface" class="mb-5">
+                    <h2 class="text-primary">3. Interface</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Éléments Principaux</h3>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Élément</th>
+                                            <th>Description</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Process List</td>
+                                            <td>Liste des processus en cours</td>
+                                            <td>Sélection du processus à analyser</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Value Type</td>
+                                            <td>Type de données à rechercher</td>
+                                            <td>Spécification du type de scan</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Scan Type</td>
+                                            <td>Méthode de recherche</td>
+                                            <td>Définition des critères de recherche</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="scan-types" class="mb-5">
+                    <h2 class="text-primary">4. Types de Scan</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Méthodes de Scan</h3>
+                            <div class="accordion" id="scanTypesAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#exactValue">
+                                            Exact Value
+                                        </button>
+                                    </h2>
+                                    <div id="exactValue" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <p>Recherche une valeur exacte en mémoire. Utilisé quand vous connaissez la valeur précise à trouver.</p>
+                                            <div class="example-code">
+                                                <pre><code class="language-text">Exemple : Recherche de la valeur 100 (points de vie)</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#valueChanged">
+                                            Changed Value
+                                        </button>
+                                    </h2>
+                                    <div id="valueChanged" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            <p>Trouve les valeurs qui ont changé depuis le dernier scan.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="practice" class="mb-5">
+                    <h2 class="text-primary">5. Exercices Pratiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Premier Scan</h3>
+                            <p>Suivez ces étapes pour votre premier scan de mémoire :</p>
+                            <ol>
+                                <li>Lancez le tutoriel intégré de Cheat Engine</li>
+                                <li>Connectez-vous au processus du tutoriel</li>
+                                <li>Effectuez un scan de type "Exact Value"</li>
+                                <li>Modifiez la valeur trouvée</li>
+                            </ol>
+                            <div class="alert alert-success">
+                                <i class="fas fa-lightbulb"></i> Conseil : Commencez toujours par le tutoriel intégré pour vous familiariser avec l'interface.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>

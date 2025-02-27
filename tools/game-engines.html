@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Moteurs de Jeux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .engine-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        .engine-card:hover {
+            transform: translateY(-5px);
+        }
+        .engine-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="game-hacking.html">Game Hacking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="game-engines.html">Moteurs de Jeux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="advanced-techniques.html">Techniques Avancées</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="specialized-tools.html">Outils Spécialisés</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Moteurs de Jeux Supplémentaires</h1>
+
+        <div class="row">
+            <!-- CryEngine -->
+            <div class="col-md-4">
+                <div class="card engine-card">
+                    <div class="card-body text-center">
+                        <h3>CryEngine</h3>
+                        <p>Utilisé dans Far Cry et Crysis</p>
+                        <ul class="list-unstyled">
+                            <li>Rendu graphique de haute qualité</li>
+                            <li>Système de physique avancé</li>
+                            <li>Outils de développement intégrés</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frostbite Engine -->
+            <div class="col-md-4">
+                <div class="card engine-card">
+                    <div class="card-body text-center">
+                        <h3>Frostbite Engine</h3>
+                        <p>Utilisé dans la série Battlefield</p>
+                        <ul class="list-unstyled">
+                            <li>Destruction environnementale</li>
+                            <li>Rendu de grande échelle</li>
+                            <li>Multijoueur optimisé</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RE Engine -->
+            <div class="col-md-4">
+                <div class="card engine-card">
+                    <div class="card-body text-center">
+                        <h3>RE Engine</h3>
+                        <p>Utilisé dans Resident Evil</p>
+                        <ul class="list-unstyled">
+                            <li>Rendu photoréaliste</li>
+                            <li>Animation faciale détaillée</li>
+                            <li>Optimisation VR</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fox Engine -->
+            <div class="col-md-4">
+                <div class="card engine-card">
+                    <div class="card-body text-center">
+                        <h3>Fox Engine</h3>
+                        <p>Utilisé dans Metal Gear Solid</p>
+                        <ul class="list-unstyled">
+                            <li>Éclairage dynamique avancé</li>
+                            <li>Animation procédurale</li>
+                            <li>Système météorologique</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RPG Maker -->
+            <div class="col-md-4">
+                <div class="card engine-card">
+                    <div class="card-body text-center">
+                        <h3>RPG Maker</h3>
+                        <p>Pour les jeux indépendants</p>
+                        <ul class="list-unstyled">
+                            <li>Création facile de RPG</li>
+                            <li>Scripts personnalisables</li>
+                            <li>Large bibliothèque d'assets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/background.js"></script>
+</body>
+</html>

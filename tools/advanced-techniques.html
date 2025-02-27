@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Techniques Avancées</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .technique-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+        }
+        .code-block {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="game-hacking.html">Game Hacking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="game-engines.html">Moteurs de Jeux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="advanced-techniques.html">Techniques Avancées</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="specialized-tools.html">Outils Spécialisés</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Techniques Avancées</h1>
+
+        <!-- DLL Injection -->
+        <section class="mb-5">
+            <div class="card technique-card">
+                <div class="card-body">
+                    <h3>DLL Injection Avancée</h3>
+                    <p>Techniques d'injection sophistiquées pour l'analyse et la modification de jeux</p>
+                    <ul>
+                        <li>Manual Mapping</li>
+                        <li>Thread Hijacking</li>
+                        <li>Hook Injection</li>
+                    </ul>
+                    <div class="code-block">
+// Exemple basique d'injection DLL
+BOOL InjectDLL(DWORD processId, const wchar_t* dllPath) {
+    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
+    if (!hProcess) return FALSE;
+    
+    LPVOID allocatedMem = VirtualAllocEx(hProcess, NULL, 
+        sizeof(wchar_t) * (wcslen(dllPath) + 1),
+        MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    // Suite du code...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kernel Driver Development -->
+        <section class="mb-5">
+            <div class="card technique-card">
+                <div class="card-body">
+                    <h3>Développement de Drivers Kernel</h3>
+                    <p>Création de drivers pour l'accès bas niveau aux jeux</p>
+                    <ul>
+                        <li>Communication User-Kernel Mode</li>
+                        <li>Memory Management</li>
+                        <li>Protection Ring0</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Protocol Analysis -->
+        <section class="mb-5">
+            <div class="card technique-card">
+                <div class="card-body">
+                    <h3>Analyse de Protocoles Réseau</h3>
+                    <p>Techniques d'interception et d'analyse du trafic réseau des jeux</p>
+                    <ul>
+                        <li>Packet Sniffing</li>
+                        <li>Protocol Reverse Engineering</li>
+                        <li>Traffic Manipulation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Forensics -->
+        <section class="mb-5">
+            <div class="card technique-card">
+                <div class="card-body">
+                    <h3>Memory Forensics</h3>
+                    <p>Analyse approfondie de la mémoire des jeux</p>
+                    <ul>
+                        <li>Pattern Scanning</li>
+                        <li>Structure Analysis</li>
+                        <li>Memory Dumping</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/background.js"></script>
+</body>
+</html>

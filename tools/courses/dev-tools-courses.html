@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Cours Outils de Développement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .course-card {
+            margin-bottom: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        .code-block {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .progress {
+            background-color: #333;
+        }
+        .list-group-item {
+            background-color: #1a1a1a;
+            border-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Fondamentaux
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="game-hacking-courses.html">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="mobile-hacking-courses.html">Mobile Hacking</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Avancé
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="protection-courses.html">Protection & RE</a></li>
+                            <li><a class="dropdown-item" href="practical-courses.html">Techniques Pratiques</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="dev-tools-courses.html">Outils de Développement</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Outils de Développement</h1>
+
+        <!-- Visual Studio Section -->
+        <section class="mb-5">
+            <h2>Visual Studio Setup</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Configuration VS</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%">Base</div>
+                            </div>
+                            <div class="accordion" id="vsAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVS">
+                                            Module 1: Visual Studio
+                                        </button>
+                                    </h2>
+                                    <div id="collapseVS" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">1.1 Installation et setup</li>
+                                                <li class="list-group-item">1.2 Extensions essentielles</li>
+                                                <li class="list-group-item">1.3 Configuration C++</li>
+                                                <li class="list-group-item">1.4 Debugging tools</li>
+                                            </ul>
+                                            <div class="code-block mt-3">
+// Example project configuration
+{
+    "configurations": [
+        {
+            "name": "x64-Debug",
+            "generator": "Ninja",
+            "configurationType": "Debug",
+            "inheritEnvironments": [ "msvc_x64_x64" ],
+            "buildRoot": "${projectDir}\\out\\build\\${name}",
+            "installRoot": "${projectDir}\\out\\install\\${name}",
+            "cmakeCommandArgs": "",
+            "buildCommandArgs": "",
+            "ctestCommandArgs": ""
+        }
+    ]
+}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Debugging Avancé</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">Expert</div>
+                            </div>
+                            <div class="accordion" id="debugAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDebug">
+                                            Module 2: Debug Pro
+                                        </button>
+                                    </h2>
+                                    <div id="collapseDebug" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">2.1 Memory window</li>
+                                                <li class="list-group-item">2.2 Watch variables</li>
+                                                <li class="list-group-item">2.3 Custom visualizers</li>
+                                                <li class="list-group-item">2.4 Remote debugging</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Build Systems -->
+        <section class="mb-5">
+            <h2>Systèmes de Build</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>CMake Mastery</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 100%">Intermédiaire</div>
+                            </div>
+                            <div class="accordion" id="cmakeAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCMake">
+                                            Module 3: CMake
+                                        </button>
+                                    </h2>
+                                    <div id="collapseCMake" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">3.1 Basic setup</li>
+                                                <li class="list-group-item">3.2 Dependencies</li>
+                                                <li class="list-group-item">3.3 Custom targets</li>
+                                                <li class="list-group-item">3.4 Cross-platform</li>
+                                            </ul>
+                                            <div class="code-block mt-3">
+# Example CMakeLists.txt
+cmake_minimum_required(VERSION 3.15)
+project(GameHackProject)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(${PROJECT_NAME} 
+    src/main.cpp
+    src/memory.cpp
+    src/trainer.cpp
+)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Dependency Management</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 100%">Pro</div>
+                            </div>
+                            <div class="accordion" id="dependencyAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDependency">
+                                            Module 4: Dependencies
+                                        </button>
+                                    </h2>
+                                    <div id="collapseDependency" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">4.1 vcpkg usage</li>
+                                                <li class="list-group-item">4.2 Conan setup</li>
+                                                <li class="list-group-item">4.3 Git submodules</li>
+                                                <li class="list-group-item">4.4 Custom packages</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Tools -->
+        <section class="mb-5">
+            <h2>Outils Spécialisés</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h3>Reverse Engineering</h3>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">Expert</div>
+                            </div>
+                            <div class="accordion" id="reverseAccordion">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReverse">
+                                            Module 5: RE Tools
+                                        </button>
+                                    </h2>
+                                    <div id="collapseReverse" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">5.1 IDA Pro setup</li>
+                                                <li class="list-group-item">5.2 Ghidra usage</li>
+                                                <li class="list-group-item">5.3 x64dbg mastery</li>
+                                                <li class="list-group-item">5.4 Custom plugins</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ressources -->
+        <section class="mb-5">
+            <h2>Ressources Additionnelles</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h4>Templates</h4>
+                            <ul class="list-unstyled">
+                                <li>📝 Project templates</li>
+                                <li>🔧 Build configs</li>
+                                <li>🎯 Debug profiles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h4>Extensions</h4>
+                            <ul class="list-unstyled">
+                                <li>🔌 VS extensions</li>
+                                <li>🛠️ Custom tools</li>
+                                <li>🎨 Themes & UI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card course-card">
+                        <div class="card-body">
+                            <h4>Support</h4>
+                            <ul class="list-unstyled">
+                                <li>👥 Dev community</li>
+                                <li>💬 Tech support</li>
+                                <li>📚 Documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/background.js"></script>
+</body>
+</html>

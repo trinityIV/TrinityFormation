@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Flux de Détection Anti-Cheat -->
+    <style>
+        text { font-family: Arial, sans-serif; fill: white; }
+        .title { font-size: 24px; font-weight: bold; }
+        .step { font-size: 16px; }
+        .arrow { stroke: white; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+        .box { fill: #2d2d2d; stroke: #0d6efd; stroke-width: 2; }
+        .decision { fill: #2d2d2d; stroke: #ffc107; stroke-width: 2; }
+        .action { fill: #2d2d2d; stroke: #28a745; stroke-width: 2; }
+    </style>
+
+    <!-- Définition de la flèche -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="white"/>
+        </marker>
+    </defs>
+
+    <!-- Titre -->
+    <text x="400" y="50" class="title" text-anchor="middle">Flux de Détection</text>
+
+    <!-- Étapes du flux -->
+    <rect x="300" y="100" width="200" height="60" class="box" rx="10"/>
+    <text x="400" y="135" class="step" text-anchor="middle">Surveillance Mémoire</text>
+
+    <path d="M 400 160 L 400 200" class="arrow"/>
+
+    <polygon points="300,200 500,200 400,280" class="decision"/>
+    <text x="400" y="240" class="step" text-anchor="middle">Modification</text>
+    <text x="400" y="260" class="step" text-anchor="middle">Détectée?</text>
+
+    <path d="M 300 240 L 200 240" class="arrow"/>
+    <text x="250" y="230" class="step" text-anchor="middle" font-size="14">Non</text>
+
+    <path d="M 400 280 L 400 320" class="arrow"/>
+    <text x="420" y="300" class="step" text-anchor="middle" font-size="14">Oui</text>
+
+    <rect x="300" y="320" width="200" height="60" class="action" rx="10"/>
+    <text x="400" y="355" class="step" text-anchor="middle">Analyse Pattern</text>
+
+    <path d="M 400 380 L 400 420" class="arrow"/>
+
+    <polygon points="300,420 500,420 400,500" class="decision"/>
+    <text x="400" y="460" class="step" text-anchor="middle">Pattern</text>
+    <text x="400" y="480" class="step" text-anchor="middle">Suspect?</text>
+
+    <path d="M 300 460 L 200 460" class="arrow"/>
+    <text x="250" y="450" class="step" text-anchor="middle" font-size="14">Non</text>
+
+    <path d="M 400 500 L 400 540" class="arrow"/>
+    <text x="420" y="520" class="step" text-anchor="middle" font-size="14">Oui</text>
+
+    <rect x="300" y="540" width="200" height="60" class="action" rx="10"/>
+    <text x="400" y="575" class="step" text-anchor="middle">Action Anti-Cheat</text>
+
+    <!-- Boucle de retour -->
+    <path d="M 200 240 C 100 240, 100 400, 200 400 L 300 400" class="arrow"/>
+</svg>

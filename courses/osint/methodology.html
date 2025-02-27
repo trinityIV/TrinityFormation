@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Méthodologie OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Méthodologie OSINT</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant</span>
+                            <span class="badge bg-info me-2">Durée: 4h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours vous présente une approche structurée pour mener des investigations OSINT efficaces. Vous apprendrez à planifier, exécuter et documenter vos recherches de manière méthodique, de la définition des objectifs à la présentation des résultats.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#planning">2. Planification</a>
+                            <a class="nav-link" href="#collection">3. Collecte d'informations</a>
+                            <a class="nav-link" href="#processing">4. Traitement des données</a>
+                            <a class="nav-link" href="#analysis">5. Analyse</a>
+                            <a class="nav-link" href="#dissemination">6. Diffusion</a>
+                            <a class="nav-link" href="#feedback">7. Retour d'expérience</a>
+                            <a class="nav-link" href="#frameworks">8. Cadres méthodologiques</a>
+                            <a class="nav-link" href="#case-study">9. Étude de cas</a>
+                            <a class="nav-link" href="#exercises">10. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">11. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#templates">Templates</a>
+                                    <a class="nav-link" href="#checklists">Checklists</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Pourquoi une méthodologie est-elle nécessaire?</h4>
+                            <p>Une approche méthodique de l'OSINT présente plusieurs avantages essentiels :</p>
+                            <ul>
+                                <li><strong>Efficacité</strong> - Optimisation du temps et des ressources</li>
+                                <li><strong>Exhaustivité</strong> - Réduction du risque d'oublier des sources ou des informations importantes</li>
+                                <li><strong>Reproductibilité</strong> - Possibilité de vérifier et de répéter les recherches</li>
+                                <li><strong>Traçabilité</strong> - Documentation claire de la provenance des informations</li>
+                                <li><strong>Crédibilité</strong> - Renforcement de la fiabilité des résultats</li>
+                                <li><strong>Légalité</strong> - Respect des cadres juridiques et éthiques</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Le cycle du renseignement</h4>
+                            <p>La méthodologie OSINT s'inspire généralement du cycle traditionnel du renseignement, qui comprend les phases suivantes :</p>
+                            
+                            <div class="text-center my-4">
+                                <img src="../../resources/images/osint/intelligence-cycle.png" alt="Cycle du renseignement" class="img-fluid rounded" style="max-width: 500px;">
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Phase</th>
+                                            <th>Description</th>
+                                            <th>Activités clés</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Planification</td>
+                                            <td>Définition des objectifs et des besoins</td>
+                                            <td>Formulation des questions, identification des contraintes, allocation des ressources</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Collecte</td>
+                                            <td>Acquisition des données brutes</td>
+                                            <td>Recherche dans diverses sources, documentation des sources</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Traitement</td>
+                                            <td>Organisation et préparation des données</td>
+                                            <td>Tri, validation, structuration, conversion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse</td>
+                                            <td>Interprétation des données</td>
+                                            <td>Évaluation, corrélation, contextualisation, synthèse</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diffusion</td>
+                                            <td>Communication des résultats</td>
+                                            <td>Rédaction de rapports, présentation, recommandations</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retour d'expérience</td>
+                                            <td>Évaluation du processus</td>
+                                            <td>Identification des points forts/faibles, améliorations</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Note :</strong> Bien que présenté comme un cycle linéaire, le processus OSINT est souvent itératif, avec des allers-retours entre les différentes phases en fonction des découvertes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="planning" class="mb-5">
+                    <h2 class="text-info">2. Planification</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Définition des objectifs</h4>
+                            <p>La première étape consiste à définir clairement ce que vous cherchez à accomplir :</p>
+                            <ul>
+                                <li><strong>Objectif principal</strong> - Quel est le but global de l'investigation?</li>
+                                <li><strong>Objectifs spécifiques</strong> - Quelles questions précises cherchez-vous à répondre?</li>
+                                <li><strong>Portée</strong> - Quelles sont les limites de votre recherche (temporelles, géographiques, etc.)?</li>
+                                <li><strong>Livrables attendus</strong> - Quel type de résultats devez-vous produire?</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Exemple d'objectifs SMART</div>
+                                <div class="card-body">
+                                    <p><strong>Objectif général :</strong> Évaluer la présence en ligne et la réputation d'une entreprise</p>
+                                    <p><strong>Objectifs spécifiques :</strong></p>
+                                    <ul>
+                                        <li>Identifier tous les domaines web associés à l'entreprise X dans un délai de 2 jours</li>
+                                        <li>Cartographier la présence de l'entreprise X sur les réseaux sociaux d'ici la fin de la semaine</li>
+                                        <li>Analyser les mentions de l'entreprise X dans les médias au cours des 6 derniers mois</li>
+                                        <li>Évaluer la tonalité des commentaires clients sur les 3 principales plateformes d'avis</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Évaluation des ressources</h4>
+                            <p>Déterminez les ressources dont vous disposez et celles dont vous aurez besoin :</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Ressources humaines</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Compétences disponibles</li>
+                                                <li>Nombre de personnes</li>
+                                                <li>Expertise spécifique requise</li>
+                                                <li>Formation nécessaire</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Ressources techniques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Outils disponibles</li>
+                                                <li>Accès aux bases de données</li>
+                                                <li>Capacité de stockage</li>
+                                                <li>Environnement sécurisé</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Contraintes temporelles</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Délais</li>
+                                                <li>Temps disponible</li>
+                                                <li>Priorités</li>
+                                                <li>Jalons intermédiaires</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Contraintes légales et éthiques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Cadre juridique applicable</li>
+                                                <li>Considérations éthiques</li>
+                                                <li>Autorisations requises</li>
+                                                <li>Limites à respecter</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Élaboration d'un plan de recherche</h4>
+                            <p>Créez un plan détaillé qui guidera votre investigation :</p>
+                            <ol>
+                                <li><strong>Identification des sources potentielles</strong> - Quelles sources d'information seront consultées?</li>
+                                <li><strong>Priorisation</strong> - Dans quel ordre aborder les différentes sources?</li>
+                                <li><strong>Méthodes de collecte</strong> - Quelles techniques seront utilisées?</li>
+                                <li><strong>Critères d'évaluation</strong> - Comment juger de la pertinence et de la fiabilité des informations?</li>
+                                <li><strong>Calendrier</strong> - Quels sont les délais pour chaque étape?</li>
+                                <li><strong>Méthode de documentation</strong> - Comment les informations seront-elles enregistrées?</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> Un plan bien conçu doit rester flexible. Soyez prêt à l'adapter en fonction des découvertes et des obstacles rencontrés au cours de l'investigation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="collection" class="mb-5">
+                    <h2 class="text-info">3. Collecte d'informations</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Catégorisation des sources</h4>
+                            <p>Les sources OSINT peuvent être classées selon différents critères :</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Par type de média</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Web (sites, blogs, forums)</li>
+                                                <li>Réseaux sociaux</li>
+                                                <li>Médias traditionnels</li>
+                                                <li>Bases de données publiques</li>
+                                                <li>Publications académiques</li>
+                                                <li>Documents officiels</li>
+                                                <li>Dark web</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Par niveau d'accessibilité</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Surface web (indexé par les moteurs de recherche)</li>
+                                                <li>Deep web (non indexé mais accessible)</li>
+                                                <li>Dark web (nécessite des outils spécifiques)</li>
+                                                <li>Archives (contenu historique)</li>
+                                                <li>Données structurées (API, datasets)</li>
+                                                <li>Données non structurées (texte libre)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques de collecte</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Applications</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Recherche par mots-clés</td>
+                                            <td>Utilisation de termes spécifiques dans les moteurs de recherche</td>
+                                            <td>Recherche générale, découverte initiale</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Opérateurs de recherche avancés</td>
+                                            <td>Utilisation de syntaxes spéciales (Google dorks, etc.)</td>
+                                            <td>Recherche ciblée, découverte de documents spécifiques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Monitoring</td>
+                                            <td>Surveillance continue de sources spécifiques</td>
+                                            <td>Détection de changements, suivi de l'actualité</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Scraping</td>
+                                            <td>Extraction automatisée de données à partir de sites web</td>
+                                            <td>Collecte à grande échelle, analyse de tendances</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Utilisation d'API</td>
+                                            <td>Accès programmatique aux données de plateformes</td>
+                                            <td>Collecte structurée, analyse quantitative</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par pivot</td>
+                                            <td>Utilisation d'une information pour en découvrir d'autres</td>
+                                            <td>Élargissement de la recherche, découverte de connexions</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Documentation des sources</h4>
+                            <p>Une documentation rigoureuse des sources est essentielle pour :</p>
+                            <ul>
+                                <li>Assurer la traçabilité des informations</li>
+                                <li>Permettre la vérification ultérieure</li>
+                                <li>Évaluer la fiabilité des données</li>
+                                <li>Respecter les exigences légales et éthiques</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Informations à documenter pour chaque source</div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li><strong>URL ou référence complète</strong> - Localisation précise de l'information</li>
+                                        <li><strong>Date et heure de collecte</strong> - Moment exact de l'acquisition</li>
+                                        <li><strong>Méthode de collecte</strong> - Comment l'information a été obtenue</li>
+                                        <li><strong>Auteur/Éditeur</strong> - Source originale de l'information</li>
+                                        <li><strong>Date de publication</strong> - Quand l'information a été publiée</li>
+                                        <li><strong>Capture d'écran/Archive</strong> - Préservation de l'information telle que vue</li>
+                                        <li><strong>Évaluation préliminaire</strong> - Note sur la fiabilité apparente</li>
+                                        <li><strong>Mots-clés/Tags</strong> - Catégorisation pour faciliter l'analyse</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Utilisez des outils spécialisés comme Hunchly, CherryTree ou même des tableurs pour documenter systématiquement vos sources. La création de templates standardisés peut grandement faciliter ce processus.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="processing" class="mb-5">
+                    <h2 class="text-info">4. Traitement des données</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Évaluation de la fiabilité</h4>
+                            <p>Avant d'analyser les informations collectées, il est crucial d'évaluer leur fiabilité :</p>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Système d'évaluation Admiralty (exemple)</div>
+                                <div class="card-body">
+                                    <p><strong>Fiabilité de la source :</strong></p>
+                                    <ul>
+                                        <li><strong>A</strong> - Totalement fiable</li>
+                                        <li><strong>B</strong> - Habituellement fiable</li>
+                                        <li><strong>C</strong> - Assez fiable</li>
+                                        <li><strong>D</strong> - Pas habituellement fiable</li>
+                                        <li><strong>E</strong> - Non fiable</li>
+                                        <li><strong>F</strong> - Fiabilité ne pouvant être jugée</li>
+                                    </ul>
+                                    <p><strong>Crédibilité de l'information :</strong></p>
+                                    <ul>
+                                        <li><strong>1</strong> - Confirmée par d'autres sources</li>
+                                        <li><strong>2</strong> - Probablement vraie</li>
+                                        <li><strong>3</strong> - Possiblement vraie</li>
+                                        <li><strong>4</strong> - Douteuse</li>
+                                        <li><strong>5</strong> - Improbable</li>
+                                        <li><strong>6</strong> - Véracité ne pouvant être jugée</li>
+                                    </ul>
+                                    <p><em>Exemple : Une information notée B2 provient d'une source habituellement fiable et est probablement vraie.</em></p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Organisation des données</h4>
+                            <p>Structurez les informations collectées pour faciliter leur analyse :</p>
+                            <ul>
+                                <li><strong>Catégorisation</strong> - Classement par thèmes, entités, périodes, etc.</li>
+                                <li><strong>Chronologie</strong> - Organisation temporelle des événements</li>
+                                <li><strong>Cartographie</strong> - Organisation spatiale des informations</li>
+                                <li><strong>Réseaux</strong> - Visualisation des relations entre entités</li>
+                                <li><strong>Matrices</strong> - Croisement de différentes variables</li>
+                            </ul>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark border-secondary">
+                                        <div class="card-header">Outils d'organisation</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Tableurs (Excel, Google Sheets)</li>
+                                                <li>Bases de données (Access, SQLite)</li>
+                                                <li>Logiciels de prise de notes (OneNote, Obsidian)</li>
+                                                <li>Outils de visualisation (Maltego, Gephi)</li>
+                                                <li>Logiciels de chronologie (Timeline JS)</li>
+                                                <li>Systèmes de gestion de connaissances</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark border-secondary">
+                                        <div class="card-header">Techniques de traitement</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Normalisation des formats</li>
+                                                <li>Extraction d'entités nommées</li>
+                                                <li>Déduplication des informations</li>
+                                                <li>Traduction de contenu</li>
+                                                <li>Conversion de données</li>
+                                                <li>Enrichissement automatique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Vérification et corroboration</h4>
+                            <p>Validez les informations collectées avant de procéder à l'analyse :</p>
+                            <ol>
+                                <li><strong>Vérification croisée</strong> - Confirmation par plusieurs sources indépendantes</li>
+                                <li><strong>Contrôle de cohérence</strong> - Recherche de contradictions internes</li>
+                                <li><strong>Vérification factuelle</strong> - Confrontation avec des faits établis</li>
+                                <li><strong>Analyse de la source</strong> - Évaluation de la crédibilité de l'origine</li>
+                                <li><strong>Vérification temporelle</strong> - Confirmation de la chronologie et des dates</li>
+                                <li><strong>Vérification technique</strong> - Validation des aspects techniques (métadonnées, etc.)</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> La désinformation est un problème croissant. Soyez particulièrement vigilant face aux informations sensationnelles, trop parfaites ou qui confirment trop bien vos hypothèses initiales.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analysis" class="mb-5">
+                    <h2 class="text-info">5. Analyse</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Types d'analyse</h4>
+                            <p>Différentes approches analytiques peuvent être appliquées aux données OSINT :</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type d'analyse</th>
+                                            <th>Description</th>
+                                            <th>Applications</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Analyse descriptive</td>
+                                            <td>Résumé et description des informations collectées</td>
+                                            <td>Rapports de situation, profils, inventaires</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse temporelle</td>
+                                            <td>Étude de l'évolution dans le temps</td>
+                                            <td>Chronologies, tendances, patterns récurrents</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse relationnelle</td>
+                                            <td>Identification des liens entre entités</td>
+                                            <td>Cartographie de réseaux, analyse d'influence</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse comparative</td>
+                                            <td>Mise en parallèle de différents éléments</td>
+                                            <td>Benchmarking, identification d'anomalies</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse prédictive</td>
+                                            <td>Anticipation des développements futurs</td>
+                                            <td>Prévisions, scénarios, évaluation des risques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse géospatiale</td>
+                                            <td>Étude des aspects géographiques</td>
+                                            <td>Cartographie, analyse de mouvements</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques analytiques</h4>
+                            <p>Plusieurs méthodes peuvent être utilisées pour analyser les données OSINT :</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Techniques qualitatives</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Analyse de contenu</strong> - Étude systématique du contenu textuel</li>
+                                                <li><strong>Analyse de discours</strong> - Examen du langage et de la rhétorique</li>
+                                                <li><strong>Analyse contextuelle</strong> - Interprétation en fonction du contexte</li>
+                                                <li><strong>Analyse sémiotique</strong> - Étude des signes et symboles</li>
+                                                <li><strong>Analyse narrative</strong> - Examen de la structure des récits</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Techniques quantitatives</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Analyse statistique</strong> - Étude des tendances et patterns numériques</li>
+                                                <li><strong>Analyse de fréquence</strong> - Comptage d'occurrences</li>
+                                                <li><strong>Analyse de sentiment</strong> - Évaluation de la tonalité émotionnelle</li>
+                                                <li><strong>Analyse de réseau</strong> - Étude mathématique des relations</li>
+                                                <li><strong>Analyse temporelle</strong> - Étude des séries chronologiques</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Biais cognitifs à éviter</h4>
+                            <p>L'analyse OSINT est vulnérable à plusieurs biais cognitifs qui peuvent affecter la qualité des conclusions :</p>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Biais</th>
+                                            <th>Description</th>
+                                            <th>Comment l'éviter</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Biais de confirmation</td>
+                                            <td>Tendance à favoriser les informations qui confirment nos hypothèses</td>
+                                            <td>Rechercher activement des informations contradictoires, faire réviser par des pairs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Effet d'ancrage</td>
+                                            <td>Tendance à trop s'appuyer sur les premières informations reçues</td>
+                                            <td>Réévaluer régulièrement les hypothèses, considérer plusieurs scénarios</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Biais de disponibilité</td>
+                                            <td>Surestimation de l'importance des informations facilement accessibles</td>
+                                            <td>Diversifier les sources, rechercher des informations moins évidentes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Effet de halo</td>
+                                            <td>Tendance à généraliser une impression positive ou négative</td>
+                                            <td>Évaluer chaque information indépendamment, utiliser des critères objectifs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pensée de groupe</td>
+                                            <td>Conformité aux opinions dominantes dans un groupe</td>
+                                            <td>Encourager les opinions divergentes, utiliser des techniques comme l'avocat du diable</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> L'utilisation de techniques d'analyse structurée comme l'Analyse des Hypothèses Concurrentes (ACH) peut aider à réduire l'impact des biais cognitifs sur vos conclusions.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="dissemination" class="mb-5">
+                    <h2 class="text-info">6. Diffusion</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Formats de présentation</h4>
+                            <p>Les résultats d'une investigation OSINT peuvent être présentés sous différentes formes :</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Formats écrits</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Rapport complet</strong> - Document détaillé avec méthodologie, sources et analyses</li>
+                                                <li><strong>Note de synthèse</strong> - Résumé concis des principales conclusions</li>
+                                                <li><strong>Bulletin d'information</strong> - Mise à jour régulière sur un sujet</li>
+                                                <li><strong>Fiche d'entité</strong> - Profil détaillé d'une personne, organisation, etc.</li>
+                                                <li><strong>Alerte</strong> - Communication rapide d'une information critique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Formats visuels</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Présentation</strong> - Diapositives avec points clés et visualisations</li>
+                                                <li><strong>Infographie</strong> - Représentation visuelle des informations</li>
+                                                <li><strong>Tableau de bord</strong> - Interface interactive avec indicateurs clés</li>
+                                                <li><strong>Carte</strong> - Représentation géographique des informations</li>
+                                                <li><strong>Diagramme de réseau</strong> - Visualisation des relations entre entités</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Structure d'un rapport OSINT</h4>
+                            <p>Un rapport OSINT bien structuré devrait généralement inclure les éléments suivants :</p>
+                            <ol>
+                                <li><strong>Page de titre</strong> - Titre, date, auteur, classification</li>
+                                <li><strong>Résumé exécutif</strong> - Synthèse des principales conclusions et recommandations</li>
+                                <li><strong>Table des matières</strong> - Organisation du document</li>
+                                <li><strong>Introduction</strong> - Contexte, objectifs, portée</li>
+                                <li><strong>Méthodologie</strong> - Approche, sources, limitations</li>
+                                <li><strong>Résultats</strong> - Présentation des informations collectées</li>
+                                <li><strong>Analyse</strong> - Interprétation des résultats</li>
+                                <li><strong>Conclusions</strong> - Synthèse des principales découvertes</li>
+                                <li><strong>Recommandations</strong> - Actions suggérées</li>
+                                <li><strong>Annexes</strong> - Informations complémentaires, glossaire, etc.</li>
+                                <li><strong>Références</strong> - Sources citées</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Bonnes pratiques de communication</h4>
+                            <ul>
+                                <li><strong>Adaptez au public</strong> - Ajustez le niveau de détail et le jargon en fonction des destinataires</li>
+                                <li><strong>Soyez clair sur le niveau de certitude</strong> - Distinguez les faits, les hypothèses et les spéculations</li>
+                                <li><strong>Utilisez un langage précis</strong> - Évitez les ambiguïtés et les généralisations</li>
+                                <li><strong>Hiérarchisez l'information</strong> - Présentez d'abord les éléments les plus importants</li>
+                                <li><strong>Incluez des visualisations</strong> - Utilisez des graphiques pour clarifier les informations complexes</li>
+                                <li><strong>Documentez les sources</strong> - Permettez la vérification des informations</li>
+                                <li><strong>Indiquez les lacunes</strong> - Soyez transparent sur les informations manquantes</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> Assurez-vous que votre rapport respecte les exigences légales et éthiques, notamment en matière de protection des données personnelles et de confidentialité.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="feedback" class="mb-5">
+                    <h2 class="text-info">7. Retour d'expérience</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Évaluation du processus</h4>
+                            <p>Après chaque investigation, prenez le temps d'évaluer votre démarche :</p>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Questions d'évaluation</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Les objectifs ont-ils été atteints?</li>
+                                                <li>Les informations collectées étaient-elles suffisantes?</li>
+                                                <li>Les sources utilisées étaient-elles appropriées?</li>
+                                                <li>Les méthodes d'analyse étaient-elles efficaces?</li>
+                                                <li>Les délais ont-ils été respectés?</li>
+                                                <li>Les ressources ont-elles été utilisées efficacement?</li>
+                                                <li>La présentation des résultats était-elle claire?</li>
+                                                <li>Les recommandations étaient-elles pertinentes?</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Méthodes d'évaluation</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><strong>Auto-évaluation</strong> - Réflexion personnelle sur le processus</li>
+                                                <li><strong>Revue par les pairs</strong> - Feedback d'autres analystes</li>
+                                                <li><strong>Feedback des destinataires</strong> - Retour des utilisateurs finaux</li>
+                                                <li><strong>Analyse rétrospective</strong> - Comparaison avec les résultats réels</li>
+                                                <li><strong>Audit externe</strong> - Évaluation par des experts indépendants</li>
+                                                <li><strong>Métriques quantitatives</strong> - Mesure de l'efficacité et de l'efficience</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Documentation des leçons apprises</h4>
+                            <p>Documentez systématiquement les enseignements tirés de chaque investigation :</p>
+                            <ul>
+                                <li><strong>Points forts</strong> - Ce qui a bien fonctionné et pourquoi</li>
+                                <li><strong>Difficultés rencontrées</strong> - Obstacles et défis</li>
+                                <li><strong>Solutions trouvées</strong> - Comment les problèmes ont été résolus</li>
+                                <li><strong>Opportunités manquées</strong> - Ce qui aurait pu être fait différemment</li>
+                                <li><strong>Nouvelles sources découvertes</strong> - Ressources utiles pour de futures investigations</li>
+                                <li><strong>Techniques efficaces</strong> - Méthodes particulièrement utiles</li>
+                                <li><strong>Compétences à développer</strong> - Domaines nécessitant une formation supplémentaire</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Amélioration continue</h4>
+                            <p>Utilisez les leçons apprises pour améliorer vos futures investigations :</p>
+                            <ol>
+                                <li><strong>Mise à jour des procédures</strong> - Révision des méthodologies et protocoles</li>
+                                <li><strong>Développement d'outils</strong> - Création de templates, checklists, etc.</li>
+                                <li><strong>Formation</strong> - Acquisition de nouvelles compétences</li>
+                                <li><strong>Partage de connaissances</strong> - Diffusion des bonnes pratiques</li>
+                                <li><strong>Veille technologique</strong> - Suivi des nouveaux outils et techniques</li>
+                                <li><strong>Constitution d'une base de connaissances</strong> - Centralisation des ressources et leçons</li>
+                            </ol>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Organisez régulièrement des sessions de partage d'expérience au sein de votre équipe pour favoriser l'apprentissage collectif et l'amélioration des pratiques.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="frameworks" class="mb-5">
+                    <h2 class="text-info">8. Cadres méthodologiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Principaux cadres OSINT</h4>
+                            <p>Plusieurs cadres méthodologiques ont été développés pour structurer les investigations OSINT :</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Cadre</th>
+                                            <th>Description</th>
+                                            <th>Points forts</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>NATO OSINT Handbook</td>
+                                            <td>Guide développé par l'OTAN pour les opérations de renseignement</td>
+                                            <td>Approche complète, focus sur la validation des sources</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SANS OSINT Framework</td>
+                                            <td>Cadre développé par l'institut SANS pour la cybersécurité</td>
+                                            <td>Organisation par type de cible, riche en ressources</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Intelligence Cycle</td>
+                                            <td>Modèle traditionnel du cycle du renseignement</td>
+                                            <td>Simplicité, adaptabilité, largement reconnu</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OSINF Model</td>
+                                            <td>Modèle axé sur la fusion des informations</td>
+                                            <td>Intégration de sources diverses, approche collaborative</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OSINT-CTI Framework</td>
+                                            <td>Cadre spécialisé pour la cyber threat intelligence</td>
+                                            <td>Focus sur les menaces cyber, intégration avec MITRE ATT&CK</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Adaptation des cadres</h4>
+                            <p>Les cadres existants peuvent être adaptés en fonction de vos besoins spécifiques :</p>
+                            <ul>
+                                <li><strong>Sélection</strong> - Choisissez le cadre le plus proche de vos objectifs</li>
+                                <li><strong>Personnalisation</strong> - Ajustez les étapes et processus</li>
+                                <li><strong>Hybridation</strong> - Combinez des éléments de différents cadres</li>
+                                <li><strong>Simplification</strong> - Réduisez la complexité pour les investigations simples</li>
+                                <li><strong>Extension</strong> - Ajoutez des étapes spécifiques à votre domaine</li>
+                                <li><strong>Intégration</strong> - Incorporez des outils et technologies modernes</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Création d'un cadre personnalisé</h4>
+                            <p>Pour développer votre propre méthodologie OSINT, considérez les éléments suivants :</p>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Éléments à inclure</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Processus de définition des objectifs</li>
+                                                <li>Méthodes de collecte adaptées à vos cibles</li>
+                                                <li>Procédures de validation des informations</li>
+                                                <li>Techniques d'analyse pertinentes</li>
+                                                <li>Formats de rapport standardisés</li>
+                                                <li>Protocoles de sécurité et d'éthique</li>
+                                                <li>Mécanismes de feedback et d'amélioration</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Facteurs à considérer</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Nature des investigations typiques</li>
+                                                <li>Ressources disponibles</li>
+                                                <li>Compétences de l'équipe</li>
+                                                <li>Contraintes légales et éthiques</li>
+                                                <li>Besoins des destinataires</li>
+                                                <li>Délais habituels</li>
+                                                <li>Outils et technologies accessibles</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Documentez votre méthodologie sous forme de guide ou de manuel pour assurer la cohérence des pratiques au sein de votre équipe et faciliter la formation des nouveaux membres.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="case-study" class="mb-5">
+                    <h2 class="text-info">9. Étude de cas</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Scénario : Évaluation de la présence en ligne d'une entreprise</h4>
+                            <p>Cette étude de cas illustre l'application de la méthodologie OSINT à un scénario d'intelligence économique.</p>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Contexte</div>
+                                <div class="card-body">
+                                    <p>Une entreprise souhaite évaluer la présence en ligne et la réputation d'un concurrent récemment entré sur le marché. L'objectif est de comprendre sa stratégie de communication, ses forces et faiblesses, ainsi que la perception du public.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info">1. Planification</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Objectifs spécifiques :</strong></p>
+                                    <ul>
+                                        <li>Identifier tous les canaux de communication officiels de l'entreprise</li>
+                                        <li>Analyser le positionnement et les messages clés</li>
+                                        <li>Évaluer l'engagement et la perception des clients</li>
+                                        <li>Identifier les principaux porte-parole et influenceurs associés</li>
+                                        <li>Détecter d'éventuelles controverses ou problèmes de réputation</li>
+                                    </ul>
+                                    <p><strong>Portée :</strong> Analyse limitée aux 12 derniers mois et aux marchés européens.</p>
+                                    <p><strong>Livrable attendu :</strong> Rapport détaillé avec recommandations stratégiques.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info">2. Collecte d'informations</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Sources consultées :</strong></p>
+                                    <ul>
+                                        <li>Site web officiel et blog de l'entreprise</li>
+                                        <li>Comptes sur les réseaux sociaux (LinkedIn, Twitter, Facebook, Instagram)</li>
+                                        <li>Communiqués de presse et couverture médiatique</li>
+                                        <li>Plateformes d'avis clients (Trustpilot, Google Reviews)</li>
+                                        <li>Forums professionnels et sites spécialisés du secteur</li>
+                                        <li>Bases de données financières et rapports d'analystes</li>
+                                        <li>Offres d'emploi et profils d'employés sur LinkedIn</li>
+                                    </ul>
+                                    <p><strong>Techniques utilisées :</strong> Recherche par mots-clés, monitoring des réseaux sociaux, analyse de backlinks, recherche avancée avec Google dorks, scraping d'avis clients.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info">3. Traitement des données</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Organisation :</strong></p>
+                                    <ul>
+                                        <li>Création d'une base de données des canaux de communication</li>
+                                        <li>Chronologie des événements clés et annonces</li>
+                                        <li>Catégorisation des messages par thématique</li>
+                                        <li>Compilation des avis clients et commentaires</li>
+                                        <li>Identification des principaux porte-parole et leur rôle</li>
+                                    </ul>
+                                    <p><strong>Vérification :</strong> Croisement des informations entre différentes sources, validation des données financières auprès de sources officielles.</p>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info">4. Analyse</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Analyses réalisées :</strong></p>
+                                    <ul>
+                                        <li>Analyse de la stratégie de contenu et des messages clés</li>
+                                        <li>Analyse de sentiment des commentaires clients</li>
+                                        <li>Analyse comparative avec les principaux concurrents</li>
+                                        <li>Analyse de l'évolution de la présence médiatique</li>
+                                        <li>Identification des forces, faiblesses, opportunités et menaces</li>
+                                    </ul>
+                                    <p><strong>Principales découvertes :</strong></p>
+                                    <ul>
+                                        <li>Fort accent sur l'innovation et la durabilité dans la communication</li>
+                                        <li>Croissance rapide de l'engagement sur LinkedIn (+150% en 6 mois)</li>
+                                        <li>Perception client globalement positive (score moyen de 4.2/5)</li>
+                                        <li>Points faibles identifiés : service client et délais de livraison</li>
+                                        <li>Controverse mineure liée à une campagne marketing en mars</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info">5. Diffusion</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Format :</strong> Rapport détaillé de 25 pages avec résumé exécutif et annexes.</p>
+                                    <p><strong>Éléments inclus :</strong></p>
+                                    <ul>
+                                        <li>Cartographie complète de la présence en ligne</li>
+                                        <li>Analyse SWOT détaillée</li>
+                                        <li>Graphiques d'évolution de l'engagement et du sentiment</li>
+                                        <li>Comparaison avec les benchmarks du secteur</li>
+                                        <li>Recommandations stratégiques pour le positionnement</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-info">6. Retour d'expérience</h5>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Points forts :</strong></p>
+                                    <ul>
+                                        <li>Diversité des sources consultées</li>
+                                        <li>Analyse de sentiment efficace</li>
+                                        <li>Visualisations claires et impactantes</li>
+                                    </ul>
+                                    <p><strong>Points à améliorer :</strong></p>
+                                    <ul>
+                                        <li>Accès limité à certaines données financières</li>
+                                        <li>Manque d'informations sur les marchés non européens</li>
+                                        <li>Temps d'analyse des réseaux sociaux trop important</li>
+                                    </ul>
+                                    <p><strong>Améliorations pour le futur :</strong> Utilisation d'outils d'automatisation pour l'analyse des réseaux sociaux, élargissement des sources de données financières.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercises" class="mb-5">
+                    <h2 class="text-info">10. Exercices pratiques</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Exercice 1: Planification d'une investigation</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Objectif :</strong> Développer un plan d'investigation OSINT complet.</p>
+                                    <p><strong>Scénario :</strong> Vous êtes chargé d'évaluer la présence en ligne et la réputation d'une entreprise technologique de votre choix.</p>
+                                    <p><strong>Tâches :</strong></p>
+                                    <ol>
+                                        <li>Définissez 5 objectifs spécifiques pour votre investigation</li>
+                                        <li>Identifiez les sources d'information pertinentes</li>
+                                        <li>Déterminez les méthodes de collecte appropriées</li>
+                                        <li>Établissez un calendrier avec des jalons</li>
+                                        <li>Identifiez les contraintes et les risques potentiels</li>
+                                    </ol>
+                                    <p><strong>Livrable :</strong> Document de planification de 2-3 pages.</p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exercice 2: Évaluation de sources</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Objectif :</strong> Développer des compétences d'évaluation critique des sources.</p>
+                                    <p><strong>Scénario :</strong> Vous recherchez des informations sur une nouvelle technologie controversée.</p>
+                                    <p><strong>Tâches :</strong></p>
+                                    <ol>
+                                        <li>Identifiez 5 sources différentes d'information sur le sujet (blog, média traditionnel, réseau social, forum, publication académique)</li>
+                                        <li>Évaluez chaque source selon les critères suivants : autorité, objectivité, actualité, précision, couverture</li>
+                                        <li>Attribuez une note de fiabilité (A-F) à chaque source et justifiez votre évaluation</li>
+                                        <li>Comparez les informations fournies par les différentes sources</li>
+                                        <li>Identifiez les biais potentiels dans chaque source</li>
+                                    </ol>
+                                    <p><strong>Livrable :</strong> Tableau d'évaluation des sources avec justifications.</p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Exercice 3: Analyse de données</h4>
+                            <div class="card bg-dark border-secondary mb-3">
+                                <div class="card-body">
+                                    <p><strong>Objectif :</strong> Pratiquer l'analyse et la visualisation de données OSINT.</p>
+                                    <p><strong>Scénario :</strong> Vous avez collecté des données sur l'activité sociale d'une personnalité publique ou d'une marque.</p>
+                                    <p><strong>Tâches :</strong></p>
+                                    <ol>
+                                        <li>Collectez des données publiques sur l'activité Twitter/LinkedIn d'une personnalité ou marque (au moins 50 posts)</li>
+                                        <li>Organisez les données dans un tableur (date, contenu, engagement, etc.)</li>
+                                        <li>Analysez les tendances temporelles (fréquence de publication, moments privilégiés)</li>
+                                        <li>Identifiez les thèmes récurrents et catégorisez le contenu</li>
+                                        <li>Créez au moins 3 visualisations différentes des données (graphique temporel, nuage de mots, etc.)</li>
+                                        <li>Rédigez une analyse de 500 mots sur les insights obtenus</li>
+                                    </ol>
+                                    <p><strong>Livrable :</strong> Rapport d'analyse avec visualisations et données brutes en annexe.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-4">
+                                <i class="fas fa-info-circle"></i> <strong>Note :</strong> Ces exercices peuvent être réalisés individuellement ou en groupe. Ils sont conçus pour être éthiques et utiliser uniquement des informations publiquement accessibles. Assurez-vous de respecter les conditions d'utilisation des plateformes consultées.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="resources" class="mb-5">
+                    <h2 class="text-info">11. Ressources</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Livres et publications</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Auteur</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Open Source Intelligence Techniques</td>
+                                            <td>Michael Bazzell</td>
+                                            <td>Guide pratique des techniques OSINT avec des exemples concrets</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Intelligence Analysis: A Target-Centric Approach</td>
+                                            <td>Robert M. Clark</td>
+                                            <td>Approche méthodologique de l'analyse du renseignement</td>
+                                        </tr>
+                                        <tr>
+                                            <td>The Psychology of Intelligence Analysis</td>
+                                            <td>Richards J. Heuer Jr.</td>
+                                            <td>Analyse des biais cognitifs dans le renseignement</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OSINT Framework</td>
+                                            <td>SANS Institute</td>
+                                            <td>Cadre méthodologique pour les investigations OSINT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Structured Analytic Techniques for Intelligence Analysis</td>
+                                            <td>Richards J. Heuer Jr. & Randolph H. Pherson</td>
+                                            <td>Techniques d'analyse structurée pour le renseignement</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Sites web et ressources en ligne</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Ressources méthodologiques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><a href="https://www.bellingcat.com/category/resources/how-tos/" target="_blank" class="text-info">Bellingcat How-Tos</a> - Guides pratiques d'investigation</li>
+                                                <li><a href="https://osintframework.com/" target="_blank" class="text-info">OSINT Framework</a> - Collection organisée de ressources OSINT</li>
+                                                <li><a href="https://www.cia.gov/static/955179a6f10e535a7e77161c34f61f37/Tradecraft-Primer-apr09.pdf" target="_blank" class="text-info">CIA Tradecraft Primer</a> - Guide d'analyse du renseignement</li>
+                                                <li><a href="https://www.i-intelligence.eu/wp-content/uploads/2018/06/OSINT_Handbook_June-2018_Final.pdf" target="_blank" class="text-info">OSINT Handbook</a> - Manuel complet sur l'OSINT</li>
+                                                <li><a href="https://www.sans.org/blog/what-is-open-source-intelligence/" target="_blank" class="text-info">SANS OSINT Resources</a> - Articles et guides de SANS Institute</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Communautés et formations</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><a href="https://www.reddit.com/r/OSINT/" target="_blank" class="text-info">r/OSINT</a> - Communauté Reddit dédiée à l'OSINT</li>
+                                                <li><a href="https://osintcurio.us/" target="_blank" class="text-info">OSINT Curious</a> - Blog collaboratif et podcast</li>
+                                                <li><a href="https://www.sans.org/course/open-source-intelligence-gathering/" target="_blank" class="text-info">SANS FOR578</a> - Formation OSINT de référence</li>
+                                                <li><a href="https://inteltechniques.com/training.html" target="_blank" class="text-info">IntelTechniques</a> - Formations et webinaires</li>
+                                                <li><a href="https://www.toddington.com/resources/" target="_blank" class="text-info">Toddington International</a> - Ressources et formations</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Templates et outils</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary">
+                                        <div class="card-header">Templates</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><a href="../../resources/downloads/templates/osint-investigation-plan.docx" class="text-info">Template de plan d'investigation</a></li>
+                                                <li><a href="../../resources/downloads/templates/osint-source-evaluation.xlsx" class="text-info">Grille d'évaluation des sources</a></li>
+                                                <li><a href="../../resources/downloads/templates/osint-report-template.docx" class="text-info">Template de rapport OSINT</a></li>
+                                                <li><a href="../../resources/downloads/templates/osint-checklist.pdf" class="text-info">Checklist d'investigation</a></li>
+                                                <li><a href="../../resources/downloads/templates/osint-timeline-template.xlsx" class="text-info">Template de chronologie</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary">
+                                        <div class="card-header">Outils recommandés</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><a href="https://www.maltego.com/" target="_blank" class="text-info">Maltego</a> - Analyse de liens et visualisation</li>
+                                                <li><a href="https://www.hunch.ly/" target="_blank" class="text-info">Hunchly</a> - Documentation d'investigation</li>
+                                                <li><a href="https://gephi.org/" target="_blank" class="text-info">Gephi</a> - Visualisation de réseaux</li>
+                                                <li><a href="https://obsidian.md/" target="_blank" class="text-info">Obsidian</a> - Prise de notes et connexions</li>
+                                                <li><a href="https://timeline.knightlab.com/" target="_blank" class="text-info">Timeline JS</a> - Création de chronologies</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Consultez notre section <a href="../../tools/osint-tools.html" class="alert-link">Outils OSINT</a> pour une liste complète d'outils classés par catégorie et avec des guides d'utilisation détaillés.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sections additionnelles -->
+                <section id="templates" class="mb-5">
+                    <h2 class="text-info">Templates</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Template de plan d'investigation OSINT</h4>
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-body">
+                                    <h5>1. Informations générales</h5>
+                                    <ul>
+                                        <li><strong>Titre de l'investigation :</strong> [Nom du projet]</li>
+                                        <li><strong>Date de début :</strong> [JJ/MM/AAAA]</li>
+                                        <li><strong>Date de fin prévue :</strong> [JJ/MM/AAAA]</li>
+                                        <li><strong>Investigateur(s) :</strong> [Noms et rôles]</li>
+                                        <li><strong>Superviseur :</strong> [Nom]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">2. Objectifs</h5>
+                                    <ul>
+                                        <li><strong>Objectif principal :</strong> [Description]</li>
+                                        <li><strong>Objectifs spécifiques :</strong>
+                                            <ul>
+                                                <li>[Objectif 1]</li>
+                                                <li>[Objectif 2]</li>
+                                                <li>[Objectif 3]</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Questions de recherche :</strong>
+                                            <ul>
+                                                <li>[Question 1]</li>
+                                                <li>[Question 2]</li>
+                                                <li>[Question 3]</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">3. Portée et limites</h5>
+                                    <ul>
+                                        <li><strong>Cible(s) :</strong> [Description]</li>
+                                        <li><strong>Période couverte :</strong> [Dates]</li>
+                                        <li><strong>Limites géographiques :</strong> [Régions]</li>
+                                        <li><strong>Exclusions :</strong> [Ce qui ne sera pas couvert]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">4. Sources d'information</h5>
+                                    <ul>
+                                        <li><strong>Sources prioritaires :</strong> [Liste]</li>
+                                        <li><strong>Sources secondaires :</strong> [Liste]</li>
+                                        <li><strong>Sources à explorer si le temps le permet :</strong> [Liste]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">5. Méthodologie</h5>
+                                    <ul>
+                                        <li><strong>Techniques de collecte :</strong> [Liste]</li>
+                                        <li><strong>Méthodes d'analyse :</strong> [Liste]</li>
+                                        <li><strong>Outils à utiliser :</strong> [Liste]</li>
+                                        <li><strong>Procédures de validation :</strong> [Description]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">6. Calendrier</h5>
+                                    <ul>
+                                        <li><strong>Phase 1 - Planification :</strong> [Dates]</li>
+                                        <li><strong>Phase 2 - Collecte initiale :</strong> [Dates]</li>
+                                        <li><strong>Phase 3 - Analyse préliminaire :</strong> [Dates]</li>
+                                        <li><strong>Phase 4 - Collecte approfondie :</strong> [Dates]</li>
+                                        <li><strong>Phase 5 - Analyse finale :</strong> [Dates]</li>
+                                        <li><strong>Phase 6 - Rédaction du rapport :</strong> [Dates]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">7. Ressources</h5>
+                                    <ul>
+                                        <li><strong>Personnel :</strong> [Liste]</li>
+                                        <li><strong>Outils et logiciels :</strong> [Liste]</li>
+                                        <li><strong>Budget :</strong> [Montant]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">8. Risques et contraintes</h5>
+                                    <ul>
+                                        <li><strong>Risques identifiés :</strong> [Liste]</li>
+                                        <li><strong>Mesures d'atténuation :</strong> [Liste]</li>
+                                        <li><strong>Contraintes :</strong> [Liste]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">9. Considérations éthiques et légales</h5>
+                                    <ul>
+                                        <li><strong>Cadre juridique applicable :</strong> [Description]</li>
+                                        <li><strong>Considérations éthiques :</strong> [Liste]</li>
+                                        <li><strong>Autorisations requises :</strong> [Liste]</li>
+                                    </ul>
+                                    
+                                    <h5 class="mt-3">10. Livrables</h5>
+                                    <ul>
+                                        <li><strong>Format du rapport final :</strong> [Description]</li>
+                                        <li><strong>Livrables intermédiaires :</strong> [Liste]</li>
+                                        <li><strong>Méthode de diffusion :</strong> [Description]</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mb-4">
+                                <a href="../../resources/downloads/templates/osint-investigation-plan.docx" class="btn btn-info">
+                                    <i class="fas fa-download me-2"></i> Télécharger le template complet
+                                </a>
+                            </div>
+                            
+                            <h4 class="text-info">Template d'évaluation des sources</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Source</th>
+                                            <th>Type</th>
+                                            <th>Autorité (A-F)</th>
+                                            <th>Actualité (A-F)</th>
+                                            <th>Précision (A-F)</th>
+                                            <th>Objectivité (A-F)</th>
+                                            <th>Note globale</th>
+                                            <th>Commentaires</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>[URL/Référence]</td>
+                                            <td>[Site web, média, etc.]</td>
+                                            <td>[Note]</td>
+                                            <td>[Note]</td>
+                                            <td>[Note]</td>
+                                            <td>[Note]</td>
+                                            <td>[Note]</td>
+                                            <td>[Commentaires]</td>
+                                        </tr>
+                                        <!-- Lignes supplémentaires... -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="text-center mt-3 mb-4">
+                                <a href="../../resources/downloads/templates/osint-source-evaluation.xlsx" class="btn btn-info">
+                                    <i class="fas fa-download me-2"></i> Télécharger le template d'évaluation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="checklists" class="mb-5">
+                    <h2 class="text-info">Checklists</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Checklist de planification</h4>
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">Définir clairement l'objectif principal de l'investigation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">Formuler des questions de recherche spécifiques</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">Définir la portée et les limites de l'investigation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">Identifier les sources d'information potentielles</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">Évaluer les ressources nécessaires (temps, outils, personnel)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">Établir un calendrier avec des jalons</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">Identifier les risques potentiels et les mesures d'atténuation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">Vérifier les considérations légales et éthiques</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">Définir le format des livrables attendus</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">Obtenir les autorisations nécessaires</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info">Checklist de collecte d'informations</h4>
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check11">
+                                        <label class="form-check-label" for="check11">Préparer l'environnement de travail sécurisé</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check12">
+                                        <label class="form-check-label" for="check12">Configurer les outils de documentation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check13">
+                                        <label class="form-check-label" for="check13">Rechercher dans les moteurs de recherche généraux</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check14">
+                                        <label class="form-check-label" for="check14">Consulter les moteurs de recherche spécialisés</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check15">
+                                        <label class="form-check-label" for="check15">Explorer les réseaux sociaux pertinents</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check16">
+                                        <label class="form-check-label" for="check16">Consulter les bases de données publiques</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check17">
+                                        <label class="form-check-label" for="check17">Vérifier les archives web</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check18">
+                                        <label class="form-check-label" for="check18">Rechercher dans les forums et communautés spécialisés</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check19">
+                                        <label class="form-check-label" for="check19">Documenter systématiquement chaque source</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check20">
+                                        <label class="form-check-label" for="check20">Capturer des copies/archives des informations importantes</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mb-4">
+                                <a href="../../resources/downloads/templates/osint-checklist.pdf" class="btn btn-info">
+                                    <i class="fas fa-download me-2"></i> Télécharger les checklists complètes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Trinity</h5>
+                    <p>Plateforme d'apprentissage pour la sécurité informatique, le hacking éthique et l'OSINT.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../index.html" class="text-light">Accueil</a></li>
+                        <li><a href="../../courses/index.html" class="text-light">Cours</a></li>
+                        <li><a href="../../resources/index.html" class="text-light">Ressources</a></li>
+                        <li><a href="../../community/index.html" class="text-light">Communauté</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Légal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../legal/terms.html" class="text-light">Conditions d'utilisation</a></li>
+                        <li><a href="../../legal/privacy.html" class="text-light">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-3 mb-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 Trinity. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/background.js"></script>
+    <script src="../../js/course.js"></script>
+    <script src="../../js/load-nav.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Méthodologie OSINT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-info">
+                    <div class="card-body">
+                        <h1 class="card-title text-info">Méthodologie OSINT</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Débutant</span>
+                            <span class="badge bg-info me-2">Durée: 4h</span>
+                            <span class="badge bg-success">OSINT</span>
+                        </div>
+                        <p class="card-text">Ce cours vous présente une approche structurée pour mener des investigations OSINT efficaces. Vous apprendrez à planifier, exécuter et documenter vos recherches de manière méthodique, de la définition des objectifs à la présentation des résultats.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction</a>
+                            <a class="nav-link" href="#planning">2. Planification</a>
+                            <a class="nav-link" href="#collection">3. Collecte d'informations</a>
+                            <a class="nav-link" href="#processing">4. Traitement des données</a>
+                            <a class="nav-link" href="#analysis">5. Analyse</a>
+                            <a class="nav-link" href="#dissemination">6. Diffusion</a>
+                            <a class="nav-link" href="#feedback">7. Retour d'expérience</a>
+                            <a class="nav-link" href="#frameworks">8. Cadres méthodologiques</a>
+                            <a class="nav-link" href="#case-study">9. Étude de cas</a>
+                            <a class="nav-link" href="#exercises">10. Exercices pratiques</a>
+                            <a class="nav-link" href="#resources">11. Ressources</a>
+                            <button class="btn btn-outline-info mt-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#additionalResources">
+                                <i class="fas fa-plus-circle"></i> Ressources Additionnelles
+                            </button>
+                            <div class="collapse mt-2" id="additionalResources">
+                                <div class="card card-body bg-dark border-secondary">
+                                    <a class="nav-link" href="#templates">Templates</a>
+                                    <a class="nav-link" href="#checklists">Checklists</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-info">1. Introduction</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Pourquoi une méthodologie est-elle nécessaire?</h4>
+                            <p>Une approche méthodique de l'OSINT présente plusieurs avantages essentiels :</p>
+                            <ul>
+                                <li><strong>Efficacité</strong> - Optimisation du temps et des ressources</li>
+                                <li><strong>Exhaustivité</strong> - Réduction du risque d'oublier des sources ou des informations importantes</li>
+                                <li><strong>Reproductibilité</strong> - Possibilité de vérifier et de répéter les recherches</li>
+                                <li><strong>Traçabilité</strong> - Documentation claire de la provenance des informations</li>
+                                <li><strong>Crédibilité</strong> - Renforcement de la fiabilité des résultats</li>
+                                <li><strong>Légalité</strong> - Respect des cadres juridiques et éthiques</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Le cycle du renseignement</h4>
+                            <p>La méthodologie OSINT s'inspire généralement du cycle traditionnel du renseignement, qui comprend les phases suivantes :</p>
+                            
+                            <div class="text-center my-4">
+                                <img src="../../resources/images/osint/intelligence-cycle.png" alt="Cycle du renseignement" class="img-fluid rounded" style="max-width: 500px;">
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Phase</th>
+                                            <th>Description</th>
+                                            <th>Activités clés</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Planification</td>
+                                            <td>Définition des objectifs et des besoins</td>
+                                            <td>Formulation des questions, identification des contraintes, allocation des ressources</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Collecte</td>
+                                            <td>Acquisition des données brutes</td>
+                                            <td>Recherche dans diverses sources, documentation des sources</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Traitement</td>
+                                            <td>Organisation et préparation des données</td>
+                                            <td>Tri, validation, structuration, conversion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse</td>
+                                            <td>Interprétation des données</td>
+                                            <td>Évaluation, corrélation, contextualisation, synthèse</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diffusion</td>
+                                            <td>Communication des résultats</td>
+                                            <td>Rédaction de rapports, présentation, recommandations</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retour d'expérience</td>
+                                            <td>Évaluation du processus</td>
+                                            <td>Identification des points forts/faibles, améliorations</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Note :</strong> Bien que présenté comme un cycle linéaire, le processus OSINT est souvent itératif, avec des allers-retours entre les différentes phases en fonction des découvertes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="planning" class="mb-5">
+                    <h2 class="text-info">2. Planification</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Définition des objectifs</h4>
+                            <p>La première étape consiste à définir clairement ce que vous cherchez à accomplir :</p>
+                            <ul>
+                                <li><strong>Objectif principal</strong> - Quel est le but global de l'investigation?</li>
+                                <li><strong>Objectifs spécifiques</strong> - Quelles questions précises cherchez-vous à répondre?</li>
+                                <li><strong>Portée</strong> - Quelles sont les limites de votre recherche (temporelles, géographiques, etc.)?</li>
+                                <li><strong>Livrables attendus</strong> - Quel type de résultats devez-vous produire?</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Exemple d'objectifs SMART</div>
+                                <div class="card-body">
+                                    <p><strong>Objectif général :</strong> Évaluer la présence en ligne et la réputation d'une entreprise</p>
+                                    <p><strong>Objectifs spécifiques :</strong></p>
+                                    <ul>
+                                        <li>Identifier tous les domaines web associés à l'entreprise X dans un délai de 2 jours</li>
+                                        <li>Cartographier la présence de l'entreprise X sur les réseaux sociaux d'ici la fin de la semaine</li>
+                                        <li>Analyser les mentions de l'entreprise X dans les médias au cours des 6 derniers mois</li>
+                                        <li>Évaluer la tonalité des commentaires clients sur les 3 principales plateformes d'avis</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Évaluation des ressources</h4>
+                            <p>Déterminez les ressources dont vous disposez et celles dont vous aurez besoin :</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Ressources humaines</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Compétences disponibles</li>
+                                                <li>Nombre de personnes</li>
+                                                <li>Expertise spécifique requise</li>
+                                                <li>Formation nécessaire</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Ressources techniques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Outils disponibles</li>
+                                                <li>Accès aux bases de données</li>
+                                                <li>Capacité de stockage</li>
+                                                <li>Environnement sécurisé</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Contraintes temporelles</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Délais</li>
+                                                <li>Temps disponible</li>
+                                                <li>Priorités</li>
+                                                <li>Jalons intermédiaires</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-secondary h-100">
+                                        <div class="card-header">Contraintes légales et éthiques</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Cadre juridique applicable</li>
+                                                <li>Considérations éthiques</li>
+                                                <li>Autorisations requises</li>
+                                                <li>Limites à respecter</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Élaboration d'un plan de recherche</h4>
+                            <p>Créez un plan détaillé qui guidera votre investigation :</p>
+                            <ol>
+                                <li><strong>Identification des sources potentielles</strong> - Quelles sources d'information seront consultées?</li>
+                                <li><strong>Priorisation</strong> - Dans quel ordre aborder les différentes sources?</li>
+                                <li><strong>Méthodes de collecte</strong> - Quelles techniques seront utilisées?</li>
+                                <li><strong>Critères d'évaluation</strong> - Comment juger de la pertinence et de la fiabilité des informations?</li>
+                                <li><strong>Calendrier</strong> - Quels sont les délais pour chaque étape?</li>
+                                <li><strong>Méthode de documentation</strong> - Comment les informations seront-elles enregistrées?</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important :</strong> Un plan bien conçu doit rester flexible. Soyez prêt à l'adapter en fonction des découvertes et des obstacles rencontrés au cours de l'investigation.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="collection" class="mb-5">
+                    <h2 class="text-info">3. Collecte d'informations</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Catégorisation des sources</h4>
+                            <p>Les sources OSINT peuvent être classées selon différents critères :</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Par type de média</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Web (sites, blogs, forums)</li>
+                                                <li>Réseaux sociaux</li>
+                                                <li>Médias traditionnels</li>
+                                                <li>Bases de données publiques</li>
+                                                <li>Publications académiques</li>
+                                                <li>Documents officiels</li>
+                                                <li>Dark web</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card bg-dark border-info h-100">
+                                        <div class="card-header">Par niveau d'accessibilité</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Surface web (indexé par les moteurs de recherche)</li>
+                                                <li>Deep web (non indexé mais accessible)</li>
+                                                <li>Dark web (nécessite des outils spécifiques)</li>
+                                                <li>Archives (contenu historique)</li>
+                                                <li>Données structurées (API, datasets)</li>
+                                                <li>Données non structurées (texte libre)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Techniques de collecte</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Technique</th>
+                                            <th>Description</th>
+                                            <th>Applications</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Recherche par mots-clés</td>
+                                            <td>Utilisation de termes spécifiques dans les moteurs de recherche</td>
+                                            <td>Recherche générale, découverte initiale</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Opérateurs de recherche avancés</td>
+                                            <td>Utilisation de syntaxes spéciales (Google dorks, etc.)</td>
+                                            <td>Recherche ciblée, découverte de documents spécifiques</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Monitoring</td>
+                                            <td>Surveillance continue de sources spécifiques</td>
+                                            <td>Détection de changements, suivi de l'actualité</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Scraping</td>
+                                            <td>Extraction automatisée de données à partir de sites web</td>
+                                            <td>Collecte à grande échelle, analyse de tendances</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Utilisation d'API</td>
+                                            <td>Accès programmatique aux données de plateformes</td>
+                                            <td>Collecte structurée, analyse quantitative</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recherche par pivot</td>
+                                            <td>Utilisation d'une information pour en découvrir d'autres</td>
+                                            <td>Élargissement de la recherche, découverte de connexions</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Documentation des sources</h4>
+                            <p>Une documentation rigoureuse des sources est essentielle pour :</p>
+                            <ul>
+                                <li>Assurer la traçabilité des informations</li>
+                                <li>Permettre la vérification ultérieure</li>
+                                <li>Évaluer la fiabilité des données</li>
+                                <li>Respecter les exigences légales et éthiques</li>
+                            </ul>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Informations à documenter pour chaque source</div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li><strong>URL ou référence complète</strong> - Localisation précise de l'information</li>
+                                        <li><strong>Date et heure de collecte</strong> - Moment exact de l'acquisition</li>
+                                        <li><strong>Méthode de collecte</strong> - Comment l'information a été obtenue</li>
+                                        <li><strong>Auteur/Éditeur</strong> - Source originale de l'information</li>
+                                        <li><strong>Date de publication</strong> - Quand l'information a été publiée</li>
+                                        <li><strong>Capture d'écran/Archive</strong> - Préservation de l'information telle que vue</li>
+                                        <li><strong>Évaluation préliminaire</strong> - Note sur la fiabilité apparente</li>
+                                        <li><strong>Mots-clés/Tags</strong> - Catégorisation pour faciliter l'analyse</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle"></i> <strong>Conseil :</strong> Utilisez des outils spécialisés comme Hunchly, CherryTree ou même des tableurs pour documenter systématiquement vos sources. La création de templates standardisés peut grandement faciliter ce processus.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="processing" class="mb-5">
+                    <h2 class="text-info">4. Traitement des données</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Évaluation de la fiabilité</h4>
+                            <p>Avant d'analyser les informations collectées, il est crucial d'évaluer leur fiabilité :</p>
+                            
+                            <div class="card bg-dark border-info mb-4">
+                                <div class="card-header">Système d'évaluation Admiralty (exemple)</div>
+                                <div class="card-body">
+                                    <p><strong>Fiabilité de la source :</strong></p>
+                                    <ul>
+                                        <li><strong>A</strong> - Totalement fiable</li>
+                                        <li><strong>B</strong> - Habituellement fiable</li>
+                                        <li><strong>C</strong> - Assez fiable</li>
+                                        <li><strong>D</strong> - Pas habituellement fiable</li>
+                                        <li><strong>E</strong> - Non fiable</li>
+                                        <li><strong>F</strong> - Fiabilité ne pouvant être jugée</li>
+                                    </ul>
+                                    <p><strong>Crédibilité de l'information :</strong></p>
+                                    <ul>
+                                        <li><strong>1</strong> - Confirmée par d'autres sources</li>
+                                        <li><strong>2</strong> - Probablement vraie</li>
+                                        <li><strong>3</strong> - Possiblement vraie</li>
+                                        <li><strong>4</strong> - Douteuse</li>
+                                        <li><strong>5</strong> - Improbable</li>
+                                        <li><strong>6</strong> - Véracité ne pouvant être jugée</li>
+                                    </ul>
+                                    <p><em>Exemple : Une information notée B2 provient d'une source habituellement fiable et est probablement vraie.</em></p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Organisation des données</h4>
+                            <p>Structurez les informations collectées pour faciliter leur analyse :</p>
+                            <ul>
+                                <li><strong>Catégorisation</strong> - Classement par thèmes, entités, périodes, etc.</li>
+                                <li><strong>Chronologie</strong> - Organisation temporelle des événements</li>
+                                <li><strong>Cartographie</strong> - Organisation spatiale des informations</li>
+                                <li><strong>Réseaux</strong> - Visualisation des relations entre entités</li>
+                                <li><strong>Matrices</strong> - Croisement de différentes variables</li>
+                            </ul>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="card bg-dark border-secondary">
+                                        <div class="card-header">Outils d'organisation</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Tableurs (Excel, Google Sheets)</li>
+                                                <li>Bases de données (Access, SQLite)</li>
+                                                <li>Logiciels de prise de notes (OneNote, Obsidian)</li>
+                                                <li>Outils de visualisation (Maltego, Gephi)</li>
+                                                <li>Logiciels de chronologie (Timeline JS)</li>
+                                                <li>Systèmes de gestion de connaissances</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-dark border-secondary">
+                                        <div class="card-header">Techniques de traitement</div>
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>Normalisation des formats</li>
+                                                <li>Extraction d'entités nommées</li>
+                                                <li>Déduplication des informations</li>
+                                                <li>Traduction de contenu</li>
+                                                <li>Conversion de données</li>
+                                                <li>Enrichissement automatique</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-info mt-4">Vérification et corroboration</h4>
+                            <p>Validez les informations collectées avant de procéder à l'analyse :</p>
+                            <ol>
+                                <li><strong>Vérification croisée</strong> - Confirmation par plusieurs sources indépendantes</li>
+                                <li><strong>Contrôle de cohérence</strong> - Recherche de contradictions internes</li>
+                                <li><strong>Vérification factuelle</strong> - Confrontation avec des faits établis</li>
+                                <li><strong>Analyse de la source</strong> - Évaluation de la crédibilité de l'origine</li>
+                                <li><strong>Vérification temporelle</strong> - Confirmation de la chronologie et des dates</li>
+                                <li><strong>Vérification technique</strong> - Validation des aspects techniques (métadonnées, etc.)</li>
+                            </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Attention :</strong> La désinformation est un problème croissant. Soyez particulièrement vigilant face aux informations sensationnelles, trop parfaites ou qui confirment trop bien vos hypothèses initiales.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analysis" class="mb-5">
+                    <h2 class="text-info">5. Analyse</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Types d'analyse</h4>
+                            <p>Différentes approches analytiques peuvent être appliquées aux données OSINT :</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type d'analyse</th>
+                                            <th>Description</th>
+                                            <th>Applications</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Analyse descriptive</td>
+                                            <td>Résumé et description des informations collectées</td>
+                                            <td>Rapports de situation, profils, inventaires</td>

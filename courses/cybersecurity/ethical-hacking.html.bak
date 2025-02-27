@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Hacking Éthique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Hacking Éthique</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 8h</span>
+                            <span class="badge bg-success">Cybersécurité</span>
+                        </div>
+                        <p class="card-text">Ce cours vous introduit aux principes et pratiques du hacking éthique. Vous apprendrez les méthodologies, outils et techniques utilisés par les professionnels de la sécurité pour identifier et corriger les vulnérabilités des systèmes informatiques, tout en respectant un cadre légal et éthique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction au Hacking Éthique</a>
+                            <a class="nav-link" href="#legal-framework">2. Cadre Légal et Éthique</a>
+                            <a class="nav-link" href="#methodology">3. Méthodologie du Hacking Éthique</a>
+                            <a class="nav-link" href="#reconnaissance">4. Techniques de Reconnaissance</a>
+                            <a class="nav-link" href="#vulnerability-assessment">5. Évaluation des Vulnérabilités</a>
+                            <a class="nav-link" href="#exploitation">6. Techniques d'Exploitation</a>
+                            <a class="nav-link" href="#reporting">7. Documentation et Rapports</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction au Hacking Éthique</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Qu'est-ce que le hacking éthique?</h4>
+                            <p>Le hacking éthique est la pratique qui consiste à pénétrer dans un système informatique avec l'autorisation explicite du propriétaire afin d'identifier des vulnérabilités potentielles qui pourraient être exploitées par des acteurs malveillants.</p>
+                            
+                            <h4 class="text-info mt-4">Différence entre hacking éthique et malveillant</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Hacking Éthique</th>
+                                            <th>Hacking Malveillant</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Autorisation explicite</td>
+                                            <td>Sans autorisation</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Objectif d'amélioration de la sécurité</td>
+                                            <td>Objectif d'exploitation ou de nuisance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Divulgation responsable</td>
+                                            <td>Exploitation des vulnérabilités</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="legal-framework" class="mb-5">
+                    <h2 class="text-primary">2. Cadre Légal et Éthique</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Législation applicable</h4>
+                            <p>Avant de commencer toute activité de hacking éthique, il est essentiel de comprendre le cadre légal:</p>
+                            <ul>
+                                <li>Lois sur la protection des données (RGPD en Europe)</li>
+                                <li>Lois sur la cybercriminalité</li>
+                                <li>Législation spécifique à chaque pays</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Autorisations nécessaires</h4>
+                            <p>Éléments essentiels d'une autorisation valide:</p>
+                            <ul>
+                                <li>Accord écrit et signé</li>
+                                <li>Périmètre clairement défini</li>
+                                <li>Durée et horaires des tests</li>
+                                <li>Limitations et restrictions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="methodology" class="mb-5">
+                    <h2 class="text-primary">3. Méthodologie du Hacking Éthique</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Phases principales</h4>
+                            <ol>
+                                <li><strong>Planification et reconnaissance</strong> - Collecte d'informations sur la cible</li>
+                                <li><strong>Scanning</strong> - Identification des systèmes actifs et des services</li>
+                                <li><strong>Énumération</strong> - Collecte d'informations détaillées sur les services</li>
+                                <li><strong>Analyse de vulnérabilités</strong> - Identification des faiblesses</li>
+                                <li><strong>Exploitation</strong> - Tentative d'exploitation des vulnérabilités</li>
+                                <li><strong>Post-exploitation</strong> - Maintien de l'accès et pivotement</li>
+                                <li><strong>Rapport</strong> - Documentation des résultats et recommandations</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Méthodologies standardisées</h4>
+                            <ul>
+                                <li><strong>OSSTMM</strong> (Open Source Security Testing Methodology Manual)</li>
+                                <li><strong>PTES</strong> (Penetration Testing Execution Standard)</li>
+                                <li><strong>OWASP</strong> (pour les applications web)</li>
+                                <li><strong>NIST 800-115</strong> (Technical Guide to Information Security Testing)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="reconnaissance" class="mb-5">
+                    <h2 class="text-primary">4. Techniques de Reconnaissance</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Reconnaissance passive</h4>
+                            <p>Collecte d'informations sans interagir directement avec la cible:</p>
+                            <ul>
+                                <li>OSINT (Open Source Intelligence)</li>
+                                <li>Analyse des réseaux sociaux</li>
+                                <li>Recherche dans les moteurs de recherche</li>
+                                <li>Analyse des informations Whois et DNS</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Reconnaissance active</h4>
+                            <p>Interaction directe avec les systèmes cibles:</p>
+                            <ul>
+                                <li>Scan de ports (Nmap)</li>
+                                <li>Énumération des services</li>
+                                <li>Fingerprinting des systèmes d'exploitation</li>
+                                <li>Identification des technologies utilisées</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Outils de reconnaissance</h4>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Utilisation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Shodan</td>
+                                            <td>Recherche d'appareils connectés à Internet</td>
+                                        </tr>
+                                        <tr>
+                                            <td>theHarvester</td>
+                                            <td>Collecte d'emails, noms de domaine et sous-domaines</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maltego</td>
+                                            <td>Visualisation des relations entre les informations</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recon-ng</td>
+                                            <td>Framework de reconnaissance</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="vulnerability-assessment" class="mb-5">
+                    <h2 class="text-primary">5. Évaluation des Vulnérabilités</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Types de vulnérabilités</h4>
+                            <ul>
+                                <li>Vulnérabilités de configuration</li>
+                                <li>Vulnérabilités logicielles</li>
+                                <li>Vulnérabilités de conception</li>
+                                <li>Vulnérabilités opérationnelles</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Outils d'analyse de vulnérabilités</h4>
+                            <ul>
+                                <li><strong>Nessus</strong> - Scanner de vulnérabilités complet</li>
+                                <li><strong>OpenVAS</strong> - Alternative open source à Nessus</li>
+                                <li><strong>Nikto</strong> - Scanner de vulnérabilités web</li>
+                                <li><strong>OWASP ZAP</strong> - Proxy d'interception et scanner web</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Analyse manuelle vs automatisée</h4>
+                            <p>Les scanners automatisés peuvent manquer certaines vulnérabilités complexes ou produire des faux positifs. Une approche hybride combinant outils automatisés et vérification manuelle est généralement la plus efficace.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exploitation" class="mb-5">
+                    <h2 class="text-primary">6. Techniques d'Exploitation</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Exploitation de vulnérabilités communes</h4>
+                            <ul>
+                                <li>Injection SQL</li>
+                                <li>Cross-Site Scripting (XSS)</li>
+                                <li>Exploitation de services vulnérables</li>
+                                <li>Élévation de privilèges</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Frameworks d'exploitation</h4>
+                            <ul>
+                                <li><strong>Metasploit</strong> - Framework d'exploitation le plus populaire</li>
+                                <li><strong>BeEF</strong> - Framework d'exploitation de navigateurs</li>
+                                <li><strong>Empire</strong> - Framework post-exploitation</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Création de payloads</h4>
+                            <p>Les payloads sont des charges utiles exécutées sur le système cible après exploitation d'une vulnérabilité:</p>
+                            <ul>
+                                <li>Reverse shells</li>
+                                <li>Bind shells</li>
+                                <li>Exécution de commandes</li>
+                                <li>Extraction de données</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> L'exploitation de vulnérabilités doit toujours être réalisée dans un cadre légal, avec autorisation explicite et en minimisant les risques pour les systèmes cibles.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="reporting" class="mb-5">
+                    <h2 class="text-primary">7. Documentation et Rapports</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h4 class="text-info">Structure d'un rapport de test</h4>
+                            <ol>
+                                <li><strong>Résumé exécutif</strong> - Pour les décideurs non techniques</li>
+                                <li><strong>Méthodologie</strong> - Approche et outils utilisés</li>
+                                <li><strong>Résultats détaillés</strong> - Vulnérabilités identifiées</li>
+                                <li><strong>Évaluation des risques</strong> - Impact et probabilité</li>
+                                <li><strong>Recommandations</strong> - Actions correctives</li>
+                                <li><strong>Annexes techniques</strong> - Preuves et détails techniques</li>
+                            </ol>
+                            
+                            <h4 class="text-info mt-4">Classification des vulnérabilités</h4>
+                            <p>Les vulnérabilités sont généralement classées selon leur gravité:</p>
+                            <ul>
+                                <li><strong>Critique</strong> - Compromission totale du système</li>
+                                <li><strong>Élevée</strong> - Accès non autorisé significatif</li>
+                                <li><strong>Moyenne</strong> - Accès limité ou divulgation d'informations</li>
+                                <li><strong>Faible</strong> - Impact minimal sur la sécurité</li>
+                                <li><strong>Informative</strong> - Observations sans impact direct</li>
+                            </ul>
+                            
+                            <h4 class="text-info mt-4">Suivi et remédiation</h4>
+                            <p>Le processus ne s'arrête pas à la remise du rapport:</p>
+                            <ul>
+                                <li>Assistance à la remédiation</li>
+                                <li>Tests de validation après corrections</li>
+                                <li>Planification de tests récurrents</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+    <script src="../../js/background.js"></script>
+</body>
+</html>

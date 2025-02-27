@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Discord</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body class="bg-dark text-light">
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- Canvas pour le background animé -->
+    <canvas id="background-canvas"></canvas>
+
+    <main class="container mt-5 pt-5">
+        <section class="mb-5">
+            <h1 class="display-4 mb-4 text-primary">Communauté Discord</h1>
+            <p class="lead">Rejoignez notre communauté Discord pour échanger avec d'autres passionnés de cybersécurité et de game hacking.</p>
+        </section>
+
+        <div class="row mb-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body text-center">
+                        <h2 class="card-title text-primary mb-4">Rejoindre le serveur</h2>
+                        <p class="card-text mb-4">Notre serveur Discord est un espace d'échange, d'entraide et de partage pour tous les membres de la communauté Trinity.</p>
+                        
+                        <div class="d-grid gap-2 col-md-6 mx-auto">
+                            <button class="btn btn-lg btn-discord" disabled>
+                                <i class="fab fa-discord me-2"></i> Rejoindre Discord
+                            </button>
+                            <small class="text-muted mt-2">Le lien d'invitation sera bientôt disponible</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-secondary h-100">
+                    <div class="card-body">
+                        <h3 class="card-title text-secondary">Entraide</h3>
+                        <p class="card-text">Posez vos questions et obtenez de l'aide de la part de la communauté et des experts.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Assistance technique</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Résolution de problèmes</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Conseils personnalisés</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-secondary h-100">
+                    <div class="card-body">
+                        <h3 class="card-title text-secondary">Ressources</h3>
+                        <p class="card-text">Accédez à des ressources exclusives partagées par la communauté.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Tutoriels supplémentaires</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Outils et scripts</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Documentation avancée</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-secondary h-100">
+                    <div class="card-body">
+                        <h3 class="card-title text-secondary">Événements</h3>
+                        <p class="card-text">Participez à des événements exclusifs organisés sur notre serveur Discord.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Ateliers en direct</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Sessions de questions-réponses</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Défis et CTF internes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-4">
+            <i class="fas fa-info-circle me-2"></i> Notre serveur Discord est en cours de préparation. Revenez bientôt pour obtenir le lien d'invitation.
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/include-nav.js"></script>
+    <script src="../js/background.js"></script>
+    <style>
+        .btn-discord {
+            background-color: #5865F2;
+            color: white;
+        }
+        .btn-discord:hover:not([disabled]) {
+            background-color: #4752C4;
+            color: white;
+        }
+    </style>
+</body>
+</html>

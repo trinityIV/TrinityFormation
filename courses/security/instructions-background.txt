@@ -1,0 +1,28 @@
+INSTRUCTIONS POUR AJOUTER LE BACKGROUND ANIMÉ
+
+Pour ajouter le background animé à toutes les pages de la section Sécurité, suivez ces étapes pour chaque fichier HTML :
+
+1. ÉTAPE 1 : AJOUTER LE CANVAS
+   Après la div de navigation et avant la balise main, ajoutez :
+   
+   <!-- Canvas pour le background animé -->
+   <canvas id="background-canvas"></canvas>
+
+2. ÉTAPE 2 : AJOUTER LE SCRIPT
+   Avant la fermeture de la balise body, ajoutez :
+   
+   <script src="../../js/background.js"></script>
+
+FICHIERS À MODIFIER :
+- advanced.html
+- basics.html
+- firewall-config.html
+- network-security.html
+- pentesting.html
+- secure-coding.html
+- web-vulnerabilities.html
+
+EXEMPLE DE CODE COMPLET :
+Voir le fichier background-template.html pour un exemple complet.
+
+Note : Vous pouvez utiliser un éditeur de texte avec la fonction "rechercher et remplacer" pour effectuer ces modifications rapidement sur tous les fichiers.

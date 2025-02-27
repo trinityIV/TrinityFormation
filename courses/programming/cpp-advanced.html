@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - C++ Avancé</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body><div id="navigation-placeholder"></div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html">Trinity</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            Programming
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><h6 class="dropdown-header">C++</h6></li>
+                            <li><a class="dropdown-item" href="cpp-fundamentals.html">Fondamentaux C++</a></li>
+                            <li><a class="dropdown-item active" href="cpp-advanced.html">C++ Avancé</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Canvas -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">Cours : C++ Avancé</h1>
+
+        <!-- Course Progress -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" 
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                0% Complété
+            </div>
+        </div>
+
+        <!-- Templates -->
+        <section class="mb-5 content-section" id="templates">
+            <h2>Templates Avancés</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Template Metaprogramming</h3>
+                    <pre><code class="cpp">// Calcul factoriel à la compilation
+template<unsigned int N>
+struct Factorial {
+    static const unsigned int value = N * Factorial<N-1>::value;
+};
+
+template<>
+struct Factorial<0> {
+    static const unsigned int value = 1;
+};
+
+// SFINAE
+template<typename T>
+struct has_iterator {
+private:
+    template<typename U> static char test(typename U::iterator*);
+    template<typename U> static int test(...);
+public:
+    static const bool value = sizeof(test<T>(0)) == sizeof(char);
+};</code></pre>
+
+                    <h3>Variadic Templates</h3>
+                    <pre><code class="cpp">template<typename... Args>
+void logger(Args... args) {
+    (std::cout << ... << args) << std::endl;
+}
+
+template<typename T, typename... Args>
+T* createObject(Args&&... args) {
+    return new T(std::forward<Args>(args)...);
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Management -->
+        <section class="mb-5 content-section" id="memory">
+            <h2>Gestion Avancée de la Mémoire</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Smart Pointers Personnalisés</h3>
+                    <pre><code class="cpp">template<typename T>
+class CustomUniquePtr {
+    T* ptr;
+public:
+    explicit CustomUniquePtr(T* p = nullptr) : ptr(p) {}
+    ~CustomUniquePtr() { delete ptr; }
+    
+    CustomUniquePtr(const CustomUniquePtr&) = delete;
+    CustomUniquePtr& operator=(const CustomUniquePtr&) = delete;
+    
+    CustomUniquePtr(CustomUniquePtr&& other) noexcept
+        : ptr(other.ptr) {
+        other.ptr = nullptr;
+    }
+    
+    T* get() const { return ptr; }
+    T& operator*() const { return *ptr; }
+    T* operator->() const { return ptr; }
+};</code></pre>
+
+                    <h3>Allocateurs Personnalisés</h3>
+                    <pre><code class="cpp">template<typename T>
+class PoolAllocator {
+    static constexpr size_t POOL_SIZE = 1024;
+    char pool[POOL_SIZE];
+    size_t current_pos = 0;
+
+public:
+    T* allocate(size_t n) {
+        size_t bytes = n * sizeof(T);
+        if (current_pos + bytes > POOL_SIZE)
+            throw std::bad_alloc();
+            
+        T* result = reinterpret_cast<T*>(&pool[current_pos]);
+        current_pos += bytes;
+        return result;
+    }
+
+    void deallocate(T* p, size_t n) {
+        // Simplified pool management
+    }
+};</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Concurrency -->
+        <section class="mb-5 content-section" id="concurrency">
+            <h2>Programmation Concurrente</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Thread Pool</h3>
+                    <pre><code class="cpp">class ThreadPool {
+    std::vector<std::thread> workers;
+    std::queue<std::function<void()>> tasks;
+    std::mutex queue_mutex;
+    std::condition_variable condition;
+    bool stop;
+
+public:
+    ThreadPool(size_t threads) : stop(false) {
+        for(size_t i = 0; i < threads; ++i)
+            workers.emplace_back([this] {
+                while(true) {
+                    std::function<void()> task;
+                    {
+                        std::unique_lock<std::mutex> lock(queue_mutex);
+                        condition.wait(lock,
+                            [this]{ return stop || !tasks.empty(); });
+                        if(stop && tasks.empty())
+                            return;
+                        task = std::move(tasks.front());
+                        tasks.pop();
+                    }
+                    task();
+                }
+            });
+    }
+
+    template<class F>
+    void enqueue(F&& f) {
+        {
+            std::unique_lock<std::mutex> lock(queue_mutex);
+            tasks.emplace(std::forward<F>(f));
+        }
+        condition.notify_one();
+    }
+};</code></pre>
+
+                    <h3>Lock-Free Data Structures</h3>
+                    <pre><code class="cpp">template<typename T>
+class LockFreeStack {
+    struct Node {
+        T data;
+        std::atomic<Node*> next;
+        Node(const T& d) : data(d), next(nullptr) {}
+    };
+    
+    std::atomic<Node*> head;
+
+public:
+    void push(T value) {
+        Node* new_node = new Node(value);
+        new_node->next = head.load();
+        while(!head.compare_exchange_weak(new_node->next, new_node));
+    }
+
+    bool pop(T& result) {
+        Node* old_head = head.load();
+        while(old_head && 
+              !head.compare_exchange_weak(old_head, old_head->next));
+        if(!old_head) return false;
+        result = old_head->data;
+        delete old_head;
+        return true;
+    }
+};</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Programming -->
+        <section class="mb-5 content-section" id="network">
+            <h2>Programmation Réseau</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Socket Programming</h3>
+                    <pre><code class="cpp">#include <boost/asio.hpp>
+
+class TCPServer {
+    boost::asio::io_context io_context;
+    boost::asio::ip::tcp::acceptor acceptor;
+
+public:
+    TCPServer(uint16_t port)
+        : acceptor(io_context,
+          boost::asio::ip::tcp::endpoint(
+              boost::asio::ip::tcp::v4(), port)) {
+        accept();
+    }
+
+private:
+    void accept() {
+        acceptor.async_accept(
+            [this](boost::system::error_code ec,
+                   boost::asio::ip::tcp::socket socket) {
+                if (!ec) {
+                    std::make_shared<Session>(std::move(socket))->start();
+                }
+                accept();
+            });
+    }
+};</code></pre>
+
+                    <h3>Packet Sniffing</h3>
+                    <pre><code class="cpp">#include <pcap.h>
+
+class PacketSniffer {
+    pcap_t* handle;
+
+public:
+    PacketSniffer(const char* device) {
+        char errbuf[PCAP_ERRBUF_SIZE];
+        handle = pcap_open_live(device, BUFSIZ, 1, 1000, errbuf);
+    }
+
+    void start_capture() {
+        pcap_loop(handle, 0, packet_handler, nullptr);
+    }
+
+    static void packet_handler(u_char *args, 
+                             const struct pcap_pkthdr *header,
+                             const u_char *packet) {
+        // Analyse des paquets
+    }
+};</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Tools -->
+        <section class="mb-5 content-section" id="security">
+            <h2>Outils de Sécurité</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Process Injection</h3>
+                    <pre><code class="cpp">#include <windows.h>
+
+class ProcessInjector {
+public:
+    bool inject(DWORD pid, const char* dll_path) {
+        HANDLE process = OpenProcess(PROCESS_ALL_ACCESS, 
+                                   FALSE, pid);
+        if (!process) return false;
+
+        LPVOID addr = VirtualAllocEx(process, nullptr,
+            strlen(dll_path) + 1, MEM_COMMIT, PAGE_READWRITE);
+        
+        WriteProcessMemory(process, addr, dll_path,
+            strlen(dll_path) + 1, nullptr);
+        
+        HANDLE thread = CreateRemoteThread(process, nullptr, 0,
+            (LPTHREAD_START_ROUTINE)LoadLibraryA,
+            addr, 0, nullptr);
+            
+        if (thread) {
+            WaitForSingleObject(thread, INFINITE);
+            CloseHandle(thread);
+        }
+        
+        VirtualFreeEx(process, addr, 0, MEM_RELEASE);
+        CloseHandle(process);
+        return thread != nullptr;
+    }
+};</code></pre>
+
+                    <h3>Memory Scanner</h3>
+                    <pre><code class="cpp">class MemoryScanner {
+public:
+    template<typename T>
+    std::vector<uintptr_t> scan(HANDLE process, T value) {
+        std::vector<uintptr_t> addresses;
+        MEMORY_BASIC_INFORMATION mbi;
+        uintptr_t addr = 0;
+
+        while (VirtualQueryEx(process, (LPCVOID)addr,
+                            &mbi, sizeof(mbi))) {
+            if (mbi.State == MEM_COMMIT &&
+                mbi.Protect & PAGE_READWRITE) {
+                
+                std::vector<char> buffer(mbi.RegionSize);
+                SIZE_T bytesRead;
+                
+                ReadProcessMemory(process, mbi.BaseAddress,
+                    buffer.data(), mbi.RegionSize, &bytesRead);
+                
+                for (size_t i = 0; i < bytesRead - sizeof(T); i++) {
+                    if (*(T*)&buffer[i] == value) {
+                        addresses.push_back((uintptr_t)mbi.BaseAddress + i);
+                    }
+                }
+            }
+            addr += mbi.RegionSize;
+        }
+        return addresses;
+    }
+};</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reverse Engineering -->
+        <section class="mb-5 content-section" id="reverse">
+            <h2>Reverse Engineering</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>PE Parser</h3>
+                    <pre><code class="cpp">class PEParser {
+    HANDLE file_handle;
+    HANDLE mapping;
+    LPVOID base_addr;
+
+public:
+    bool parse(const char* filename) {
+        file_handle = CreateFileA(filename, GENERIC_READ,
+            FILE_SHARE_READ, nullptr, OPEN_EXISTING,
+            FILE_ATTRIBUTE_NORMAL, nullptr);
+            
+        if (file_handle == INVALID_HANDLE_VALUE)
+            return false;
+
+        mapping = CreateFileMapping(file_handle, nullptr,
+            PAGE_READONLY, 0, 0, nullptr);
+            
+        if (!mapping) return false;
+
+        base_addr = MapViewOfFile(mapping, FILE_MAP_READ,
+            0, 0, 0);
+            
+        if (!base_addr) return false;
+
+        auto dos_header = (PIMAGE_DOS_HEADER)base_addr;
+        auto nt_headers = (PIMAGE_NT_HEADERS)((BYTE*)base_addr +
+            dos_header->e_lfanew);
+
+        // Analyse des en-têtes PE
+        return true;
+    }
+};</code></pre>
+
+                    <h3>Hook Engine</h3>
+                    <pre><code class="cpp">class HookEngine {
+public:
+    template<typename T>
+    bool hook_function(T* original_func, T* hook_func) {
+        DWORD old_protect;
+        VirtualProtect(original_func, sizeof(T),
+            PAGE_EXECUTE_READWRITE, &old_protect);
+
+        // Sauvegarde des premiers octets
+        memcpy(original_bytes, original_func, sizeof(T));
+
+        // Écriture du jump vers la fonction hook
+        *original_func = hook_func;
+
+        VirtualProtect(original_func, sizeof(T),
+            old_protect, &old_protect);
+        return true;
+    }
+
+    template<typename T>
+    bool unhook_function(T* func) {
+        DWORD old_protect;
+        VirtualProtect(func, sizeof(T),
+            PAGE_EXECUTE_READWRITE, &old_protect);
+
+        // Restauration des octets originaux
+        memcpy(func, original_bytes, sizeof(T));
+
+        VirtualProtect(func, sizeof(T),
+            old_protect, &old_protect);
+        return true;
+    }
+
+private:
+    uint8_t original_bytes[64];
+};</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practical Exercise -->
+        <section class="mb-5 content-section" id="exercise">
+            <h2>Exercice Pratique</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Projet : Game Hacking Framework</h3>
+                    <p>Créez un framework de game hacking avec les fonctionnalités suivantes :</p>
+                    <ul>
+                        <li>Injection de DLL dans un processus cible</li>
+                        <li>Scanner de mémoire multi-thread</li>
+                        <li>Hook de fonctions</li>
+                        <li>Manipulation de la mémoire du processus</li>
+                        <li>Interface utilisateur en temps réel</li>
+                    </ul>
+
+                    <div class="alert alert-info">
+                        <strong>Conseil :</strong> Utilisez les concepts avancés vus dans le cours : templates pour la généricité, smart pointers pour la gestion mémoire, et programmation concurrente pour les performances.
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Note :</strong> Ce projet doit être utilisé uniquement dans un environnement de test contrôlé et à des fins éducatives.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>Trinity Project © 2025 - Cours C++ Avancé</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // Gestion de la progression
+        function updateProgress() {
+            const sections = document.querySelectorAll('.content-section');
+            const progressBar = document.querySelector('.progress-bar');
+            const completed = Math.round((Array.from(sections).filter(section => 
+                section.getBoundingClientRect().top < window.innerHeight/2).length / sections.length) * 100);
+            progressBar.style.width = completed + '%';
+            progressBar.textContent = completed + '% Complété';
+            progressBar.setAttribute('aria-valuenow', completed);
+        }
+
+        // Mise à jour de la progression au scroll
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+<script src="../../js/background.js"></script><script src="../../js/navigation.js"></script></body>
+</html>
+

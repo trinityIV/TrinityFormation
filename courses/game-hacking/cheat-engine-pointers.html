@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity - Cheat Engine Pointeurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark text-light"><canvas id="background-canvas"></canvas>
+    <!-- Placeholder pour la navigation -->
+    <div id="navigation-placeholder"></div>
+
+    <main class="container mt-5 pt-5">
+        <!-- En-tête du cours -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-primary">
+                    <div class="card-body">
+                        <h1 class="card-title text-primary">Cheat Engine - Les Pointeurs</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">Niveau: Intermédiaire</span>
+                            <span class="badge bg-info me-2">Durée: 3h</span>
+                            <span class="badge bg-success">Game Hacking</span>
+                        </div>
+                        <p class="card-text">Maîtrisez l'utilisation des pointeurs dans Cheat Engine pour créer des modifications de mémoire persistantes. Apprenez à suivre les chaînes de pointeurs et à comprendre les structures de données dynamiques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div class="progress mb-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="courseProgress"></div>
+        </div>
+
+        <!-- Contenu du cours -->
+        <div class="row">
+            <!-- Table des matières -->
+            <div class="col-md-3">
+                <div class="card bg-dark border-secondary position-sticky" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Table des matières</h5>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#introduction">1. Introduction aux Pointeurs</a>
+                            <a class="nav-link" href="#pointer-scan">2. Pointer Scan</a>
+                            <a class="nav-link" href="#pointer-chains">3. Chaînes de Pointeurs</a>
+                            <a class="nav-link" href="#advanced-techniques">4. Techniques Avancées</a>
+                            <a class="nav-link" href="#exercises">5. Exercices</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="col-md-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="text-primary">1. Introduction aux Pointeurs</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Qu'est-ce qu'un Pointeur ?</h3>
+                            <p>Un pointeur est une variable qui contient l'adresse mémoire d'une autre variable. Dans le contexte du game hacking, les pointeurs sont essentiels car :</p>
+                            <ul>
+                                <li>Les adresses mémoire directes changent à chaque redémarrage du jeu</li>
+                                <li>Les pointeurs permettent de retrouver des données dynamiques</li>
+                                <li>Ils sont utilisés pour accéder aux structures de données complexes</li>
+                            </ul>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> Les pointeurs sont comme des panneaux indicateurs qui vous guident vers les données que vous recherchez.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pointer-scan" class="mb-5">
+                    <h2 class="text-primary">2. Pointer Scan</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Réaliser un Pointer Scan</h3>
+                            <ol>
+                                <li>Trouvez d'abord l'adresse directe de votre valeur</li>
+                                <li>Cliquez droit sur l'adresse → Pointer scan for this address</li>
+                                <li>Configurez les paramètres de scan :
+                                    <ul>
+                                        <li>Max level : profondeur de la recherche</li>
+                                        <li>Offset boundaries : limites des offsets</li>
+                                        <li>Pointer boundaries : limites des pointeurs</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i> Plus les paramètres sont larges, plus le scan prendra du temps.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pointer-chains" class="mb-5">
+                    <h2 class="text-primary">3. Chaînes de Pointeurs</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Comprendre les Chaînes de Pointeurs</h3>
+                            <p>Une chaîne de pointeurs est une série d'adresses et d'offsets qui mènent à votre donnée :</p>
+                            <pre><code class="language-text">Base → Offset1 → Offset2 → ... → Valeur
+[Base+8] → [Résultat+C] → Valeur finale</code></pre>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Terme</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Base</td>
+                                            <td>Adresse de départ (souvent un module du jeu)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Offset</td>
+                                            <td>Décalage à partir d'une adresse</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="advanced-techniques" class="mb-5">
+                    <h2 class="text-primary">4. Techniques Avancées</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Optimisation des Pointeurs</h3>
+                            <div class="accordion" id="advancedTechniques">
+                                <div class="accordion-item bg-dark">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#multiLevel">
+                                            Pointer Map
+                                        </button>
+                                    </h2>
+                                    <div id="multiLevel" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <p>Créez une carte des pointeurs pour visualiser les relations entre les structures de données :</p>
+                                            <ol>
+                                                <li>Identifiez les pointeurs stables</li>
+                                                <li>Documentez les offsets importants</li>
+                                                <li>Testez la persistance après redémarrage</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exercises" class="mb-5">
+                    <h2 class="text-primary">5. Exercices</h2>
+                    <div class="card bg-dark border-secondary mb-4">
+                        <div class="card-body">
+                            <h3>Exercices Pratiques</h3>
+                            <div class="alert alert-success mb-4">
+                                <i class="fas fa-tasks"></i> Complétez ces exercices pour maîtriser les pointeurs
+                            </div>
+                            <ol>
+                                <li>Lancez le tutoriel de pointeurs Cheat Engine</li>
+                                <li>Trouvez un pointeur stable pour la santé</li>
+                                <li>Créez une structure avec plusieurs pointeurs</li>
+                                <li>Testez la persistance après redémarrage</li>
+                            </ol>
+                            <div class="alert alert-info">
+                                <i class="fas fa-lightbulb"></i> Conseil : Commencez par des jeux simples pour pratiquer avant de passer à des jeux plus complexes.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="../../js/include-nav.js"></script>
+    <script>
+        function updateProgress() {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+            let totalSections = sections.length;
+            let completedSections = 0;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.75) {
+                    completedSections++;
+                }
+            });
+
+            const progress = (completedSections / totalSections) * 100;
+            document.getElementById('courseProgress').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+<script src="../../js/background.js"></script><script src="../../js/navigation.js"></script></body>
+</html>
+
