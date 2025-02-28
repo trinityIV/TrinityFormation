@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Pro - Assistant IA</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Prism CSS for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23001000%22 /><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300ff00%22 rx=%225%22 /></svg>" type="image/svg+xml">
+    <style>
+        .chat-container {
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: rgba(30, 30, 30, 0.6);
+        }
+        
+        .chat-input-container {
+            padding: 15px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-top: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+        
+        .message-user {
+            margin-left: auto;
+            background-color: rgba(0, 255, 0, 0.2);
+            border-radius: 15px 15px 0 15px;
+            padding: 10px 15px;
+        }
+        
+        .message-ai {
+            margin-right: auto;
+            background-color: rgba(52, 152, 219, 0.2);
+            border-radius: 15px 15px 15px 0;
+            padding: 10px 15px;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .code-block {
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: #00ff00;
+            color: #121212;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .tutorial-card {
+            border-left: 4px solid #00ff00;
+        }
+        
+        .ai-features-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .ai-features-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.1);
+        }
+        
+        .ai-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Particles Background -->
+    <div id="particles-js" class="particles-container"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 navbar-blur">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/index.html">
+                <div class="logo-icon me-2">
+                    <i class="fas fa-cube fa-lg text-success"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="fw-bold">Trinity</span><span class="text-success fw-bold">Pro</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCourses" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Cours
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="/cours/index.html">Tous les cours</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Cybersécurité</h6></li>
+                            <li><a class="dropdown-item" href="/cours/cybersecurite/hacking-ethique.html">Hacking Éthique</a></li>
+                            <li><a class="dropdown-item" href="/cours/cybersecurite/tests-intrusion.html">Tests d'Intrusion</a></li>
+                            <li><a class="dropdown-item" href="/cours/cybersecurite/developpement-exploits.html">Développement d'Exploits</a></li>
+                            <li><a class="dropdown-item" href="/cours/cybersecurite/cadre-legal-ethique.html">Cadre Légal et Éthique</a></li>
+                            <li><a class="dropdown-item" href="/cours/cybersecurite/documentation-rapports.html">Documentation et Rapports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Game Hacking</h6></li>
+                            <li><a class="dropdown-item" href="/cours/game-hacking/cheat-engine-basics.html">Cheat Engine Basics</a></li>
+                            <li><a class="dropdown-item" href="/cours/game-hacking/ida-pro-basics.html">IDA Pro Basics</a></li>
+                            <li><a class="dropdown-item" href="/cours/game-hacking/anticheat/contournement-introduction.html">Contournement Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Programmation</h6></li>
+                            <li><a class="dropdown-item" href="/cours/programmation/cpp/fondamentaux.html">C++ Fondamentaux</a></li>
+                            <li><a class="dropdown-item" href="/cours/programmation/cpp/avance.html">C++ Avancé</a></li>
+                            <li><a class="dropdown-item" href="/cours/programmation/cpp/cpp-pour-anticheat.html">C++ pour Anti-Cheat</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">OSINT</h6></li>
+                            <li><a class="dropdown-item" href="/cours/osint/introduction.html">Introduction</a></li>
+                            <li><a class="dropdown-item" href="/cours/osint/reseaux-sociaux.html">Réseaux Sociaux</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-book me-1"></i> Ressources
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="/ressources/bibliotheque.html">Bibliothèque</a></li>
+                            <li><a class="dropdown-item" href="/ressources/exercices.html">Exercices</a></li>
+                            <li><a class="dropdown-item" href="/ressources/forum.html">Forum</a></li>
+                            <li><a class="dropdown-item" href="/ressources/faq.html">FAQ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Téléchargements</h6></li>
+                            <li><a class="dropdown-item" href="/ressources/cheatsheets.html">Cheatsheets</a></li>
+                            <li><a class="dropdown-item" href="/ressources/templates.html">Templates</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i> Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><h6 class="dropdown-header">Essentiels</h6></li>
+                            <li><a class="dropdown-item" href="/outils/outils-gratuits.html">Outils Gratuits</a></li>
+                            <li><a class="dropdown-item" href="/outils/outils-developpement.html">Outils de Développement</a></li>
+                            <li><a class="dropdown-item" href="/outils/outils-pratiques.html">Outils Pratiques</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Spécialisés</h6></li>
+                            <li><a class="dropdown-item" href="/outils/game-hacking.html">Game Hacking</a></li>
+                            <li><a class="dropdown-item" href="/outils/moteurs-jeux.html">Moteurs de Jeux</a></li>
+                            <li><a class="dropdown-item" href="/outils/mobile-hacking.html">Mobile Hacking</a></li>
+                            <li><a class="dropdown-item" href="/outils/protection.html">Protection</a></li>
+                            <li><a class="dropdown-item" href="/outils/techniques-avancees.html">Techniques Avancées</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users me-1"></i> Communauté
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-blur">
+                            <li><a class="dropdown-item" href="/communauté/evenements.html">Événements</a></li>
+                            <li><a class="dropdown-item" href="/communauté/discord.html">Discord</a></li>
+                            <li><a class="dropdown-item" href="/communauté/contribuer.html">Contribuer</a></li>
+                            <li><a class="dropdown-item" href="/communauté/partenaires.html">Partenaires</a></li>
+                            <li><a class="dropdown-item active" href="/communauté/assistant-ia.html">Assistant IA</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-success btn-glow" href="/connexion.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-5 mt-5">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h1 class="display-4 text-success fw-bold">Assistant IA</h1>
+                <p class="lead text-light-muted">Découvrez notre assistant IA propulsé par Cloudflare Workers AI, conçu pour vous aider dans votre apprentissage de la cybersécurité et du hacking éthique.</p>
+            </div>
+        </div>
+
+        <!-- Chat Demo Section -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="chat-container border border-success" data-aos="fade-up">
+                    <div class="chat-messages">
+                        <div class="message message-ai">
+                            <div class="message-content">
+                                Bonjour ! Je suis l'assistant IA de Trinity Pro. Comment puis-je vous aider aujourd'hui avec vos questions sur la cybersécurité, le hacking éthique ou la programmation ?
+                            </div>
+                            <div class="message-time">14:25</div>
+                        </div>
+                        <div class="message message-user">
+                            <div class="message-content">
+                                Peux-tu m'expliquer ce qu'est une attaque XSS ?
+                            </div>
+                            <div class="message-time">14:26</div>
+                        </div>
+                        <div class="message message-ai">
+                            <div class="message-content">
+                                Une attaque XSS (Cross-Site Scripting) est une vulnérabilité web qui permet à un attaquant d'injecter du code JavaScript malveillant dans une page web consultée par d'autres utilisateurs. Il existe trois types principaux de XSS :
+                                <br><br>
+                                1. <strong>XSS Réfléchi</strong> : Le code malveillant est inclus dans la requête envoyée au serveur et "réfléchi" dans la réponse immédiate.
+                                <br><br>
+                                2. <strong>XSS Stocké</strong> : Le code malveillant est stocké sur le serveur (dans une base de données par exemple) et est servi à chaque fois qu'un utilisateur accède à la page affectée.
+                                <br><br>
+                                3. <strong>XSS basé sur le DOM</strong> : L'attaque se produit entièrement dans le navigateur lorsque le JavaScript modifie le DOM de manière non sécurisée.
+                                <br><br>
+                                Les conséquences peuvent inclure le vol de cookies de session, la redirection vers des sites malveillants, ou l'exécution d'actions non autorisées au nom de l'utilisateur.
+                            </div>
+                            <div class="message-time">14:27</div>
+                        </div>
+                        <div class="message message-user">
+                            <div class="message-content">
+                                Comment puis-je me protéger contre ce type d'attaque ?
+                            </div>
+                            <div class="message-time">14:28</div>
+                        </div>
+                        <div class="message message-ai">
+                            <div class="message-content">
+                                Pour vous protéger contre les attaques XSS, voici les meilleures pratiques :
+                                <br><br>
+                                <strong>Pour les développeurs :</strong>
+                                <br>
+                                - Échapper toutes les données utilisateur avant de les insérer dans le HTML
+                                <br>
+                                - Utiliser des en-têtes de sécurité comme Content-Security-Policy (CSP)
+                                <br>
+                                - Implémenter une validation stricte des entrées côté serveur
+                                <br>
+                                - Utiliser des frameworks modernes qui échappent automatiquement les données
+                                <br>
+                                - Encoder correctement les caractères spéciaux (HTML, URL, JavaScript)
+                                <br><br>
+                                <strong>Pour les utilisateurs :</strong>
+                                <br>
+                                - Maintenir votre navigateur et vos extensions à jour
+                                <br>
+                                - Utiliser des extensions de sécurité comme NoScript ou uBlock Origin
+                                <br>
+                                - Éviter de cliquer sur des liens suspects
+                                <br>
+                                - Se déconnecter des sites sensibles après utilisation
+                                <br>
+                                - Utiliser l'authentification à deux facteurs quand c'est possible
+                            </div>
+                            <div class="message-time">14:29</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark-card border-secondary text-light" placeholder="Posez votre question...">
+                            <button class="btn btn-success">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Features -->
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <h2 class="text-success mb-4">Fonctionnalités de l'Assistant IA</h2>
+            </div>
+
+            <!-- Feature Card 1 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="card bg-dark ai-features-card border-success">
+                    <div class="card-body text-center">
+                        <div class="ai-icon text-success">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="card-title text-success">Assistance Éducative</h4>
+                        <p class="card-text text-light-muted">Obtenez des explications détaillées sur des concepts complexes de cybersécurité, de programmation et de hacking éthique, adaptées à votre niveau de connaissance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 2 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card bg-dark ai-features-card border-primary">
+                    <div class="card-body text-center">
+                        <div class="ai-icon text-primary">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 class="card-title text-primary">Aide au Code</h4>
+                        <p class="card-text text-light-muted">Recevez de l'aide pour déboguer votre code, comprendre des erreurs, ou obtenir des exemples de code pour résoudre des problèmes spécifiques.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 3 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card bg-dark ai-features-card border-warning">
+                    <div class="card-body text-center">
+                        <div class="ai-icon text-warning">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="card-title text-warning">Conseils de Sécurité</h4>
+                        <p class="card-text text-light-muted">Obtenez des recommandations personnalisées pour sécuriser vos applications, systèmes et réseaux contre les menaces actuelles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 4 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card bg-dark ai-features-card border-danger">
+                    <div class="card-body text-center">
+                        <div class="ai-icon text-danger">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <h4 class="card-title text-danger">Analyse de Vulnérabilités</h4>
+                        <p class="card-text text-light-muted">Discutez des vulnérabilités potentielles dans votre code ou votre infrastructure et recevez des conseils sur comment les corriger.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 5 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="card bg-dark ai-features-card border-info">
+                    <div class="card-body text-center">
+                        <div class="ai-icon text-info">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4 class="card-title text-info">Ressources Recommandées</h4>
+                        <p class="card-text text-light-muted">Obtenez des recommandations de livres, articles, cours et outils pertinents pour approfondir vos connaissances sur des sujets spécifiques.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 6 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="card bg-dark ai-features-card border-light">
+                    <div class="card-body text-center">
+                        <div class="ai-icon text-light">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4 class="card-title text-light">Assistance de Projet</h4>
+                        <p class="card-text text-light-muted">Obtenez de l'aide pour planifier et structurer vos projets de cybersécurité, avec des conseils sur les méthodologies et les meilleures pratiques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cloudflare Workers AI Integration Tutorial -->
+        <div class="row mb-5">
+            <div class="col-12 mb-4">
+                <h2 class="text-success">Intégrer Cloudflare Workers AI à votre site</h2>
+                <p class="text-light-muted">Apprenez à créer votre propre assistant IA en utilisant Cloudflare Workers AI et à l'intégrer à votre site web.</p>
+            </div>
+
+            <div class="col-12" data-aos="fade-up">
+                <div class="card bg-dark border-success tutorial-card">
+                    <div class="card-header bg-dark d-flex align-items-center">
+                        <h3 class="mb-0 text-success">Créer un chatbot IA avec Cloudflare Workers AI</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cloudflare Workers AI est une plateforme qui permet d'exécuter des modèles d'IA directement sur le réseau edge de Cloudflare, offrant des performances élevées et une faible latence. Voici comment créer un chatbot IA et l'intégrer à votre site web.</p>
+                        
+                        <h4 class="mt-4 mb-3 text-success">Prérequis :</h4>
+                        <ul>
+                            <li>Un compte Cloudflare</li>
+                            <li>Node.js et npm installés sur votre machine</li>
+                            <li>Wrangler CLI (l'outil de ligne de commande de Cloudflare Workers)</li>
+                        </ul>
+                        
+                        <h4 class="mt-4 mb-3 text-success">Étapes :</h4>
+                        
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h5>Installer Wrangler CLI</h5>
+                                <p>Installez Wrangler, l'outil de ligne de commande pour Cloudflare Workers :</p>
+                                <pre class="code-block"><code class="language-bash">npm install -g wrangler
+wrangler login</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h5>Créer un nouveau projet Workers</h5>
+                                <p>Créez un nouveau projet Workers pour votre chatbot :</p>
+                                <pre class="code-block"><code class="language-bash">wrangler init ai-chatbot
+cd ai-chatbot</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h5>Configurer le projet pour Workers AI</h5>
+                                <p>Modifiez le fichier <code>wrangler.toml</code> pour activer Workers AI :</p>
+                                <pre class="code-block"><code class="language-toml">name = "ai-chatbot"
+main = "src/index.js"
+compatibility_date = "2023-10-30"
+
+[ai]
+binding = "AI"</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="step-number">4</div>
+                            <div>
+                                <h5>Créer le code du chatbot</h5>
+                                <p>Modifiez le fichier <code>src/index.js</code> pour implémenter le chatbot :</p>
+                                <pre class="code-block"><code class="language-javascript">export default {
+  async fetch(request, env) {
+    // Gérer les requêtes CORS pour les requêtes cross-origin
+    if (request.method === 'OPTIONS') {
+      return handleCORS();
+    }
+
+    // Vérifier si c'est une requête POST
+    if (request.method !== 'POST') {
+      return new Response('Méthode non autorisée', { status: 405 });
+    }
+
+    try {
+      // Récupérer le corps de la requête
+      const { messages } = await request.json();
+
+      // Vérifier si les messages sont valides
+      if (!messages || !Array.isArray(messages) || messages.length === 0) {
+        return new Response('Format de message invalide', { status: 400 });
+      }
+
+      // Appeler le modèle d'IA
+      const response = await env.AI.run('@cf/meta/llama-2-7b-chat-int8', {
+        messages: messages.map(msg => ({
+          role: msg.role,
+          content: msg.content
+        })),
+        max_tokens: 800
+      });
+
+      // Retourner la réponse avec les en-têtes CORS
+      return corsify(new Response(JSON.stringify({ response }), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }));
+    } catch (error) {
+      console.error('Erreur:', error);
+      return corsify(new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }));
+    }
+  }
+};
+
+// Fonction pour gérer les requêtes CORS
+function handleCORS() {
+  return new Response(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400'
+    }
+  });
+}
+
+// Fonction pour ajouter les en-têtes CORS à une réponse
+function corsify(response) {
+  const headers = new Headers(response.headers);
+  headers.set('Access-Control-Allow-Origin', '*');
+  
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="step-number">5</div>
+                            <div>
+                                <h5>Déployer le Worker</h5>
+                                <p>Déployez votre Worker sur Cloudflare :</p>
+                                <pre class="code-block"><code class="language-bash">wrangler deploy</code></pre>
+                                <p>Notez l'URL de votre Worker, elle ressemblera à <code>https://ai-chatbot.your-username.workers.dev
