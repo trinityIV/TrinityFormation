@@ -210,7 +210,7 @@ function initParticlesJS(containerId, options) {
                         p.size_status = false;
                     }
                 } else {
-                    p.radius -= p.vs;
+                    p.radius = Math.max(settings.particles.size.anim.size_min, p.radius - p.vs);
                     if (p.radius <= settings.particles.size.anim.size_min) {
                         p.size_status = true;
                     }
